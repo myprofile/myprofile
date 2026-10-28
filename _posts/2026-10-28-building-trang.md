@@ -8,6 +8,8 @@ code:
   - { label: "Code: Baking agent", url: "https://github.com/Sim-Intelligence-Lab/sim_baking_agent" }
 ---
 
+*Part 2 of 2 on generative agents. Part 1: [Generative Agents and Simulation](/posts/2026/10/28/generative-agents-and-simulation/), the ideas behind the code.*
+
 Trang started out as a baker.
 
 She lived in an 8×8 pixel kitchen, a 30-year-old at the bakery on the corner, patient and a little perfectionist. She could follow a cake recipe step by step, cheerfully explaining each move. Then I asked her to bake a pizza, and watched the flour in her bowl climb to 3,325 grams out of 500. Every turn she promised she'd get it right this time. She meant it. She just couldn't.
@@ -38,7 +40,7 @@ Everything runs locally on [Ollama](https://ollama.com). No API key, no cloud bi
 
 In the first project, Trang is a 30-year-old baker at a neighborhood bakery: patient, careful, a bit of a perfectionist. She lives in an 8×8 pixel kitchen and bakes a cake or a pizza from a recipe stored in her memory.
 
-![Trang starting a pizza: she preheats the oven, walks to each dough ingredient, and the ingredient bars fill green as steps get checked off](/assets/img/building-trang/trang-baking-pizza.gif)
+<video src="/assets/img/building-trang/trang-baking-pizza.mp4" poster="/assets/img/building-trang/trang-baking-pizza-poster.png" autoplay muted loop playsinline aria-label="Trang starting a pizza: she preheats the oven, walks to each dough ingredient, and the ingredient bars fill green as steps get checked off" style="width:100%;height:auto"></video>
 
 *Trang baking a pizza (2× speed, thinking pauses cut).*
 
@@ -65,7 +67,7 @@ She has two kinds of knowledge:
 
 You interview her with 18 prepared questions, 12 factual and 6 reflective. Under every answer, the app shows the memories she used and how each one scored, plus a "How Trang answered" panel with the full prompt and the model's raw reply.
 
-![Interviewing Trang: a question is asked, she answers, and the memories she used appear with their scores](/assets/img/building-trang/interviewing-trang.gif)
+<video src="/assets/img/building-trang/interviewing-trang.mp4" poster="/assets/img/building-trang/interviewing-trang-poster.png" autoplay muted loop playsinline aria-label="Interviewing Trang: a question is asked, she answers, and the memories she used appear with their scores" style="width:100%;height:auto"></video>
 
 *Interviewing Trang in Interview Studio: she answers, and the memories she used appear with their scores.*
 
@@ -146,7 +148,7 @@ Ninety-one memories won't fit in a good prompt, and most are irrelevant to any o
 
 ![How Interview Studio answers a question: your question, search memories, build the prompt, model replies with JSON, answer shown with its 5 memories. The memory stream feeds the search, and reflection writes insights back.](/assets/img/building-trang/how-interview-studio-answers.png)
 
-The score blends three signals from the paper. Each has its own small function:
+The score blends three signals from [the generative agents paper](https://arxiv.org/abs/2304.03442). Each has its own small function:
 
 ```python
 def extract_recency(seq_nodes):
