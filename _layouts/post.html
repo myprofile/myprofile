@@ -1,0 +1,15 @@
+---
+layout: default
+---
+<div class="site-header"><a href="{{ '/' | relative_url }}">Raju Nekadi</a></div>
+<a class="back" href="{{ '/#posts' | relative_url }}">← All posts</a>
+<article>
+  <div class="post-header">
+    <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y-%m-%d" }}</time>
+    <h1>{{ page.title }}</h1>
+    {% if page.summary %}<p class="summary" style="color:var(--muted)">{{ page.summary }}</p>{% endif %}
+  </div>
+  <div class="post-body">
+    {{ content }}
+  </div>
+</article>

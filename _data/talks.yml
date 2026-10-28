@@ -1,0 +1,4 @@
+# Plain bullet list under Research. Remove or leave empty to hide the section.
+- text: Example talk at Example Workshop, 2026
+  link: { label: Slides, url: "#" }
+- text: Poster at Example Conference, 2025

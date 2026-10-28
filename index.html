@@ -1,0 +1,93 @@
+---
+layout: default
+title: Raju Nekadi
+---
+<header>
+  <div class="identity">
+    <div class="photo" aria-hidden="true">RN</div>
+    <!-- To use a photo, save it as assets/img/raju.jpg and replace the line above with:
+         <div class="photo"><img src="{{ '/assets/img/raju.jpg' | relative_url }}" alt="Raju Nekadi"></div> -->
+    <div>
+      <h1>Raju Nekadi</h1>
+      <nav aria-label="Sections">
+        <a href="#projects">Projects</a>
+        <a href="#posts">Posts</a>
+        <a href="#research">Research</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="social">
+        <a href="{{ site.github }}">GitHub</a>
+        <a href="{{ site.linkedin }}">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+
+  <p class="bio">
+    Raju Nekadi is a developer and researcher at the University of Texas at Austin, where he works on
+    <a href="#research">example topic one</a> and <a href="#research">example topic two</a>.
+    Previously he interned at Example Co, building data pipelines and model-serving infrastructure.
+    His work includes <a href="#projects">Example Tool</a>, an open-source project used by N people,
+    and <a href="#research">Example Paper</a>, published at an example venue. This page collects
+    shipped projects, writing, and research.
+  </p>
+</header>
+
+<section id="projects">
+  <h2><a href="#projects">Projects</a></h2>
+  <p class="intro">
+    One or two sentences on the kind of software you like to build. A full list of repositories is on
+    <a href="{{ site.github }}">GitHub</a>.
+  </p>
+  <h3>Highlights</h3>
+  <div class="entries">
+    {% for item in site.data.projects %}{% include entry.html item=item %}{% endfor %}
+  </div>
+</section>
+
+<section id="posts">
+  <h2><a href="#posts">Posts</a></h2>
+  <ul class="posts">
+    {% for post in site.posts %}
+    <li>
+      <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y-%m-%d" }}</time>
+      <div>
+        <a class="title" href="{{ post.url | relative_url }}">{{ post.title }}</a>
+        {% if post.summary %}<p class="summary">{{ post.summary }}</p>{% endif %}
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+</section>
+
+<section id="research">
+  <h2><a href="#research">Research</a></h2>
+  <p class="intro">
+    One or two sentences on what you are broadly interested in and why. Highlights are below; see
+    <a href="https://scholar.google.com/">Google Scholar</a> for the full list.
+  </p>
+  <h3>Highlights</h3>
+  <div class="entries">
+    {% for item in site.data.research %}{% include entry.html item=item %}{% endfor %}
+  </div>
+
+  <h3>Publications</h3>
+  <p>For a comprehensive list of publications, please visit my <a href="https://scholar.google.com/">Google Scholar</a> page.</p>
+
+  {% if site.data.talks and site.data.talks.size > 0 %}
+  <h3>Talks</h3>
+  <ul>
+    {% for t in site.data.talks %}
+    <li>{{ t.text }}{% if t.link %} (<a href="{{ t.link.url }}">{{ t.link.label }}</a>){% endif %}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+</section>
+
+<section id="contact">
+  <h2><a href="#contact">Contact</a></h2>
+  <div class="contact">
+    <p>If you are interested in working together, email is the fastest way to reach me.</p>
+    <p class="email">{{ site.email }}</p>
+    <p><a href="{{ '/assets/cv.pdf' | relative_url }}">CV (PDF)</a></p>
+  </div>
+</section>

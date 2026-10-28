@@ -1,0 +1,20 @@
+# One entry per paper or ongoing project. Delete the examples and add your own.
+- title: Example Paper Title
+  description: >
+    A two- or three-sentence summary in plain language: what problem it tackles, the key idea, and the
+    main result. Lead with the finding a reader would remember.
+  links:
+    - { label: "NeurIPS'26", url: "https://arxiv.org/" }
+    - { label: GitHub, url: "https://github.com/rnekadi369" }
+
+- title: "Second Example: A Benchmark for X"
+  description: >
+    What the benchmark measures, why existing ones fall short, and what it revealed.
+  links:
+    - { label: "Preprint'26", url: "https://arxiv.org/" }
+    - { label: GitHub, url: "https://github.com/rnekadi369" }
+
+- title: "Ongoing: Working Title of Current Project"
+  description: >
+    A short note on what you are exploring now. It is fine for this entry to have no links yet.
+  links: []

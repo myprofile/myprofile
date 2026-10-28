@@ -1,0 +1,10 @@
+<article class="entry">
+  <h4>{{ include.item.title }}</h4>
+  <p>
+    {{ include.item.description | strip }}{% if include.item.links and include.item.links.size > 0 %}
+    ({% for l in include.item.links %}<a href="{{ l.url }}">{{ l.label }}</a>{% unless forloop.last %}, {% endunless %}{% endfor %}){% endif %}
+  </p>
+  {% if include.item.tags and include.item.tags.size > 0 %}
+  <div class="tags">{% for t in include.item.tags %}<span class="tag">{{ t }}</span>{% endfor %}</div>
+  {% endif %}
+</article>

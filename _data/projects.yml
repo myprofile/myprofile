@@ -1,0 +1,27 @@
+# One entry per project. Delete the examples and add your own.
+# Links appear in parentheses at the end of the paragraph, like the reference site.
+- title: Example Tool
+  description: >
+    What it does, who it's for, and one concrete number if you have one (users, stars, latency, size).
+    Describe the part you built and why it mattered.
+  links:
+    - { label: GitHub, url: "https://github.com/rnekadi369" }
+    - { label: Demo, url: "https://example.com" }
+  tags: [python, pytorch, cuda]
+
+- title: Example Web App
+  description: >
+    A one-line description of the product and the problem it solves. Mention the stack only where
+    it is interesting.
+  links:
+    - { label: GitHub, url: "https://github.com/rnekadi369" }
+    - { label: Live, url: "https://example.com" }
+  tags: [typescript, react, postgres]
+
+- title: Example Library
+  description: >
+    What it provides and what it replaces. If it is on a package index, link the package.
+  links:
+    - { label: GitHub, url: "https://github.com/rnekadi369" }
+    - { label: PyPI, url: "https://pypi.org/" }
+  tags: [rust, cli]
