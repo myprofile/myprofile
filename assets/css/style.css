@@ -12,18 +12,7 @@
   --code-bg: #f5f5f5;
   --font: "Source Sans 3", "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
   --mono: "Roboto Mono", "SFMono-Regular", Menlo, Consolas, monospace;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --accent: #c9a2e0; --text: #e8e8e8; --text-muted: #a0a0a0;
-    --bg: #121212; --band: #181818; --card: #1e1e1e; --border: #2e2e2e; --code-bg: #242424;
-    color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --accent: #c9a2e0; --text: #e8e8e8; --text-muted: #a0a0a0;
-  --bg: #121212; --band: #181818; --card: #1e1e1e; --border: #2e2e2e; --code-bg: #242424;
-  color-scheme: dark;
+  color-scheme: light; /* always white, even when the visitor's system is in dark mode */
 }
 
 *, *::before, *::after { box-sizing: border-box; }
