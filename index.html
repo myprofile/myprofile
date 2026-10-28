@@ -40,7 +40,21 @@ title: Raju Nekadi
   </div>
 </section>
 
-<section id="research">
+<section id="blog">
+  <div class="container">
+    <h2>Blog</h2>
+    <ul class="post-list">
+      {% for post in site.posts %}
+      <li class="post-row">
+        <time class="post-date" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y-%m-%d" }}</time>
+        <a class="post-title" href="{{ post.url | relative_url }}">{{ post.title }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+<section id="research" class="band">
   <div class="container">
     <h2>Research</h2>
     <div class="card-list">
@@ -55,19 +69,5 @@ title: Raju Nekadi
       {% endfor %}
     </ul>
     {% endif %}
-  </div>
-</section>
-
-<section id="blog" class="band">
-  <div class="container">
-    <h2>Blog</h2>
-    <ul class="post-list">
-      {% for post in site.posts %}
-      <li class="post-row">
-        <time class="post-date" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y-%m-%d" }}</time>
-        <a class="post-title" href="{{ post.url | relative_url }}">{{ post.title }}</a>
-      </li>
-      {% endfor %}
-    </ul>
   </div>
 </section>
