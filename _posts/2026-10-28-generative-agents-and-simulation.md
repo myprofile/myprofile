@@ -185,7 +185,7 @@ Believable doesn't mean accurate, and accurate doesn't require believable. A sim
 
 The question I keep coming back to is trust. When a simulation shows you something new, something no one predicted, how do you know whether to believe it? Schelling's model is trustworthy because its rules fit on an index card and you can read them. A generative agent has a billion-parameter model in the loop, and its "rules" are whatever the training data taught it. I don't have a good answer. The closest I've got is the panel under every one of Trang's answers: if I can see which memories she retrieved and what the prompt said, I can at least tell *why* she said something, even when I can't tell whether a real person would have.
 
-Next post: the code. [Building Trang](TRANG_URL) implements the architecture in section 4 on a 4B-parameter local model, no API key, with the retrieval scores visible under every answer.
+Next post: the code. [Building Trang](/posts/2026/10/28/building-trang/) implements the architecture in section 4 on a 4B-parameter local model, no API key, with the retrieval scores visible under every answer.
 
 ## Further reading
 
