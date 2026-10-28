@@ -1,59 +1,83 @@
 ---
 layout: post
 title: "Structured Call Summaries: Turning Long, Noisy Transcripts into Clean JSON with an LLM"
-summary: "How we use an LLM with a fixed JSON schema to turn long, noisy call transcripts into clean, structured summaries."
+summary: "How one LLM call per conversation, constrained by a prompt and a JSON schema, turns about 820,000 noisy transcripts a day into clean, structured summaries."
 project: call-intelligence
 date: 2026-10-28 09:01:00
 ---
 
-*Part 2 of a 4-part series on conversation intelligence. [Part 1](/posts/2026/10/28/call-intelligence-1-pipeline/) covered the end-to-end pipeline. This part focuses only on the call summary model.*
+*Part 2 of a 4-part series on Call Intelligence. [Part 1](/posts/2026/10/28/call-intelligence-1-pipeline/) covered the end-to-end pipeline. This part focuses on the call summary model, the step everything else depends on.*
 
-> All transcripts, names, amounts, IDs, and screens in this article are **mock data** created for illustration.
+> All transcripts, names, amounts, IDs and screens in this article are **mock data** created for illustration.
 
 ---
 
 ## The problem with transcripts
 
-A single call transcript can run to **thousands of words**. Because it comes from an audio-to-text process, it's also full of errors: misheard names, broken sentences, numbers spelled out as words, and stretches of hold messages and transfer chatter.
+A single call transcript can run to **thousands of words**. Because it comes from speech-to-text, it's also full of errors: misheard names, broken sentences, numbers spelled out as words, and long stretches of hold messages and transfer chatter.
 
-That makes transcripts painful for anything downstream:
+At about 300 million calls a year, that's roughly **820,000 of these transcripts every day**. Using them directly is painful for everyone downstream:
 
-- **Manual review** is slow; a reviewer has to read the whole call to find what mattered.
-- **Analytics** can't aggregate free-form dialogue.
-- **Other models** (topics, entities) waste tokens and accuracy on noise.
+- **Manual review** is slow. A reviewer has to read the whole call to find the part that mattered.
+- **Analytics** can't count free-form dialogue.
+- **Other models** (topics, entities) spend tokens and accuracy on noise.
 
-We needed a step that **cleans the conversation into a consistent structure** before anyone, human or model, uses it.
+We needed one step that **cleans every conversation into the same structure** before any person or model uses it.
 
-![Summary as foundation](/assets/img/call-intelligence/p2_summary_foundation.png)
-*Figure 1: The structured summary becomes the input for topic and entity models and for human review.*
+<figure class="diagram">
+{% include diagrams/ci2-foundation.svg %}
+<figcaption>Figure 1: The structured summary is the shared input for the topic model, entity matching and human review.</figcaption>
+</figure>
 
 ---
 
 ## The approach: zero-shot, schema-constrained summarization
 
-We didn't train or fine-tune a model. The summary model is **zero-shot prompting** against a fast, low-cost LLM, combined with two controls:
+We didn't train or fine-tune a model. The summary model is **zero-shot prompting** against a fast, low-cost LLM, with two controls:
 
 1. **A prompt that defines every section** and enforces strict factuality.
 2. **A response JSON schema** passed to the API, so the model *must* return the target structure.
 
-The prompt tells the model what to write; the schema guarantees the shape of what comes back.
+The prompt tells the model what to write. The schema guarantees the shape of what comes back. At this volume the shape matters as much as the content: one malformed response in a thousand is still hundreds of broken rows a day.
 
-![Pipeline](/assets/img/call-intelligence/p2_pipeline.png)
-*Figure 2: Daily batch flow for the summary model.*
+<figure class="diagram">
+{% include diagrams/ci2-pipeline.svg %}
+<figcaption>Figure 2: Daily batch flow for the summary model.</figcaption>
+</figure>
 
 ---
 
-## What a structured summary contains
+## Step 1: Prepare the transcript
 
-![Summary schema](/assets/img/call-intelligence/p2_summary_schema.png)
-*Figure 3: Sections of the structured summary.*
+Transcripts land in BigQuery as one row per turn (see Part 1). Before prompting, the turns for each call are put back in order and labeled by speaker, so the model reads one clean conversation:
+
+```sql
+SELECT
+  call_id,
+  STRING_AGG(CONCAT(speaker, ': ', utterance_text), '\n' ORDER BY turn_seq) AS transcript
+FROM contact_intel.call_transcript
+WHERE call_date = @run_date
+  AND TRIM(utterance_text) != ''
+GROUP BY call_id;
+```
+
+The batch runs on calls from **a few days earlier**, once their transcripts are complete.
+
+---
+
+## Step 2: Define what a summary contains
+
+<figure class="diagram">
+{% include diagrams/ci2-schema.svg %}
+<figcaption>Figure 3: Sections of the structured summary.</figcaption>
+</figure>
 
 | Section | What it captures | Rules that mattered |
 |---|---|---|
-| **Concise summary** | Key events and actions by each party | Be specific: include amounts, dates, commitments; capture the caller's experience (frustration, satisfaction); under 200 words |
+| **Concise summary** | Key events and actions by each party | Be specific: include amounts, dates and commitments; capture the caller's experience (frustration, satisfaction); under 200 words |
 | **Contact information** | Caller name, who the call is about, caller type, relationship | Caller type is an **enum**: Provider, Member's representative, Member, Not mentioned. Use "Self" when calling for themselves |
 | **Call intents & solutions** | Each question or issue, paired with the agent's response | One topic per intent, 20 words or fewer; include specific keywords ("dental" claim, "prior" authorization); split multi-topic intents |
-| **Repeated issue** | Has the caller contacted multiple times about the same unresolved issue? | Integer: 1 or 0 |
+| **Repeated issue** | Has the caller contacted us multiple times about the same unresolved issue? | Integer: 1 or 0 |
 | **Call transfers** | Number of transfers during the call | Don't count the final hand-off to a post-call survey |
 | **Next steps: caller** | What the caller still has to do | List; empty when none |
 | **Next steps: agent** | What the agent committed to | List; empty when none |
@@ -62,13 +86,13 @@ The prompt tells the model what to write; the schema guarantees the shape of wha
 
 Three of these rules had an outsized effect:
 
-- **Granular, keyword-rich intents.** "Inquire about a claim" is useless for classification. "Inquire about a denied **dental** claim" maps cleanly to a topic. Because the topic model (Part 3) reads these intents, intent quality directly drives topic quality.
+- **Granular, keyword-rich intents.** "Inquire about a claim" is useless for classification. "Inquire about a denied **dental** claim" maps cleanly to a topic. The topic model (Part 3) reads these intents, so intent quality directly drives topic quality.
 - **Consistent qualifiers across intents.** If one intent says "vision claim," every related intent should too, even if it feels repetitive. Consistency beats elegance for downstream models.
 - **Excluding the survey transfer.** Without this rule, almost every call showed at least one transfer, which made the metric meaningless.
 
 ---
 
-## The prompt (simplified)
+## Step 3: Write the prompt
 
 ```text
 You are a data labeler generating a structured summary of a
@@ -106,13 +130,13 @@ TRANSCRIPT:
 {transcript}
 ```
 
-The first two lines of rules do the most work. **"Your knowledge is strictly limited to the transcript"** is the main defense against the model filling gaps with plausible but invented details.
+*Simplified.* The first rule does the most work. **"Your knowledge is strictly limited to the transcript"** is the main defense against the model filling gaps with plausible but invented details.
 
 ---
 
-## The response schema
+## Step 4: Pin the shape with a response schema
 
-The schema is passed in the API call so the output is machine-readable every time. An abridged version:
+The schema is passed in the API call, so every response is machine-readable. An abridged version:
 
 ```json
 {
@@ -173,11 +197,11 @@ Two schema details worth copying:
 
 ---
 
-## API settings
+## Step 5: Call the model
 
 | Setting | Value | Why |
 |---|---|---|
-| Model | Fast, low-cost LLM (Gemini Flash class) | High call volume; summarization doesn't need the largest model |
+| Model | Fast, low-cost LLM (Gemini Flash class) | ~820,000 calls a day; summarization doesn't need the largest model |
 | Temperature | 0.1 | Near-deterministic, factual output |
 | Top-p | 0.95 | Standard nucleus sampling |
 | Retries | Exponential backoff | Absorbs rate limits and transient API errors in large daily batches |
@@ -202,9 +226,47 @@ def summarize(transcript: str) -> dict:
     usage = resp.usage_metadata
     return {
         "summary": resp.text,
-        "input_tokens": usage.prompt_token_count,
-        "output_tokens": usage.candidates_token_count,
+        "input_token": usage.prompt_token_count,
+        "output_token": usage.candidates_token_count,
     }
+```
+
+### Running ~820,000 calls a day
+
+The summary job runs on the same **Dataproc cluster** as the other inference jobs, but it doesn't need a GPU. All the heavy lifting happens inside the Gemini API, so the job's work is sending requests and waiting for answers.
+
+To keep many requests in flight, the day's transcripts are split into **chunks of rows** and handed to a pool of worker processes. Each process creates its own Gemini client and works through its chunk **row by row**: one transcript, one API call, one summary. Backoff in `summarize()` absorbs rate limits, and a failed chunk can be retried without redoing the rest of the day. *Simplified:*
+
+```python
+from multiprocessing import Pool
+
+def init_gemini() -> None:
+    """Runs once in each worker process."""
+    global model
+    model = GenerativeModel(SUMMARY_MODEL)
+
+def summarize_chunk(chunk: list[dict]) -> list[dict]:
+    rows = []
+    for call in chunk:                               # row by row
+        out = summarize(call["transcript"])          # one Gemini call, with backoff
+        rows.append({
+            "call_id": call["call_id"],
+            "call_date": call["call_date"],
+            "summary": encrypt(out["summary"]),      # field-level encryption
+            "input_token": out["input_token"],
+            "output_token": out["output_token"],
+            "run_date": today(),
+        })
+    return rows
+
+def run_summaries(run_date: str) -> None:
+    calls = [dict(r) for r in bq.query(TRANSCRIPTS_SQL, job_config=params(run_date)).result()]
+    chunks = [calls[i:i + CHUNK_SIZE] for i in range(0, len(calls), CHUNK_SIZE)]
+
+    with Pool(processes=N_PROCESSES, initializer=init_gemini) as pool:
+        rows = [r for part in pool.imap_unordered(summarize_chunk, chunks) for r in part]
+
+    write_partition("contact_intel.call_summary", rows, run_date)  # rerun = replace the day
 ```
 
 ---
@@ -265,9 +327,9 @@ Note what the model **didn't** do: it didn't guess a diagnosis from "thyroid med
 
 ---
 
-## Output table
+## Step 6: Store it safely
 
-The model runs as a **daily batch**, processing calls a few days after they happen, once transcripts are complete. Each call produces one row:
+Each call produces one row:
 
 | Field | Type | Description |
 |---|---|---|
@@ -293,8 +355,25 @@ CLUSTER BY call_id;
 
 Two design choices:
 
-- **Encrypt the summary field.** A summary contains names, relationships, and health details. Encrypting the field means table access alone isn't enough to read it; consumers decrypt only when they need to.
-- **Store token counts.** They track cost and verbosity, and they flag outliers, such as unusually long calls or a prompt change that suddenly doubles output length.
+- **Encrypt the summary field.** A summary contains names, relationships and health details. With field-level encryption, table access alone isn't enough to read it; consumers decrypt only when they need to.
+- **Store token counts.** They track cost and verbosity, and they flag outliers such as unusually long calls or a prompt change that suddenly doubles output length.
+
+Token counts make that check a simple daily query:
+
+```sql
+SELECT
+  call_date,
+  COUNT(*)                                        AS calls,
+  AVG(input_token)                                AS avg_input_tokens,
+  AVG(output_token)                               AS avg_output_tokens,
+  APPROX_QUANTILES(output_token, 100)[OFFSET(95)] AS p95_output_tokens
+FROM contact_intel.call_summary
+WHERE call_date BETWEEN @start_date AND @end_date
+GROUP BY call_date
+ORDER BY call_date;
+```
+
+A jump in `avg_output_tokens` right after a prompt change is the first sign the model has started writing longer, not better.
 
 ---
 
@@ -312,18 +391,34 @@ A simple way to explain it to stakeholders:
 - **Accuracy** is the basket test: of all the summaries in the basket, how many truly represent their calls?
 - **Completeness** is the puzzle test: of all the pieces in the original call, how many made it into the summary?
 
-Scoring **per section** matters. An overall score hides problems; a section score tells you exactly which prompt instruction to fix.
+Scoring **per section** matters. An overall score hides problems; a section score tells you exactly which prompt instruction to fix. Once reviewers fill in a score sheet, the roll-up is a few lines:
 
-![Evaluation](/assets/img/call-intelligence/p2_evaluation.png)
-*Figure 5: Current human evaluation, and the planned move to automated evaluation.*
+```python
+import pandas as pd
+
+# one row per (call_id, section) with reviewer scores of 0, 0.5 or 1
+scores = pd.read_csv("review_scores.csv")
+
+by_section = (scores.groupby("section")[["accuracy", "completeness"]]
+                    .mean()
+                    .sort_values("accuracy"))
+overall = scores[["accuracy", "completeness"]].mean()
+```
+
+The lowest rows of `by_section` are the prompt instructions to work on next.
+
+<figure class="diagram">
+{% include diagrams/ci2-evaluation.svg %}
+<figcaption>Figure 5: Human evaluation today, and the planned move to automated evaluation.</figcaption>
+</figure>
 
 ---
 
 ## What's next
 
-Human evaluation doesn't scale. The next steps are:
+Human review doesn't scale to 820,000 summaries a day. The next steps are:
 
-- **LLM-as-judge evaluation:** use a model to score summaries with the same accuracy, completeness, and hallucination rubric, so every new prompt or model version can be benchmarked quickly.
+- **LLM-as-judge evaluation:** use a model to score summaries with the same accuracy, completeness and hallucination rubric, so every new prompt or model version can be benchmarked quickly.
 - **Continuous monitoring:** score a sample of production summaries regularly to catch drift.
 - **Post-response validation:** check the returned JSON for completeness and format, with fallback handling for failures. The response schema prevents most structural problems, but it can't catch an empty intent list or a section filled with placeholder text.
 
@@ -341,4 +436,8 @@ Human evaluation doesn't scale. The next steps are:
 
 ---
 
-**Next: Part 3: LLM as Teacher, XLNet as Student: Classifying Why Members Call**
+## The rest of the series
+
+- **Part 1:** [How We Turn 300 Million Calls a Year into Actionable Insights](/posts/2026/10/28/call-intelligence-1-pipeline/)
+- **Part 3:** [LLM as Teacher, XLNet as Student: Classifying Why Members Call](/posts/2026/10/28/call-intelligence-3-topics/)
+- **Part 4:** [Named Entities from Call Summaries: Why We Chose a Dictionary over an LLM](/posts/2026/10/28/call-intelligence-4-entities/)

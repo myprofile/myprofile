@@ -1,0 +1,19 @@
+<svg viewBox="0 0 800 296" role="img" aria-labelledby="ci4-lm-title ci4-lm-desc" xmlns="http://www.w3.org/2000/svg">
+<title id="ci4-lm-title">Longest match wins</title>
+<desc id="ci4-lm-desc">In the sentence "The member went to get two obstetric panels.", two keywords match: "obstetric panels", mapped to Maternity procedures, and "panels", mapped to Laboratory studies. Matches are ranked longest first. "obstetric panels" claims its span and is kept; "panels" sits inside that span and is skipped. The output is one entity: Maternity procedures.</desc>
+<defs><marker id="ci4-lm-head" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="dg-head"/></marker></defs>
+<text class="dg-h" x="40" y="26">Summary text (mock)</text>
+<rect class="dg-llm" x="360" y="40" width="200" height="34" rx="4"/>
+<text class="dg-code" x="40" y="63" textLength="528" lengthAdjust="spacingAndGlyphs" style="text-anchor:start;font-size:20px;font-weight:400;fill:var(--text)">The member went to get two obstetric panels.</text>
+<path class="dg-line" d="M364 78 V96 M556 78 V96 M484 78 V96 M484 142 V152" style="stroke-dasharray:3 3"/>
+<text class="dg-h" x="40" y="108">1 · longest match</text>
+<rect class="dg-key" x="364" y="96" width="192" height="14" rx="4"/>
+<text class="dg-t" x="364" y="134" style="text-anchor:start">"obstetric panels" → Maternity procedures<tspan style="fill:var(--accent)"> · kept</tspan></text>
+<text class="dg-h" x="40" y="164">2 · next longest</text>
+<rect class="dg-data" x="484" y="152" width="72" height="14" rx="4" style="stroke-dasharray:4 3"/>
+<text class="dg-t" x="484" y="190" style="text-anchor:start;fill:#999999">"panels" → Laboratory studies<tspan style="font-weight:400;font-style:italic"> · skipped</tspan></text>
+<path class="dg-line" d="M400 204 V228" marker-end="url(#ci4-lm-head)"/>
+<rect class="dg-model" x="160" y="228" width="480" height="56" rx="6"/>
+<text class="dg-t" x="400" y="252">Output: one entity, not two</text>
+<text class="dg-s" x="400" y="270">procedure · value "obstetric panels" · class Maternity procedures</text>
+</svg>
