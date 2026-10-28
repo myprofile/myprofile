@@ -148,3 +148,7 @@ footer p { margin: 0; }
 .card-authors strong { color: var(--text); font-weight: 600; }
 .card-venue { margin: 0 0 .5rem; font-size: .9rem; color: var(--text-muted); }
 .section-intro { margin: -1.25rem 0 1.5rem; color: var(--text-muted); }
+
+/* Card titles that link to a post */
+.card-title a { color: var(--text); }
+.card-title a:hover { color: var(--accent); text-decoration: none; }
