@@ -60,14 +60,5 @@ title: Raju Nekadi
     <div class="card-list">
       {% for item in site.data.research %}{% include entry.html item=item %}{% endfor %}
     </div>
-
-    {% if site.data.talks and site.data.talks.size > 0 %}
-    <h3 class="subhead">Talks</h3>
-    <ul class="plain-list">
-      {% for t in site.data.talks %}
-      <li>{{ t.text }}{% if t.link %} (<a href="{{ t.link.url }}">{{ t.link.label }}</a>){% endif %}</li>
-      {% endfor %}
-    </ul>
-    {% endif %}
   </div>
 </section>
