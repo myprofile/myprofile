@@ -1,6 +1,6 @@
 <svg viewBox="0 0 800 632" role="img" aria-labelledby="ci-arch-title ci-arch-desc" xmlns="http://www.w3.org/2000/svg">
 <title id="ci-arch-title">Call intelligence architecture</title>
-<desc id="ci-arch-desc">Transcripts flow from the transcription platform to Cloud Storage to BigQuery. From there, an LLM writes a structured summary, an LLM labels resolution, and SQL computes operational metrics. The topic model and entity dictionary read the summary. A consolidation step waits for all five jobs, then writes one dashboard table that powers the dashboard.</desc>
+<desc id="ci-arch-desc">Transcripts flow from the transcription platform to Cloud Storage to BigQuery. From there, the Gemini API writes a structured summary, an LLM labels resolution, and SQL computes operational metrics. The topic model (XLNet on four L4 GPUs) and regex entity matching read the summary. A consolidation step waits for all five jobs, then writes one dashboard table that powers the dashboard.</desc>
 <defs><marker id="ci-arch-head" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="dg-head"/></marker></defs>
 <rect class="dg-data" x="16" y="16" width="220" height="56" rx="6"/>
 <text class="dg-t" x="126" y="40">Transcription platform</text>
@@ -19,7 +19,7 @@
 <path class="dg-line" d="M699 96 V120" marker-end="url(#ci-arch-head)"/>
 <rect class="dg-llm" x="16" y="120" width="368" height="56" rx="6"/>
 <text class="dg-t" x="200" y="144">Structured summary</text>
-<text class="dg-s" x="200" y="162">LLM + response schema</text>
+<text class="dg-s" x="200" y="162">Gemini API · multiprocessing</text>
 <rect class="dg-llm" x="414" y="120" width="170" height="56" rx="6"/>
 <text class="dg-t" x="499" y="144">Resolution</text>
 <text class="dg-s" x="499" y="162">LLM</text>
@@ -31,10 +31,10 @@
 <path class="dg-line" d="M300 200 V224" marker-end="url(#ci-arch-head)"/>
 <rect class="dg-model" x="16" y="224" width="170" height="56" rx="6"/>
 <text class="dg-t" x="101" y="248">Call topics</text>
-<text class="dg-s" x="101" y="266">fine-tuned XLNet</text>
+<text class="dg-s" x="101" y="266">XLNet · 4× L4 GPUs</text>
 <rect class="dg-model" x="215" y="224" width="170" height="56" rx="6"/>
 <text class="dg-t" x="300" y="248">Named entities</text>
-<text class="dg-s" x="300" y="266">keyword dictionary</text>
+<text class="dg-s" x="300" y="266">regex · keyword tables</text>
 <path class="dg-line" d="M101 280 V304 M300 280 V304 M499 176 V304 M699 176 V304 M101 304 H699"/>
 <path class="dg-line" d="M400 304 V328" marker-end="url(#ci-arch-head)"/>
 <rect class="dg-key" x="200" y="328" width="400" height="64" rx="6"/>

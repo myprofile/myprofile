@@ -30,7 +30,7 @@ You might expect us to send every summary to an LLM and ask for its topics. At o
 
 - **Volume.** About 820,000 calls a day. Each call is several components (one per intent, plus the concise summary), and good labeling needs two LLM calls per component. That's millions of LLM requests a day just for topics.
 - **Consistency.** Trends only mean something if the same call always gets the same topics. A fine-tuned classifier is deterministic; an LLM prompt can drift when the model version changes.
-- **Speed and cost.** A classifier scores a batch of summaries in one forward pass on a GPU.
+- **Speed and cost.** A classifier scores a batch of summaries in one forward pass on a GPU. Our daily run uses a Dataproc cluster with **4 NVIDIA L4 GPUs**.
 
 So the LLM is used once, as a **teacher**, and a smaller model, the **student**, does the daily work.
 
@@ -307,32 +307,48 @@ def tune_thresholds(probs: np.ndarray, labels: np.ndarray) -> np.ndarray:
 
 ## Running in production
 
-Both models run as a **daily batch** on new structured summaries, about 820,000 calls a day. Because transcripts and summaries need to be complete first, topics land **a few days after the call**. The job writes one partition per day, so a rerun replaces that day instead of duplicating it, the same rule as every job in Part 1. Simplified:
+Both models run as a **daily batch** on new structured summaries, about 820,000 calls a day. Because transcripts and summaries need to be complete first, topics land **a few days after the call**. The job writes one partition per day, so a rerun replaces that day instead of duplicating it, the same rule as every job in Part 1.
+
+### Inference on four L4 GPUs
+
+Topic inference runs on a **Dataproc cluster with 4 NVIDIA L4 GPUs**. The day's summaries are split into four shards, one per GPU. Each GPU loads both models (small and large topics) once and scores its shard in batches. Simplified:
 
 ```python
 import torch
+import torch.multiprocessing as mp
+
+N_GPUS = 4                                    # Dataproc cluster, 4 x NVIDIA L4
 
 @torch.no_grad()
-def predict(model, texts: list[str], topics: list[str], cutoffs: torch.Tensor) -> list[list[str]]:
+def predict(model, device, texts, topics, cutoffs) -> list[list[str]]:
     inputs = tokenizer(texts, truncation=True, padding=True,
                        max_length=512, return_tensors="pt").to(device)
     probs = torch.sigmoid(model(**inputs).logits)
     return [[topics[j] for j in (p >= cutoffs).nonzero().flatten().tolist()] for p in probs]
 
-def run_topics(run_date: str) -> None:
-    summaries = bq.query(SUMMARIES_SQL, job_config=params(run_date)).result()
+def score_shard(gpu: int, shard: list[dict], run_date: str) -> list[dict]:
+    device = torch.device(f"cuda:{gpu}")
+    large = load_model(LARGE_MODEL_PATH).to(device).eval()
+    small = load_model(SMALL_MODEL_PATH).to(device).eval()
+    large_cut, small_cut = LARGE_CUTOFFS.to(device), SMALL_CUTOFFS.to(device)
+
     rows = []
-    for batch in chunks(summaries, size=256):
-        texts = [s.concise_summary + "\n" + "\n".join(s.intents) for s in batch]
-        large = predict(large_model, texts, LARGE_TOPICS, large_cutoffs)
-        small = predict(small_model, texts, SMALL_TOPICS, small_cutoffs)
-        for s, lg, sm in zip(batch, large, small):
-            rows.append({
-                "call_id": s.call_id,
-                "call_date": run_date,
-                "call_topics": (lg + sm) or ["Unfiltered"],
-                "run_time": now_utc(),
-            })
+    for batch in chunks(shard, size=BATCH_SIZE):
+        texts = [s["concise_summary"] + "\n" + "\n".join(s["intents"]) for s in batch]
+        lg = predict(large, device, texts, LARGE_TOPICS, large_cut)
+        sm = predict(small, device, texts, SMALL_TOPICS, small_cut)
+        for s, a, b in zip(batch, lg, sm):
+            rows.append({"call_id": s["call_id"], "call_date": run_date,
+                         "call_topics": (a + b) or ["Unfiltered"], "run_time": now_utc()})
+    return rows
+
+def run_topics(run_date: str) -> None:
+    summaries = [dict(r) for r in bq.query(SUMMARIES_SQL, job_config=params(run_date)).result()]
+    shards = [summaries[g::N_GPUS] for g in range(N_GPUS)]       # one shard per GPU
+
+    with mp.get_context("spawn").Pool(N_GPUS) as pool:
+        parts = pool.starmap(score_shard, [(g, shards[g], run_date) for g in range(N_GPUS)])
+    rows = [r for part in parts for r in part]
 
     bq.load_table_from_json(
         rows, f"contact_intel.call_topic${run_date.replace('-', '')}",

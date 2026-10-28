@@ -30,7 +30,7 @@
 <text class="dg-s" x="101" y="282">~820K calls a day</text>
 <rect class="dg-model" x="306" y="236" width="190" height="64" rx="6"/>
 <text class="dg-t" x="401" y="263">Fine-tuned XLNet</text>
-<text class="dg-s" x="401" y="282">batch inference</text>
+<text class="dg-s" x="401" y="282">Dataproc · 4× L4 GPUs</text>
 <rect class="dg-data" x="596" y="236" width="188" height="64" rx="6"/>
 <text class="dg-t dg-code" x="690" y="263">call_topic</text>
 <text class="dg-s" x="690" y="282">list of topics per call</text>

@@ -213,7 +213,7 @@ def run_entities(run_date: str) -> None:
     ).result()
 ```
 
-*Simplified. The job needs no GPU and no API calls, so a large day can be split into chunks across workers if needed.*
+*Simplified. This is plain regex matching: no model, no GPU and no API calls. It runs on ordinary CPU workers on the same Dataproc cluster as the other inference jobs.*
 
 Each section of the summary is scanned separately, so a match can't run across two sections. The same keyword can still match more than once per call: in the concise summary, then again in an intent. That's why every query below counts distinct calls.
 

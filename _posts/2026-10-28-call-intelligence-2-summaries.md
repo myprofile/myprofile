@@ -231,27 +231,40 @@ def summarize(transcript: str) -> dict:
     }
 ```
 
-The daily job runs `summarize()` across the day's calls in parallel and writes one row per call. *Simplified:*
+### Running ~820,000 calls a day
+
+The summary job runs on the same **Dataproc cluster** as the other inference jobs, but it doesn't need a GPU. All the heavy lifting happens inside the Gemini API, so the job's work is sending requests and waiting for answers.
+
+To keep many requests in flight, the day's transcripts are split into **chunks of rows** and handed to a pool of worker processes. Each process creates its own Gemini client and works through its chunk **row by row**: one transcript, one API call, one summary. Backoff in `summarize()` absorbs rate limits, and a failed chunk can be retried without redoing the rest of the day. *Simplified:*
 
 ```python
-from concurrent.futures import ThreadPoolExecutor
+from multiprocessing import Pool
 
-def run_summaries(run_date: str) -> None:
-    calls = bq.query(TRANSCRIPTS_SQL, job_config=params(run_date)).result()
+def init_gemini() -> None:
+    """Runs once in each worker process."""
+    global model
+    model = GenerativeModel(SUMMARY_MODEL)
 
-    def one(call):
-        out = summarize(call.transcript)
-        return {
-            "call_id": call.call_id,
-            "call_date": call.call_date,
+def summarize_chunk(chunk: list[dict]) -> list[dict]:
+    rows = []
+    for call in chunk:                               # row by row
+        out = summarize(call["transcript"])          # one Gemini call, with backoff
+        rows.append({
+            "call_id": call["call_id"],
+            "call_date": call["call_date"],
             "summary": encrypt(out["summary"]),      # field-level encryption
             "input_token": out["input_token"],
             "output_token": out["output_token"],
             "run_date": today(),
-        }
+        })
+    return rows
 
-    with ThreadPoolExecutor(max_workers=WORKERS) as pool:
-        rows = list(pool.map(one, calls))
+def run_summaries(run_date: str) -> None:
+    calls = [dict(r) for r in bq.query(TRANSCRIPTS_SQL, job_config=params(run_date)).result()]
+    chunks = [calls[i:i + CHUNK_SIZE] for i in range(0, len(calls), CHUNK_SIZE)]
+
+    with Pool(processes=N_PROCESSES, initializer=init_gemini) as pool:
+        rows = [r for part in pool.imap_unordered(summarize_chunk, chunks) for r in part]
 
     write_partition("contact_intel.call_summary", rows, run_date)  # rerun = replace the day
 ```

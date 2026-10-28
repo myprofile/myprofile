@@ -81,6 +81,16 @@ There are three layers:
 2. **Enrichment:** the summary, resolution and metrics jobs read the transcripts. The topic and entity jobs read the summaries.
 3. **Consolidation:** a final job waits for every upstream job, then writes one partitioned, clustered table for the dashboard.
 
+### Where each step runs
+
+The inference jobs run on a **Dataproc cluster**. Only the topic model needs GPUs:
+
+| Step | Runs on | How |
+|---|---|---|
+| **Summaries** | Dataproc workers (CPU) | Gemini API calls; multiprocessing over chunks of rows, one call per transcript |
+| **Call topics** | Dataproc, **4 × NVIDIA L4 GPUs** | Fine-tuned XLNet, batched inference split across the four GPUs |
+| **Named entities** | Dataproc workers (CPU) | Regex matching against keyword tables; no model at all |
+
 Everything runs as a **daily batch**, one `call_date` at a time. Transcripts need to be complete before the AI jobs start, so AI fields land **a few days after the call**. That's fine for trend analysis, and we tell dashboard users so.
 
 The code below is simplified from production, but the shape is the same.
@@ -129,20 +139,25 @@ WHERE call_date = @run_date
 GROUP BY call_id;
 ```
 
-Then an LLM (a fast, low-cost Gemini Flash–class model) returns a **structured JSON summary** for each call. A **response schema** passed to the API guarantees the shape, so every call produces the same fields:
+Then the **Gemini API** (a fast, low-cost Flash–class model) returns a **structured JSON summary** for each call. A **response schema** passed to the API guarantees the shape, so every call produces the same fields.
+
+This step needs no GPU: the work is API calls. The day's transcripts are split into chunks of rows, and a pool of worker processes works through them **row by row**, one Gemini call per transcript:
 
 ```python
-from concurrent.futures import ThreadPoolExecutor
+from multiprocessing import Pool
+
+def summarize_chunk(chunk: list[dict]) -> list[dict]:
+    """Runs in its own process: one Gemini call per transcript, row by row."""
+    return [{"call_id": c["call_id"], "call_date": c["call_date"],
+             **summarize(c["transcript"])}          # LLM + response schema (Part 2)
+            for c in chunk]
 
 def run_summaries(run_date: str) -> None:
-    calls = bq.query(TRANSCRIPTS_SQL, job_config=params(run_date)).result()
+    calls = [dict(r) for r in bq.query(TRANSCRIPTS_SQL, job_config=params(run_date)).result()]
+    chunks = [calls[i:i + CHUNK_SIZE] for i in range(0, len(calls), CHUNK_SIZE)]
 
-    def one(call):
-        out = summarize(call.transcript)       # LLM + response schema (Part 2)
-        return {"call_id": call.call_id, "call_date": run_date, **out}
-
-    with ThreadPoolExecutor(max_workers=WORKERS) as pool:
-        rows = list(pool.map(one, calls))
+    with Pool(processes=N_PROCESSES, initializer=init_gemini) as pool:   # one client per process
+        rows = [row for part in pool.imap_unordered(summarize_chunk, chunks) for row in part]
 
     write_partition("contact_intel.call_summary", rows, run_date)
 ```
@@ -164,7 +179,7 @@ It's trained in two stages:
 1. **An LLM labels the training data.** Few-shot, chain-of-thought prompts pick a topic group, then a topic.
 2. **XLNet learns from those labels.** It's fine-tuned as a multi-label classifier, and it's what runs every day.
 
-Daily inference is a batched forward pass with one sigmoid per topic:
+Daily inference runs on a **Dataproc cluster with 4 NVIDIA L4 GPUs**. Each GPU scores its share of the day's summaries in batches, with one sigmoid per topic:
 
 ```python
 import torch
@@ -190,7 +205,7 @@ A call can have **several topics**. Calls with none are reported as **Unfiltered
 
 ## Step 4: Named entities (keyword dictionary)
 
-The entity step finds **benefits, specialists, procedures and diseases** in the summary and maps each one to a standard category. It doesn't use an LLM. It uses curated keyword tables, and when matches overlap the **longest match wins**:
+The entity step finds **benefits, specialists, procedures and diseases** in the summary and maps each one to a standard category. It doesn't use an LLM or a GPU. It's **regex matching** against curated keyword tables, and when matches overlap the **longest match wins**:
 
 ```python
 import re
