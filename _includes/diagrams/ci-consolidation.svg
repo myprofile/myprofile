@@ -1,0 +1,32 @@
+<svg viewBox="0 0 800 316" role="img" aria-labelledby="ci-cons-title ci-cons-desc" xmlns="http://www.w3.org/2000/svg">
+<title id="ci-cons-title">Consolidation pipeline</title>
+<desc id="ci-cons-desc">Five tables (summary, topic, entity, resolution and metrics) feed a gate that checks every upstream task succeeded for the run date. Then a MERGE on call_date and call_id writes the dashboard table, one row per call, partitioned by call_date and clustered by line of business and call_id.</desc>
+<defs><marker id="ci-cons-head" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="dg-head"/></marker></defs>
+<rect class="dg-data" x="16" y="16" width="180" height="44" rx="6"/>
+<text class="dg-t dg-code" x="106" y="43">call_summary</text>
+<rect class="dg-data" x="16" y="76" width="180" height="44" rx="6"/>
+<text class="dg-t dg-code" x="106" y="103">call_topic</text>
+<rect class="dg-data" x="16" y="136" width="180" height="44" rx="6"/>
+<text class="dg-t dg-code" x="106" y="163">call_entity</text>
+<rect class="dg-data" x="16" y="196" width="180" height="44" rx="6"/>
+<text class="dg-t dg-code" x="106" y="223">call_resolution</text>
+<rect class="dg-data" x="16" y="256" width="180" height="44" rx="6"/>
+<text class="dg-t dg-code" x="106" y="283">call_metrics</text>
+<path class="dg-line" d="M196 38 H222 M196 98 H222 M196 158 H222 M196 218 H222 M196 278 H222 M222 38 V278"/>
+<path class="dg-line" d="M222 158 H246" marker-end="url(#ci-cons-head)"/>
+<rect class="dg-model" x="246" y="114" width="150" height="88" rx="6"/>
+<text class="dg-t" x="321" y="144">All jobs done?</text>
+<text class="dg-s" x="321" y="164">every upstream task</text>
+<text class="dg-s" x="321" y="180">succeeded for run_date</text>
+<path class="dg-line" d="M396 158 H426" marker-end="url(#ci-cons-head)"/>
+<rect class="dg-key" x="426" y="114" width="140" height="88" rx="6"/>
+<text class="dg-t dg-on-key" x="496" y="144">MERGE</text>
+<text class="dg-s dg-on-key" x="496" y="164">on call_date + call_id</text>
+<text class="dg-s dg-on-key" x="496" y="180">safe to rerun</text>
+<path class="dg-line" d="M566 158 H596" marker-end="url(#ci-cons-head)"/>
+<rect class="dg-data" x="596" y="106" width="188" height="104" rx="6"/>
+<text class="dg-t" x="690" y="134">Dashboard table</text>
+<text class="dg-s" x="690" y="156">one row per call</text>
+<text class="dg-s" x="690" y="174">partitioned by call_date</text>
+<text class="dg-s" x="690" y="192">clustered by lob, call_id</text>
+</svg>

@@ -1,0 +1,59 @@
+<svg viewBox="0 0 800 632" role="img" aria-labelledby="ci-arch-title ci-arch-desc" xmlns="http://www.w3.org/2000/svg">
+<title id="ci-arch-title">Call intelligence architecture</title>
+<desc id="ci-arch-desc">Transcripts flow from the transcription platform to Cloud Storage to BigQuery. From there, an LLM writes a structured summary, an LLM labels resolution, and SQL computes operational metrics. The topic model and entity dictionary read the summary. A consolidation step waits for all five jobs, then writes one dashboard table that powers the dashboard.</desc>
+<defs><marker id="ci-arch-head" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="dg-head"/></marker></defs>
+<rect class="dg-data" x="16" y="16" width="220" height="56" rx="6"/>
+<text class="dg-t" x="126" y="40">Transcription platform</text>
+<text class="dg-s" x="126" y="58">recordings → text</text>
+<rect class="dg-data" x="290" y="16" width="220" height="56" rx="6"/>
+<text class="dg-t" x="400" y="40">Cloud Storage</text>
+<text class="dg-s" x="400" y="58">raw transcript files</text>
+<rect class="dg-data" x="564" y="16" width="220" height="56" rx="6"/>
+<text class="dg-t" x="674" y="40">BigQuery</text>
+<text class="dg-s" x="674" y="58">call_transcript</text>
+<path class="dg-line" d="M236 44 H290" marker-end="url(#ci-arch-head)"/>
+<path class="dg-line" d="M510 44 H564" marker-end="url(#ci-arch-head)"/>
+<path class="dg-line" d="M674 72 V96 M200 96 H699"/>
+<path class="dg-line" d="M200 96 V120" marker-end="url(#ci-arch-head)"/>
+<path class="dg-line" d="M499 96 V120" marker-end="url(#ci-arch-head)"/>
+<path class="dg-line" d="M699 96 V120" marker-end="url(#ci-arch-head)"/>
+<rect class="dg-llm" x="16" y="120" width="368" height="56" rx="6"/>
+<text class="dg-t" x="200" y="144">Structured summary</text>
+<text class="dg-s" x="200" y="162">LLM + response schema</text>
+<rect class="dg-llm" x="414" y="120" width="170" height="56" rx="6"/>
+<text class="dg-t" x="499" y="144">Resolution</text>
+<text class="dg-s" x="499" y="162">LLM</text>
+<rect class="dg-model" x="614" y="120" width="170" height="56" rx="6"/>
+<text class="dg-t" x="699" y="144">Operational metrics</text>
+<text class="dg-s" x="699" y="162">SQL</text>
+<path class="dg-line" d="M200 176 V200 M101 200 H300"/>
+<path class="dg-line" d="M101 200 V224" marker-end="url(#ci-arch-head)"/>
+<path class="dg-line" d="M300 200 V224" marker-end="url(#ci-arch-head)"/>
+<rect class="dg-model" x="16" y="224" width="170" height="56" rx="6"/>
+<text class="dg-t" x="101" y="248">Call topics</text>
+<text class="dg-s" x="101" y="266">fine-tuned XLNet</text>
+<rect class="dg-model" x="215" y="224" width="170" height="56" rx="6"/>
+<text class="dg-t" x="300" y="248">Named entities</text>
+<text class="dg-s" x="300" y="266">keyword dictionary</text>
+<path class="dg-line" d="M101 280 V304 M300 280 V304 M499 176 V304 M699 176 V304 M101 304 H699"/>
+<path class="dg-line" d="M400 304 V328" marker-end="url(#ci-arch-head)"/>
+<rect class="dg-key" x="200" y="328" width="400" height="64" rx="6"/>
+<text class="dg-t dg-on-key" x="400" y="355">Consolidation</text>
+<text class="dg-s dg-on-key" x="400" y="375">runs only after all five jobs succeed</text>
+<path class="dg-line" d="M400 392 V424" marker-end="url(#ci-arch-head)"/>
+<rect class="dg-data" x="200" y="424" width="400" height="64" rx="6"/>
+<text class="dg-t dg-code" x="400" y="451">call_intelligence_dashboard</text>
+<text class="dg-s" x="400" y="471">one row per call · partitioned by call_date</text>
+<path class="dg-line" d="M400 488 V520" marker-end="url(#ci-arch-head)"/>
+<rect class="dg-model" x="200" y="520" width="400" height="56" rx="6"/>
+<text class="dg-t" x="400" y="544">Dashboard</text>
+<text class="dg-s" x="400" y="562">performance · topics · entities · trends · review</text>
+<rect class="dg-data" x="16" y="604" width="14" height="14" rx="3"/>
+<text class="dg-l" x="38" y="616">Data and storage</text>
+<rect class="dg-llm" x="176" y="604" width="14" height="14" rx="3"/>
+<text class="dg-l" x="198" y="616">LLM</text>
+<rect class="dg-model" x="250" y="604" width="14" height="14" rx="3"/>
+<text class="dg-l" x="272" y="616">Trained model, rules or SQL</text>
+<rect class="dg-key" x="460" y="604" width="14" height="14" rx="3"/>
+<text class="dg-l" x="482" y="616">Consolidation</text>
+</svg>
