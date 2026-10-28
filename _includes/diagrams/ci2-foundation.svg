@@ -1,0 +1,37 @@
+<svg viewBox="0 0 800 292" role="img" aria-labelledby="ci2-found-title ci2-found-desc" xmlns="http://www.w3.org/2000/svg">
+<title id="ci2-found-title">The structured summary as a foundation</title>
+<desc id="ci2-found-desc">A raw transcript is thousands of words with transcription errors, greetings, ID checks and hold chatter. An LLM turns it into a structured JSON summary with a consistent shape. The topic model, the entity matching step and human session review all read the summary instead of the transcript.</desc>
+<defs><marker id="ci2-found-head" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="dg-head"/></marker></defs>
+<text class="dg-h" x="16" y="26">Raw transcript</text>
+<rect class="dg-data" x="16" y="38" width="220" height="230" rx="6"/>
+<text class="dg-t" x="126" y="76">Thousands of words</text>
+<text class="dg-s" x="126" y="110">transcription errors</text>
+<text class="dg-s" x="126" y="134">greetings and ID checks</text>
+<text class="dg-s" x="126" y="158">hold and transfer chatter</text>
+<text class="dg-s" x="126" y="182">a different shape every call</text>
+<text class="dg-faint dg-s" x="126" y="230">… and a few lines that matter</text>
+<path class="dg-line" d="M236 153 H290" marker-end="url(#ci2-found-head)"/>
+<text class="dg-l" x="249" y="144">LLM</text>
+<text class="dg-h" x="290" y="26">Structured summary (JSON)</text>
+<rect class="dg-llm" x="290" y="38" width="230" height="230" rx="6"/>
+<text class="dg-t" x="405" y="76">One consistent shape</text>
+<text class="dg-s" x="405" y="110">concise summary</text>
+<text class="dg-s" x="405" y="134">contact information</text>
+<text class="dg-s" x="405" y="158">intents + agent's solutions</text>
+<text class="dg-s" x="405" y="182">signals and next steps</text>
+<text class="dg-s" x="405" y="206">entities</text>
+<path class="dg-line" d="M520 153 H548 M548 73 V233"/>
+<path class="dg-line" d="M548 73 H572" marker-end="url(#ci2-found-head)"/>
+<path class="dg-line" d="M548 153 H572" marker-end="url(#ci2-found-head)"/>
+<path class="dg-line" d="M548 233 H572" marker-end="url(#ci2-found-head)"/>
+<text class="dg-h" x="572" y="26">Read by</text>
+<rect class="dg-model" x="572" y="38" width="212" height="70" rx="6"/>
+<text class="dg-t" x="678" y="68">Topic model</text>
+<text class="dg-s" x="678" y="88">reads the intents · Part 3</text>
+<rect class="dg-model" x="572" y="118" width="212" height="70" rx="6"/>
+<text class="dg-t" x="678" y="148">Entity matching</text>
+<text class="dg-s" x="678" y="168">reads the summary · Part 4</text>
+<rect class="dg-model" x="572" y="198" width="212" height="70" rx="6"/>
+<text class="dg-t" x="678" y="228">Session review</text>
+<text class="dg-s" x="678" y="248">people check the call</text>
+</svg>

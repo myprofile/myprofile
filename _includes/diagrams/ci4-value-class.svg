@@ -1,0 +1,34 @@
+<svg viewBox="0 0 800 320" role="img" aria-labelledby="ci4-vc-title ci4-vc-desc" xmlns="http://www.w3.org/2000/svg">
+<title id="ci4-vc-title">One sentence, four entity types</title>
+<desc id="ci4-vc-desc">The mock summary sentence "an office visit. Her cardiologist said she had a stroke" produces four entities. Benefit: office visit maps to Place of service. Specialist: cardiologist maps to Cardiologist. Procedure: office visit maps to Physician visit. Disease: stroke maps to Cerebrovascular disease.</desc>
+<defs><marker id="ci4-vc-head" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="dg-head"/></marker></defs>
+<text class="dg-h" x="16" y="26">Summary text (mock)</text>
+<rect class="dg-llm" x="16" y="104" width="270" height="112" rx="6"/>
+<text class="dg-mono" x="30" y="140" style="font-size:13px"><tspan x="30" dy="0">"…an office visit. Her</tspan><tspan x="30" dy="22">cardiologist said she</tspan><tspan x="30" dy="22">had a stroke."</tspan></text>
+<text class="dg-h" x="350" y="26">Entity type · value → class</text>
+<path class="dg-line" d="M286 160 H318 M318 72 V288"/>
+<path class="dg-line" d="M318 72 H350" marker-end="url(#ci4-vc-head)"/>
+<path class="dg-line" d="M318 144 H350" marker-end="url(#ci4-vc-head)"/>
+<path class="dg-line" d="M318 216 H350" marker-end="url(#ci4-vc-head)"/>
+<path class="dg-line" d="M318 288 H350" marker-end="url(#ci4-vc-head)"/>
+<rect class="dg-model" x="350" y="44" width="434" height="56" rx="6"/>
+<text class="dg-h" x="366" y="66">BENEFIT</text>
+<text class="dg-code" x="366" y="88" style="text-anchor:start;fill:var(--text)">office visit</text>
+<text class="dg-s" x="506" y="88" style="text-anchor:start">→</text>
+<text class="dg-t" x="530" y="88" style="text-anchor:start">Place of service</text>
+<rect class="dg-model" x="350" y="116" width="434" height="56" rx="6"/>
+<text class="dg-h" x="366" y="138">SPECIALIST</text>
+<text class="dg-code" x="366" y="160" style="text-anchor:start;fill:var(--text)">cardiologist</text>
+<text class="dg-s" x="506" y="160" style="text-anchor:start">→</text>
+<text class="dg-t" x="530" y="160" style="text-anchor:start">Cardiologist</text>
+<rect class="dg-model" x="350" y="188" width="434" height="56" rx="6"/>
+<text class="dg-h" x="366" y="210">PROCEDURE</text>
+<text class="dg-code" x="366" y="232" style="text-anchor:start;fill:var(--text)">office visit</text>
+<text class="dg-s" x="506" y="232" style="text-anchor:start">→</text>
+<text class="dg-t" x="530" y="232" style="text-anchor:start">Physician visit</text>
+<rect class="dg-model" x="350" y="260" width="434" height="56" rx="6"/>
+<text class="dg-h" x="366" y="282">DISEASE</text>
+<text class="dg-code" x="366" y="304" style="text-anchor:start;fill:var(--text)">stroke</text>
+<text class="dg-s" x="506" y="304" style="text-anchor:start">→</text>
+<text class="dg-t" x="530" y="304" style="text-anchor:start">Cerebrovascular disease</text>
+</svg>

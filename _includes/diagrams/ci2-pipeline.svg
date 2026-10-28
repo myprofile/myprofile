@@ -1,0 +1,30 @@
+<svg viewBox="0 0 800 150" role="img" aria-labelledby="ci2-pipe-title ci2-pipe-desc" xmlns="http://www.w3.org/2000/svg">
+<title id="ci2-pipe-title">Daily batch flow for the summary model</title>
+<desc id="ci2-pipe-desc">Five steps: pick the calls from a few days earlier, pre-process each transcript, build the prompt with the response schema, call the LLM at low temperature with backoff retries, then store the encrypted JSON summary with its token counts.</desc>
+<defs><marker id="ci2-pipe-head" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="dg-head"/></marker></defs>
+<rect class="dg-data" x="7" y="16" width="134" height="88" rx="6"/>
+<text class="dg-t" x="74" y="46">Daily batch</text>
+<text class="dg-s" x="74" y="66">calls from a</text>
+<text class="dg-s" x="74" y="82">few days earlier</text>
+<path class="dg-line" d="M141 60 H170" marker-end="url(#ci2-pipe-head)"/>
+<rect class="dg-model" x="170" y="16" width="134" height="88" rx="6"/>
+<text class="dg-t" x="237" y="46">Pre-process</text>
+<text class="dg-s" x="237" y="66">order the turns,</text>
+<text class="dg-s" x="237" y="82">label speakers</text>
+<path class="dg-line" d="M304 60 H333" marker-end="url(#ci2-pipe-head)"/>
+<rect class="dg-llm" x="333" y="16" width="134" height="88" rx="6"/>
+<text class="dg-t" x="400" y="46">Prompt + schema</text>
+<text class="dg-s" x="400" y="66">sections and rules,</text>
+<text class="dg-s" x="400" y="82">JSON schema</text>
+<path class="dg-line" d="M467 60 H496" marker-end="url(#ci2-pipe-head)"/>
+<rect class="dg-llm" x="496" y="16" width="134" height="88" rx="6"/>
+<text class="dg-t" x="563" y="46">LLM call</text>
+<text class="dg-s" x="563" y="66">temperature 0.1,</text>
+<text class="dg-s" x="563" y="82">backoff retries</text>
+<path class="dg-line" d="M630 60 H659" marker-end="url(#ci2-pipe-head)"/>
+<rect class="dg-key" x="659" y="16" width="134" height="88" rx="6"/>
+<text class="dg-t dg-on-key" x="726" y="46">Store</text>
+<text class="dg-s dg-on-key" x="726" y="66">encrypted JSON</text>
+<text class="dg-s dg-on-key" x="726" y="82">+ token counts</text>
+<text class="dg-l" x="7" y="136">About 820,000 calls a day, one LLM request each.</text>
+</svg>

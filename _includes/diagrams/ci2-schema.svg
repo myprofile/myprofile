@@ -1,0 +1,32 @@
+<svg viewBox="0 0 800 336" role="img" aria-labelledby="ci2-schema-title ci2-schema-desc" xmlns="http://www.w3.org/2000/svg">
+<title id="ci2-schema-title">Sections of the structured summary</title>
+<desc id="ci2-schema-desc">What happened: concise summary, contact information, and call intents with the agent's solutions. Call signals: repeated issue and call transfers. What's next: next steps for the caller and the agent, and future call watchouts. Entities: benefits, specialists, diseases and procedures.</desc>
+<text class="dg-h" x="16" y="24">WHAT HAPPENED</text>
+<rect class="dg-llm" x="16" y="34" width="376" height="60" rx="6"/>
+<text class="dg-t dg-code" x="204" y="59">concise_summary</text>
+<text class="dg-s" x="204" y="79">key events, amounts, dates · under 200 words</text>
+<rect class="dg-llm" x="16" y="104" width="376" height="60" rx="6"/>
+<text class="dg-t dg-code" x="204" y="129">contact_information</text>
+<text class="dg-s" x="204" y="149">caller, who it's about, caller type (enum)</text>
+<rect class="dg-llm" x="16" y="174" width="376" height="60" rx="6"/>
+<text class="dg-t dg-code" x="204" y="199">call_intents_and_solutions</text>
+<text class="dg-s" x="204" y="219">one topic per intent, 20 words or fewer + solution</text>
+<text class="dg-h" x="16" y="262">CALL SIGNALS</text>
+<rect class="dg-model" x="16" y="272" width="376" height="60" rx="6"/>
+<text class="dg-t dg-code" x="204" y="297">repeated_issue · call_transfers</text>
+<text class="dg-s" x="204" y="317">0 or 1 · count, excluding the survey transfer</text>
+<text class="dg-h" x="408" y="24">WHAT'S NEXT</text>
+<rect class="dg-model" x="408" y="34" width="376" height="60" rx="6"/>
+<text class="dg-t dg-code" x="596" y="59">next_steps_caller</text>
+<text class="dg-s" x="596" y="79">what the caller still has to do</text>
+<rect class="dg-model" x="408" y="104" width="376" height="60" rx="6"/>
+<text class="dg-t dg-code" x="596" y="129">next_steps_agent</text>
+<text class="dg-s" x="596" y="149">what the agent committed to</text>
+<rect class="dg-model" x="408" y="174" width="376" height="60" rx="6"/>
+<text class="dg-t dg-code" x="596" y="199">future_call_watchouts</text>
+<text class="dg-s" x="596" y="219">what to watch for if they call again</text>
+<text class="dg-h" x="408" y="262">ENTITIES</text>
+<rect class="dg-data" x="408" y="272" width="376" height="60" rx="6"/>
+<text class="dg-t dg-code" x="596" y="297">entities</text>
+<text class="dg-s" x="596" y="317">benefits · specialists · diseases · procedures</text>
+</svg>
