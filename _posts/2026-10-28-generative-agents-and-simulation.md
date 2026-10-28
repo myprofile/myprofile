@@ -5,6 +5,8 @@ summary: "Why researchers are building little towns full of AI people, how the a
 date: 2026-10-28 10:00:00
 ---
 
+*Part 1 of 2 on generative agents. Part 2: [Building Trang](/posts/2026/10/28/building-trang/), the code.*
+
 I've spent the last few months building a generative agent called Trang. She started as a baker in an 8×8 pixel kitchen and ended up as an environmental lawyer you can interview about her life. Along the way I had the architecture before I had the reasons for it: I knew an agent needs a memory stream, a retrieval function, and a reflection step, because the paper said so and the code worked. What I didn't have was a clear picture of what the whole thing was *for*. Why simulate people at all? What question is a town of 25 AI residents supposed to answer? And how would you know if the answer was wrong?
 
 This post is the ideas. The next one is the code. Here: what a simulation is, which problems it's for, what you choose to simulate, how an agent is wired, and how to judge one. Next: building Trang's memory stream, retrieval, and reflection from scratch on a local model, where every number in section 4 below shows up in Python. I'll point at Trang a few times along the way, because the ideas made more sense to me once something concrete had gone wrong.
@@ -49,9 +51,9 @@ Trang's first version was exactly this loop with one agent: perceive the kitchen
 
 Three things make this loop different from an ordinary program:
 
-1. **You can rerun it.** Start from the same state and go again. Once `agent.act` has an LLM in it the step is stochastic, so you get a different world each run. That's a feature (you can estimate a distribution) and a cost (one run tells you almost nothing, which I [[learned the hard way when Trang baked a perfect cake once and I assumed she was fixed]]).
+1. **You can rerun it.** Start from the same state and go again. Once `agent.act` has an LLM in it the step is stochastic, so you get a different world each run. That's a feature (you can estimate a distribution) and a cost (one run tells you almost nothing, which I learned the hard way when Trang baked a perfect cake once and I assumed she was fixed).
 2. **You can intervene.** Change one rule, hold everything else fixed, see what follows. It's a controlled experiment on a world you own.
-3. **It surprises you.** You wrote every rule, and the outcome still isn't obvious. Simple parts interacting over many ticks produce patterns nobody wrote down. Schelling's segregation model is the textbook case: households that are happy with only 30% similar neighbors sort themselves into near-total segregation that none of them asked for.
+3. **It surprises you.** You wrote every rule, and the outcome still isn't obvious. Simple parts interacting over many ticks produce patterns nobody wrote down. Schelling's segregation model is the textbook case: households that are happy with only 30% similar neighbors sort themselves into strongly segregated neighborhoods that none of them asked for.
 
 ### Why bother
 
@@ -65,7 +67,7 @@ Researchers were doing this long before generative AI:
 - **Game theory:** agents choosing strategies against each other.
 - **Agent-based models**, such as Schelling's.
 
-There's even a theory in cognitive science, *simulation theory of mind*, that says this is how people understand each other: you predict someone by running a small model of them in your head. [[I don't know how seriously psychologists take it anymore, but]] it's a nice frame for what follows.
+There's even a theory in cognitive science, *simulation theory of mind*, that says this is how people understand each other: you predict someone by running a small model of them in your head. I don't know how seriously psychologists take it anymore, but it's a nice frame for what follows.
 
 The old models are simple and you can read every rule. Their weakness is that they flatten people. An agent whose whole personality is "if fewer than 30% of my neighbors are like me, move" is one thin slice of a human.
 
@@ -93,7 +95,7 @@ Before building anything, decide what level you're asking about. The individual 
 
 ![Three panels comparing levels of analysis. Individual: one specific person; question "would this person like these search results?"; modeled with a detailed persona and memory; fails on noise. Group: a few people who interact; question "how would these two resolve this conflict?"; modeled as several memory-equipped agents interacting over ticks; dynamics may never be fully predictable. Population: many people aggregated; question "do older adults read more than younger ones?"; modeled by sampling personas from demographics and averaging; too coarse, can reproduce bias. A double arrow underneath: trade detail for scale.](/assets/img/generative-agents/levels-of-analysis.png)
 
-**Individuals.** One specific person with their own traits, beliefs, and history. The questions are narrow: would *this* person like these search results? How would they react to this treatment? The problem is noise. People are inconsistent, and the data on any one person is thin. Nobody has a settled recipe here; the best starting point today is a detailed persona plus a memory of that person's history, which is what Trang's second version is. [[Having built one, I'd add: the persona gets you the voice, the memory gets you the facts, and neither gets you consistency across two different questions about the same thing.]]
+**Individuals.** One specific person with their own traits, beliefs, and history. The questions are narrow: would *this* person like these search results? How would they react to this treatment? The problem is noise. People are inconsistent, and the data on any one person is thin. Nobody has a settled recipe here; the best starting point today is a detailed persona plus a memory of that person's history, which is what Trang's second version is. Having built one, I'd add: the persona gets you the voice, the memory gets you the facts, and neither gets you consistency across two different questions about the same thing.
 
 **Groups.** People who interact and influence each other. How might two people resolve a conflict? Can a team of crowdworkers cooperate? You get this by giving several individual agents memory and letting them run against each other over ticks. The problem is that group dynamics may never be fully predictable, and some researchers suspect they aren't, even in principle.
 
@@ -105,7 +107,7 @@ Most generative-AI simulation research right now is at the population level, for
 
 ## 4. How is an AI agent built?
 
-How do you turn a language model into a character that stays coherent over days of simulated time? A bare model can't. It has no memory of yesterday, and its context window won't hold two days of experience. Cognitive scientists have a name for the missing piece: a **cognitive architecture**, the fixed machinery underneath thought, such as memory, goals, and decision-making. SOAR and ACT-R were built in the 1980s to model human problem solving. The **generative agent** architecture from the 2023 paper of that name revives the idea with an LLM in the middle. The examples below come from its reference implementation, a town of 25 agents where one resident, Isabella, runs a café and is planning a party.
+How do you turn a language model into a character that stays coherent over days of simulated time? A bare model can't. It has no memory of yesterday, and its context window won't hold two days of experience. Cognitive scientists have a name for the missing piece: a **cognitive architecture**, the fixed machinery underneath thought, such as memory, goals, and decision-making. SOAR (1983) and ACT-R (1993) were built to model human problem solving. The **generative agent** architecture from the 2023 paper of that name revives the idea with an LLM in the middle. The examples below come from its reference implementation, a town of 25 agents where one resident, Isabella, runs a café and is planning a party.
 
 ![Generative agent architecture: the environment feeds perceive, which writes to an append-only memory stream of timestamped natural-language records (observations, plans, reflections). Retrieve pulls the top-k records by score into scratch memory, the working set that fits in the prompt; the LLM turns that into an act, which changes the environment. Reflect reads about a hundred recent records and writes insights back to the stream; plan writes day, hour, and 5–15-minute plans back to the stream too.](/assets/img/generative-agents/generative-agent-architecture.png)
 
@@ -129,9 +131,9 @@ The three terms, as the paper implements them:
 
 Each term is min-max normalized to [0, 1] across the candidates before summing, and the paper sets all three weights to 1. The sorted list gets truncated to whatever fits the prompt's token budget, and every record that makes the cut has its last-accessed time refreshed.
 
-A detour on importance, because it tripped me up. The code I started Trang from rates importance 0–100, and I'd assumed that was the paper's scale too. It isn't; the paper uses 1–10. I spent a while wondering whether I'd broken something before noticing that the normalization step makes the scale irrelevant: 1–10 and 0–100 land in the same [0, 1] range before they're summed. What *does* matter is giving the model anchors in the prompt ("routine events 0–15, defining life events 70–100"), because without them a small model rates everything in the sixties.
-
-The weights matter more than the scale. For an interview agent that answers one question at a time, I ended up at 3 · relevance + 0.5 · importance + 0.5 · recency, because being on topic beats everything else, with decay per time step rather than per hour. The best answer to Trang's opening interview question came from a memory rated 30 out of 100; 74 of her 91 memories outrank it on importance. It won because it was exactly on topic. With the paper's equal weights, [[I'm fairly sure]] it would have lost to a childhood memory about the forest. The next post has the full ranking table.
+> **From building Trang.** The code I started Trang from rates importance 0–100, and I'd assumed that was the paper's scale too. It isn't; the paper uses 1–10. I spent a while wondering whether I'd broken something before noticing that the normalization step makes the scale irrelevant: 1–10 and 0–100 land in the same [0, 1] range before they're summed. What *does* matter is giving the model anchors in the prompt ("routine events 0–15, defining life events 70–100"), because without them a small model rates everything in the sixties.
+>
+> The weights matter more than the scale. For an interview agent that answers one question at a time, I ended up at 3 · relevance + 0.5 · importance + 0.5 · recency, because being on topic beats everything else, with decay per time step rather than per hour. The best answer to Trang's opening interview question came from a memory rated 30 out of 100; 74 of her 91 memories outrank it on importance. It won because it was exactly on topic. With the paper's equal weights, I'm fairly sure it would have lost to a childhood memory about the forest. The next post has the full ranking table.
 
 Ask Isabella "What are you excited about?" and retrieval surfaces her party plans and the decorations she ordered, not the piano someone played nearby last week.
 
@@ -143,7 +145,7 @@ This is the part of Trang I haven't wired into the app yet. The function exists,
 
 **5. Plan.** Sensible moment-to-moment behavior isn't enough; an agent should also make sense across a day. Planning is top-down and recursive. The LLM drafts a rough day in five to eight chunks (wake at 8, class at 10, compose from 1 to 5), then expands each chunk into hourly steps, then into five-to-fifteen-minute actions with a location, a start time, and a duration. Plans are stored as memories too. Each tick the agent checks whether what it just saw calls for a reaction, and if so it re-plans from that point rather than following the stale schedule.
 
-The idea underneath all five steps is that **everything is a memory**. Perceptions, plans, and reflections go into one stream, and everything the agent does is built from what it reads back out. That's what keeps behavior consistent over time, and it's what makes the thing debuggable: when an agent does something strange, print the records it retrieved and you can usually see why. Trang's interview app shows the retrieved memories and their scores under every answer for exactly this reason; [[it's the single feature that made the project tolerable to work on]]. It's also what makes the architecture expensive. Cost is agents × ticks × LLM calls per tick, and a tick can involve perception, retrieval scoring, action generation, and the occasional reflection and planning pass.
+The idea underneath all five steps is that **everything is a memory**. Perceptions, plans, and reflections go into one stream, and everything the agent does is built from what it reads back out. That's what keeps behavior consistent over time, and it's what makes the thing debuggable: when an agent does something strange, print the records it retrieved and you can usually see why. Trang's interview app shows the retrieved memories and their scores under every answer for exactly this reason; it's the single feature that made the project tolerable to work on. It's also what makes the architecture expensive. Cost is agents × ticks × LLM calls per tick, and a tick can involve perception, retrieval scoring, action generation, and the occasional reflection and planning pass.
 
 ## 5. Is it any good? Believable versus accurate
 
@@ -167,7 +169,7 @@ In practice the difficulty depends on the level:
 - **Groups:** the dynamics are complex, and some researchers think prediction here is impossible in principle.
 - **Populations:** ground truth is sometimes missing, and if you rerun a famous study, the model may just have memorized it.
 
-That last problem led to a sharper test: can a model predict studies it *could not have seen*? A 2024 study from Stanford did exactly this. GPT-4 was asked to predict the outcomes of 70 pre-registered, nationally representative US survey experiments, 476 treatment effects in all, covering more than 100,000 participants. The predictions correlated with the real results at *r* = 0.85. On a held-out set of studies still unpublished at the time, and so not in any training data, it was *r* = 0.90. GPT-4 matched or beat human forecasters on the same task. [[That number surprised me more than anything else in this material.]]
+That last problem led to a sharper test: can a model predict studies it *could not have seen*? A Stanford study, first released in 2024, did exactly this. GPT-4 was asked to predict the outcomes of 70 pre-registered, nationally representative US survey experiments, 476 treatment effects in all, covering more than 100,000 participants. The predictions correlated with the real results at *r* = 0.85. On a held-out set of studies still unpublished at the time, and so not in any training data, it was *r* = 0.90. GPT-4 matched or beat human forecasters on the same task. That number surprised me more than anything else in this material.
 
 So, as of now:
 
@@ -195,4 +197,4 @@ Next post: the code. [Building Trang](/posts/2026/10/28/building-trang/) impleme
 - Joseph Bates, [The Role of Emotion in Believable Agents](https://doi.org/10.1145/176789.176803), *Communications of the ACM* (1994)
 - Joon Sung Park et al., [Social Simulacra](https://arxiv.org/abs/2208.04024) (UIST 2022) and [Generative Agents: Interactive Simulacra of Human Behavior](https://arxiv.org/abs/2304.03442) (UIST 2023); the [reference code](https://github.com/joonspk-research/generative_agents) is open source
 - Theodore Sumers, Shunyu Yao, Karthik Narasimhan and Thomas Griffiths, [Cognitive Architectures for Language Agents](https://arxiv.org/abs/2309.02427), *TMLR* (2024), the general framework that generative agents are one instance of
-- Luke Hewitt, Ashwini Ashokkumar, Isaias Ghezae and Robb Willer, [Predicting Results of Social Science Experiments Using Large Language Models](https://ai4pb.stanford.edu/projects/predicting-results-of-social-science-experiments-using-large-language-models) (2024)
+- Luke Hewitt, Ashwini Ashokkumar, Isaias Ghezae and Robb Willer, [Predicting Results of Social Science Experiments Using Large Language Models](https://ai4pb.stanford.edu/projects/predicting-results-of-social-science-experiments-using-large-language-models) (2024 preprint; since published in *Nature*)
