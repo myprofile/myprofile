@@ -2,7 +2,7 @@
 layout: post
 title: "Generative Agents and Simulation"
 summary: "Why researchers are building little towns full of AI people, how the agents inside them are wired, and how to tell whether any of it is trustworthy"
-date: 2026-10-28 18:00:00
+date: 2026-10-28 10:00:00
 ---
 
 I've spent the last few months building a generative agent called Trang. She started as a baker in an 8×8 pixel kitchen and ended up as an environmental lawyer you can interview about her life. Along the way I had the architecture before I had the reasons for it: I knew an agent needs a memory stream, a retrieval function, and a reflection step, because the paper said so and the code worked. What I didn't have was a clear picture of what the whole thing was *for*. Why simulate people at all? What question is a town of 25 AI residents supposed to answer? And how would you know if the answer was wrong?
