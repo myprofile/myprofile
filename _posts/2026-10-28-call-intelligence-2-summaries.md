@@ -2,6 +2,7 @@
 layout: post
 title: "Structured Call Summaries: Turning Long, Noisy Transcripts into Clean JSON with an LLM"
 summary: "How we use an LLM with a fixed JSON schema to turn long, noisy call transcripts into clean, structured summaries."
+project: call-intelligence
 date: 2026-10-28 09:01:00
 ---
 

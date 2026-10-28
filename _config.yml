@@ -1,11 +1,12 @@
 title: Raju Nekadi
-description: Projects, posts and research by Raju Nekadi.
+description: AI and Data Engineer at CVS Health. Projects, posts and research by Raju Nekadi.
 url: "https://rajunekadi.com"
 baseurl: ""
 author: Raju Nekadi
 email: rnekadi369@utexas.edu
 github: https://github.com/rnekadi369
 linkedin: https://www.linkedin.com/in/rn369/
+scholar: https://scholar.google.com/citations?user=UBUR6uYAAAAJ&hl=en
 
 permalink: /posts/:year/:month/:day/:title/
 markdown: kramdown

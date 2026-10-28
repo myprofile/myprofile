@@ -1,20 +1,21 @@
-# One entry per paper or ongoing project. Delete the examples and add your own.
-- title: Example Paper Title
+# One entry per paper. Your name is bolded automatically in the author list.
+- title: Automated end-to-end management of the modeling lifecycle in deep learning
+  authors: Gharib Gharibi, Vijay Walunj, Raju Nekadi, Raj Marri, Yugyung Lee
+  venue: Empirical Software Engineering, vol. 26, 2021 (Springer)
   description: >
-    A two- or three-sentence summary in plain language: what problem it tackles, the key idea, and the
-    main result. Lead with the finding a reader would remember.
+    A software system that manages the whole deep learning modeling lifecycle end to end. Existing tools
+    often tie users to a commercial platform, need significant code changes, or cover only one phase of
+    the lifecycle.
   links:
-    - { label: "NeurIPS'26", url: "https://arxiv.org/" }
-    - { label: GitHub, url: "https://github.com/rnekadi369" }
+    - { label: Paper, url: "https://link.springer.com/article/10.1007/s10664-020-09894-9" }
+    - { label: PDF, url: "https://par.nsf.gov/servlets/purl/10312568" }
 
-- title: "Second Example: A Benchmark for X"
+- title: Siamese network-based multi-modal deepfake detection
+  authors: Raju Nekadi
+  venue: Master's thesis, University of Missouri–Kansas City, 2020
   description: >
-    What the benchmark measures, why existing ones fall short, and what it revealed.
+    Detecting deepfakes in both video and audio with a Siamese network. CNN detectors such as VGGNet
+    and InceptionNet need large training sets and high-end GPUs, and few studies address fake audio.
   links:
-    - { label: "Preprint'26", url: "https://arxiv.org/" }
-    - { label: GitHub, url: "https://github.com/rnekadi369" }
-
-- title: "Ongoing: Working Title of Current Project"
-  description: >
-    A short note on what you are exploring now. It is fine for this entry to have no links yet.
-  links: []
+    - { label: PDF, url: "https://mospace.umsystem.edu/bitstreams/95b3d6ff-30c6-4b74-8875-e4925a0f7a32/download" }
+    - { label: ProQuest, url: "https://search.proquest.com/openview/9e6caaaede55c1e1aa524af532af8f1c/1?pq-origsite=gscholar&cbl=51922&diss=y" }

@@ -2,6 +2,7 @@
 layout: post
 title: "Named Entities from Call Summaries: Why We Chose a Dictionary over an LLM"
 summary: "Why matching named entities from call summaries against a curated dictionary beat using an LLM for this job."
+project: call-intelligence
 date: 2026-10-28 09:03:00
 ---
 
