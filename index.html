@@ -43,14 +43,19 @@ title: Raju Nekadi
 <section id="blog">
   <div class="container">
     <h2>Blog</h2>
-    <ul class="post-list">
+    <div class="card-list">
       {% for post in blog_posts %}
-      <li class="post-row">
-        <time class="post-date" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y-%m-%d" }}</time>
-        <a class="post-title" href="{{ post.url | relative_url }}">{{ post.title }}</a>
-      </li>
+      <article class="card">
+        <h3 class="card-title"><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+        {% if post.summary %}<p class="card-authors">{{ post.summary }}</p>{% endif %}
+        <p class="card-venue"><em>Blog post · {{ post.date | date: "%B %-d, %Y" }}</em></p>
+        <div class="card-links">
+          <a class="pill" href="{{ post.url | relative_url }}">Blog</a>
+          {% for c in post.code %}<a class="pill" href="{{ c.url }}">{{ c.label }}</a>{% endfor %}
+        </div>
+      </article>
       {% endfor %}
-    </ul>
+    </div>
   </div>
 </section>
 {% endif %}
