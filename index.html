@@ -12,7 +12,7 @@ title: Raju Nekadi
         <li><a href="mailto:{{ site.email }}">Email</a></li>
         <li><a href="{{ site.github }}">GitHub</a></li>
         <li><a href="{{ site.linkedin }}">LinkedIn</a></li>
-        <li><a href="https://scholar.google.com/">Scholar</a></li>
+        <li><a href="{{ site.scholar }}">Scholar</a></li>
         <li><a href="{{ '/assets/cv.pdf' | relative_url }}">CV</a></li>
       </ul>
     </div>
@@ -40,11 +40,13 @@ title: Raju Nekadi
   </div>
 </section>
 
+{% assign blog_posts = site.posts | where_exp: "p", "p.project == nil" %}
+{% if blog_posts.size > 0 %}
 <section id="blog">
   <div class="container">
     <h2>Blog</h2>
     <ul class="post-list">
-      {% for post in site.posts %}
+      {% for post in blog_posts %}
       <li class="post-row">
         <time class="post-date" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y-%m-%d" }}</time>
         <a class="post-title" href="{{ post.url | relative_url }}">{{ post.title }}</a>
@@ -53,10 +55,12 @@ title: Raju Nekadi
     </ul>
   </div>
 </section>
+{% endif %}
 
-<section id="research" class="band">
+<section id="research"{% if blog_posts.size > 0 %} class="band"{% endif %}>
   <div class="container">
     <h2>Research</h2>
+    <p class="section-intro">Full list on <a href="{{ site.scholar }}">Google Scholar</a>.</p>
     <div class="card-list">
       {% for item in site.data.research %}{% include entry.html item=item %}{% endfor %}
     </div>

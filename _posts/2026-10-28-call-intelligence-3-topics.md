@@ -2,6 +2,7 @@
 layout: post
 title: "LLM as Teacher, XLNet as Student: Classifying Why Members Call"
 summary: "Using an LLM to label training data and a fine-tuned XLNet model to tag every call with the topics discussed."
+project: call-intelligence
 date: 2026-10-28 09:02:00
 ---
 

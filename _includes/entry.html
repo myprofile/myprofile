@@ -1,12 +1,16 @@
 <article class="card">
   <h3 class="card-title">{{ include.item.title }}</h3>
+  {% if include.item.authors %}
+  <p class="card-authors">{{ include.item.authors | replace: site.author, "<strong>Raju Nekadi</strong>" }}</p>
+  {% endif %}
+  {% if include.item.venue %}<p class="card-venue"><em>{{ include.item.venue }}</em></p>{% endif %}
   <p class="card-text">{{ include.item.description | strip }}</p>
   {% if include.item.tags and include.item.tags.size > 0 %}
   <p class="card-tags">{{ include.item.tags | join: " · " }}</p>
   {% endif %}
   {% if include.item.links and include.item.links.size > 0 %}
   <div class="card-links">
-    {% for l in include.item.links %}<a class="pill" href="{{ l.url }}">{{ l.label }}</a>{% endfor %}
+    {% for l in include.item.links %}<a class="pill" href="{% if l.url contains '://' %}{{ l.url }}{% else %}{{ l.url | relative_url }}{% endif %}">{{ l.label }}</a>{% endfor %}
   </div>
   {% endif %}
 </article>

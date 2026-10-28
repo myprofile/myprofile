@@ -1,5 +1,19 @@
 # One entry per project. Delete the examples and add your own.
 # Links appear in parentheses at the end of the paragraph, like the reference site.
+
+- title: Call Intelligence
+  description: >
+    A summary-first AI pipeline on GCP that reads about 300 million customer calls a year and turns each one
+    into structured data: why the member called, what they talked about, and whether it was resolved. An LLM
+    writes a structured summary of every call; a fine-tuned XLNet model, a keyword dictionary and SQL turn
+    those summaries into one BigQuery table that powers the team's dashboards. Written up as a four-part series.
+  links:
+    - { label: "Overview", url: "/posts/2026/10/28/call-intelligence-1-pipeline/" }
+    - { label: "Part 2: Summaries", url: "/posts/2026/10/28/call-intelligence-2-summaries/" }
+    - { label: "Part 3: Topics", url: "/posts/2026/10/28/call-intelligence-3-topics/" }
+    - { label: "Part 4: Entities", url: "/posts/2026/10/28/call-intelligence-4-entities/" }
+  tags: [gcp, bigquery, gemini, xlnet, airflow]
+
 - title: Example Tool
   description: >
     What it does, who it's for, and one concrete number if you have one (users, stars, latency, size).

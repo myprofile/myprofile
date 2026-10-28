@@ -142,3 +142,9 @@ footer p { margin: 0; }
 .highlight .nd { color: #6b2d8b; }
 .highlight .na, .highlight .nv, .highlight .vi { color: #1f4e8c; }
 .highlight .err { color: inherit; background: none; }
+
+/* Paper details on research cards */
+.card-authors { margin: 0 0 .15rem; font-size: .92rem; color: var(--text-muted); font-weight: 300; }
+.card-authors strong { color: var(--text); font-weight: 600; }
+.card-venue { margin: 0 0 .5rem; font-size: .9rem; color: var(--text-muted); }
+.section-intro { margin: -1.25rem 0 1.5rem; color: var(--text-muted); }

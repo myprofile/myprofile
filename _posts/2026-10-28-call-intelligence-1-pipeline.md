@@ -2,6 +2,7 @@
 layout: post
 title: "How We Turn 300 Million Calls a Year into Actionable Insights"
 summary: "An end-to-end look at the summary-first pipeline on GCP that reads every call, about 820,000 a day, and turns it into one table that tells us why people call and what to fix."
+project: call-intelligence
 date: 2026-10-28 09:00:00
 ---
 
