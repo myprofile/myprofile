@@ -23,7 +23,7 @@
 <text class="dg-h" x="32" y="334">CALL360 API · PER REQUEST</text>
 <rect class="dg-model" x="32" y="352" width="224" height="60" rx="6"/><text class="dg-t" x="144" y="377">Few-shot selection</text><text class="dg-s" x="144" y="396">SBERT · ONNX INT8</text>
 <rect class="dg-llm" x="288" y="352" width="224" height="60" rx="6"/><text class="dg-t" x="400" y="377">Step 1 · Summarize</text><text class="dg-s" x="400" y="396">Gemini</text>
-<rect class="dg-llm" x="544" y="352" width="224" height="60" rx="6"/><text class="dg-t" x="656" y="377">Step 2 · Format JSON</text><text class="dg-s" x="656" y="396">Gemini 2.5 Flash-Lite · thinking off</text>
+<rect class="dg-llm" x="544" y="352" width="224" height="60" rx="6"/><text class="dg-t" x="656" y="377">Step 2 · Format JSON</text><text class="dg-s" x="656" y="396">Gemini 2.5 Flash-Lite</text>
 <path class="dg-line" d="M256 382 H288" marker-end="url(#c360-arch-head)"/>
 <path class="dg-line" d="M512 382 H544" marker-end="url(#c360-arch-head)"/>
 <path class="dg-line" d="M656 412 V448 H400 V464" marker-end="url(#c360-arch-head)"/>
