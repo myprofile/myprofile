@@ -12,3 +12,13 @@
     - { label: "Part 3: Topics", url: "/posts/2026/10/28/call-intelligence-3-topics/" }
     - { label: "Part 4: Entities", url: "/posts/2026/10/28/call-intelligence-4-entities/" }
   tags: [gcp, bigquery, gemini, xlnet, airflow]
+
+- title: Call360
+  description: >
+    A real-time context API that gives customer service reps a member's full story before they say hello.
+    Daily pipelines unify calls, claims, Rx, prior authorizations and grievances into one member view in
+    BigQuery; a Bigtable serving layer keyed by member ID returns it in under 30 ms; and a two-step Gemini
+    path turns it into short, personalized talking points in the agent desktop.
+  links:
+    - { label: "Read the write-up", url: "/posts/2026/10/30/call360/" }
+  tags: [gcp, bigtable, bigquery, gemini, airflow]
