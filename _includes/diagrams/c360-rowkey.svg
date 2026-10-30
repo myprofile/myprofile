@@ -9,13 +9,13 @@
 <g>
 <rect class="dg-model" x="140" y="68" width="230" height="56"/><text class="dg-mono" x="152" y="100">MBR-000123#2025-01-15</text>
 <rect class="dg-model" x="370" y="68" width="220" height="56"/><text class="dg-mono" x="382" y="92">reason: refill delay</text><text class="dg-mono" x="382" y="110">outcome: check pharmacy</text>
-<rect class="dg-model" x="590" y="68" width="194" height="56"/><text class="dg-mono" x="602" y="92">age_band: 65–70</text><text class="dg-mono" x="602" y="110">plan_type: Medicare</text>
+<rect class="dg-model" x="590" y="68" width="194" height="56"/><text class="dg-mono" x="602" y="100">age_band: 65–70</text>
 <rect class="dg-model" x="140" y="124" width="230" height="56"/><text class="dg-mono" x="152" y="156">MBR-000123#2025-01-08</text>
 <rect class="dg-model" x="370" y="124" width="220" height="56"/><text class="dg-mono" x="382" y="148">reason: ID card</text><text class="dg-mono" x="382" y="166">outcome: resolved</text>
 <rect class="dg-model" x="590" y="124" width="194" height="56"/><text class="dg-mono dg-faint" x="602" y="156">(unchanged)</text>
 <rect class="dg-data" x="140" y="180" width="230" height="56"/><text class="dg-mono dg-faint" x="152" y="212">MBR-000456#2025-01-14</text>
 <rect class="dg-data" x="370" y="180" width="220" height="56"/><text class="dg-mono dg-faint" x="382" y="212">reason: billing</text>
-<rect class="dg-data" x="590" y="180" width="194" height="56"/><text class="dg-mono dg-faint" x="602" y="212">plan_type: Commercial</text>
+<rect class="dg-data" x="590" y="180" width="194" height="56"/><text class="dg-mono dg-faint" x="602" y="212">age_band: 40–45</text>
 </g>
 <path d="M126 72 H118 V176 H126" fill="none" stroke="var(--accent)" stroke-width="2"/>
 <text class="dg-s" x="62" y="114" style="fill:var(--accent);font-weight:600">prefix scan</text>
