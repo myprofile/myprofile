@@ -1,0 +1,20 @@
+<svg viewBox="0 0 800 318" role="img" aria-labelledby="c360-tp-title c360-tp-desc" xmlns="http://www.w3.org/2000/svg">
+<title id="c360-tp-title">Mock talking points panel</title>
+<desc id="c360-tp-desc">A mock agent desktop panel for Jane Doe, member MBR-000123, Medicare, showing four talking points: a recently denied non-preferred prescription, a previous refill-delay call to confirm, a prior authorization approved after 5 days, and an open billing grievance to check.</desc>
+<rect x="16" y="8" width="768" height="300" rx="10" fill="#ffffff" stroke="#c9c9c9" stroke-width="1.25"/>
+<path d="M16 18 a10 10 0 0 1 10 -10 H774 a10 10 0 0 1 10 10 V52 H16 z" fill="var(--accent)"/>
+<text x="36" y="36" style="font-size:15px;font-weight:600;fill:#ffffff">Call360 · Member context</text>
+<text x="764" y="36" text-anchor="end" style="font-size:12px;fill:#e4d3ee">MOCK DATA</text>
+<text x="36" y="82" style="font-size:16px;font-weight:600;fill:var(--text)">Jane Doe</text>
+<text class="dg-mono" x="120" y="82" style="font-size:12px;fill:var(--text-muted)">MBR-000123 · Medicare · age 65–70</text>
+<rect x="36" y="96" width="728" height="1" fill="#e5e5e5"/>
+<text class="dg-h" x="36" y="122">TALKING POINTS</text>
+<g style="font-size:14px;fill:var(--text)">
+<circle cx="44" cy="148" r="4" fill="var(--accent)"/><text x="58" y="153">Member may be calling about a recently denied prescription for a non-preferred drug.</text>
+<circle cx="44" cy="180" r="4" fill="var(--accent)"/><text x="58" y="185">Previous call was about a refill delay; confirm whether it has been resolved.</text>
+<circle cx="44" cy="212" r="4" fill="var(--accent)"/><text x="58" y="217">Prior authorization was approved after 5 days; member may want confirmation.</text>
+<circle cx="44" cy="244" r="4" fill="var(--accent)"/><text x="58" y="249">There is an open billing grievance; check its status before the call.</text>
+</g>
+<rect x="36" y="268" width="728" height="1" fill="#e5e5e5"/>
+<text class="dg-l" x="36" y="292">Sources: medical claims · Rx claims · prior auth · grievances · past calls</text>
+</svg>
