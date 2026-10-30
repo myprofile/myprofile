@@ -1,0 +1,368 @@
+# Under 30 ms to Know a Member: How I Built Call360, a Real-Time Context API for Customer Service
+
+**Alternative titles:**
+1. From 8 Data Warehouses to One Row Key: Designing a Low-Latency LLM Context Service
+2. BigQuery for History, Bigtable for Speed: The Two-Layer Pattern Behind Call360
+3. Don't Pay for Thinking You Don't Need: Cutting LLM Latency in a Production API
+
+**Subtitle:** *How I combined a config-driven data pipeline, a carefully designed Bigtable row key, and two small LLM optimizations to give customer service reps instant, personalized talking points.*
+
+---
+
+## A rep has seconds
+
+The phone rings. On the other end is Jane Doe, a Medicare member in her late 60s.
+
+In the last few weeks, Jane had a routine office visit. Her pharmacy rejected a prescription because the drug wasn't on the preferred list. A prior authorization was approved after five days. She has an open billing grievance, and she already called once about a delayed refill.
+
+*(Mock data – for illustration only.)*
+
+That history exists, but it's spread across claims, pharmacy, authorization, grievance, and call systems. The rep has a few seconds to understand it before saying hello.
+
+**Call360** is the service I built to solve this. It turns a member's recent healthcare activity and past calls into short, personalized talking points. The talking points appear in the agent desktop and case-prep tools reps already use, through a real-time API.
+
+This post covers the data foundation, the storage decision, and the latency work that made it fast enough to be useful.
+
+---
+
+## Architecture overview
+
+At a high level, Call360 has three layers:
+
+1. **Data pipelines** unify member activity from many domains into a member-centric view, refreshed daily.
+2. **A two-layer storage pattern** keeps BigQuery for full-history analytics and Bigtable for millisecond lookups.
+3. **An LLM serving layer** calls Gemini on Vertex AI in two steps, summarization and then formatting, and returns talking points to the rep.
+
+[DIAGRAM: End-to-end architecture]
+
+```mermaid
+flowchart LR
+    subgraph Sources
+        A1[Call summaries<br/>multiple LOBs]
+        A2[Medical Claims]
+        A3[Rx Claims]
+        A4[Prior Authorization]
+        A5[Grievances]
+        A6[Surveys]
+    end
+
+    subgraph Layer1["Layer 1 – BigQuery (full history, reporting)"]
+        B[Domain pipelines<br/>Airflow / Cloud Composer<br/>population → enrich → status buckets → global ID]
+    end
+
+    subgraph Layer2["Layer 2 – Bigtable (90-day window, real-time)"]
+        C[Factory DAG<br/>Dataproc Serverless PySpark<br/>row key = memberId#eventDate]
+    end
+
+    subgraph Serving["Call360 API"]
+        D[Few-shot selection<br/>SBERT ONNX INT8]
+        E[Step 1: Summarize<br/>Gemini]
+        F[Step 2: Format JSON<br/>Gemini 2.5 Flash-Lite<br/>thinkingBudget=0]
+    end
+
+    G[Agent desktop<br/>CSR talking points]
+
+    A1 & A2 & A3 & A4 & A5 & A6 --> B --> C --> D --> E --> F --> G
+```
+
+---
+
+## The two-layer data pattern
+
+The core idea is simple: **store the data in the shape it's read in.**
+
+| Layer | Store | Holds | Used for |
+|---|---|---|---|
+| 1 | BigQuery | Analytics-ready tables, full history | Reporting and analysis |
+| 2 | Bigtable | Key-value data, 90-day window (TTL), up to 2 versions per column | Real-time API lookups |
+
+All sources go into one **member-centric view keyed by member ID**: call summaries from several lines of business, plus Medical Claims, Rx Claims, Prior Authorization, Grievances, and surveys. The view refreshes daily.
+
+BigQuery is the system of record for history. Bigtable is a narrow, fast window of what's relevant right now. The TTL keeps the serving layer lean on its own, so I don't need cleanup jobs.
+
+---
+
+## The reusable pipeline framework
+
+Every domain is different, but I didn't want a different pipeline for each one. So every BigQuery domain pipeline follows the same four-step skeleton, orchestrated in Airflow on Cloud Composer:
+
+1. **Build the eligible member population**
+2. **Join domain events**, then filter and enrich them
+3. **Aggregate by status bucket** and map each member to an enterprise-wide global ID
+4. **Final insert** into production
+
+### Status buckets: making data readable for the LLM
+
+This was one of the most useful design choices. I don't hand the LLM raw status codes. Events are aggregated with `STRING_AGG` into human-readable text columns, such as paid, denied, and other claims, or approved, denied, and partially approved prior auths.
+
+The output is already close to natural language, so the LLM needs less prompting to interpret it.
+
+Rx has one extra enrichment step that resolves drug codes into readable drug names, for the same reason.
+
+### Identity normalization
+
+Different source systems identify members differently. A cross-reference table maps every source ID to a **single global member ID**, which becomes the key for everything downstream.
+
+### Safe, observable, re-runnable
+
+The operational features matter as much as the SQL:
+
+- **Two-step final insert.** A base SQL script builds staging tables inside a `BEGIN...EXCEPTION...END` block. A separate final insert follows, so an audit step can run in between.
+- **Run isolation.** `run_id = config_id + dag_run_id` keeps concurrent runs from colliding.
+- **Audit framework.** It tracks `RUNNING / SUCCESS / FAILED / ABORTED`, works out the next date window from the last successful run, blocks duplicate concurrent runs, and records source and target row counts.
+- **Two modes.** `DAILY` for normal operation and `BACKFILL` for history.
+- **Observability.** Row-count metrics go to Cloud Logging, and callbacks send success and failure emails.
+
+### The Bigtable factory DAG
+
+To load Bigtable, I wrote **one config-driven "factory" DAG**. It reads a YAML registry and generates one Airflow DAG per datasource, which is 14 datasources with no custom code per domain.
+
+Each domain has two YAML configs, one for the BigQuery source and one for the Bigtable target, and both are validated with Pydantic. The job runs on Dataproc Serverless (PySpark):
+
+**Extract → Transform** (drop null keys, build the row key) **→ Load** in batches of 1,000.
+
+Incremental loads use a `load_log_key` watermark, so each run only picks up rows newer than the last successful run. As a safety net, dev runs automatically write to `_temp` tables and can never overwrite prod.
+
+*Sample config (Mock data – for illustration only):*
+
+```yaml
+# registry entry: call_summaries
+source:
+  type: bigquery
+  project: analytics_project
+  table: member_call_summary
+  watermark_column: load_log_key
+target:
+  type: bigtable
+  table: member_context_table
+  column_family: call_summary
+  row_key:
+    fields: [member_id, event_date]
+    separator: "#"
+  batch_size: 1000
+```
+
+*Sample row-key builder (Mock data – for illustration only):*
+
+```python
+def build_row_key(member_id: str, event_date: str) -> str:
+    # High-cardinality member ID first to avoid hotspotting;
+    # date second enables per-member prefix and range scans.
+    if not member_id or not event_date:
+        raise ValueError("Null keys are dropped before load")
+    return f"{member_id}#{event_date}"
+
+build_row_key("MBR-000123", "2025-01-15")  # -> "MBR-000123#2025-01-15"
+```
+
+### Row key and column families
+
+Bigtable has one index, the row key, so the row key *is* the design.
+
+- **`memberId#eventDate`**. The high-cardinality member ID comes first, which spreads writes evenly and avoids hotspots. The date comes second, which allows prefix scans for a whole member or range scans by date.
+- **One column family per source**, for example `call_summary` and `member_details`. Adding a new source means adding a new column family, with no schema change.
+
+[DIAGRAM: Bigtable row-key / column-family layout]
+
+```mermaid
+flowchart TB
+    subgraph T["member_context_table (Mock data – for illustration only)"]
+        R1["Row key: MBR-000123#2025-01-15"]
+        R1 --> CF1["CF: call_summary<br/>reason: refill delay<br/>outcome: escalated to pharmacy"]
+        R1 --> CF2["CF: member_details<br/>age_band: 65–70<br/>plan_type: Medicare"]
+        R2["Row key: MBR-000123#2025-01-08"]
+        R2 --> CF3["CF: call_summary<br/>..."]
+    end
+    Q["Prefix scan: MBR-000123#"] -.-> R1
+    Q -.-> R2
+```
+
+---
+
+## Choosing Bigtable: the benchmarks
+
+Before committing, I benchmarked the realistic options on **5 million records**.
+
+| Read pattern | Bigtable | Spanner |
+|---|---|---|
+| By member ID | ~26.6 ms | ~620–660 ms |
+| By member ID + call date | ~27.1 ms | ~620–660 ms |
+| By member ID + LOB | ~28.9 ms | ~620–660 ms |
+| Batch write (per record) | ~0.57 ms | ~0.17 ms |
+
+Spanner was faster for batch writes. But Call360 is a **read-heavy** API, and writes happen in daily batches, so reads won.
+
+I also ruled out two other options:
+
+- **BigQuery for serving.** Each request would need data from 8+ warehouses, aggregated in memory, which adds latency on every call.
+- **A relational database.** It adds overhead we don't need for what is basically a lookup by member ID.
+
+**Honest trade-offs:**
+
+- **One index.** Any access pattern that doesn't start with the member ID is expensive.
+- **Object size.** Member objects can grow large.
+- **Multi-region disaster recovery takes extra design.** Options I considered were dual writes, change streams with Dataflow, and periodic dump and load. [ADD DETAIL: which approach you chose, if any]
+
+---
+
+## Walkthrough: one member, end to end
+
+Here is Jane Doe's path through the system. **Everything below is mock data, for illustration only.**
+
+### 1. BigQuery output row
+
+```json
+{
+  "global_member_id": "MBR-000123",
+  "paid_med_claims": "Routine office visit – paid",
+  "denied_rx_claims": "Non-preferred drug – denied",
+  "approved_prior_auth": "Prior authorization – approved after 5 days",
+  "open_grievances": "Billing question – open",
+  "snapshot_date": "2025-01-15"
+}
+```
+
+### 2. Bigtable row
+
+```
+Row key: MBR-000123#2025-01-15
+  call_summary:reason        = "Refill delay"
+  call_summary:outcome       = "Member advised to check back with pharmacy"
+  member_details:age_band    = "65-70"
+  member_details:plan_type   = "Medicare"
+```
+
+### 3. Summarization prompt
+
+```
+SYSTEM:
+You are an assistant that helps customer service representatives prepare
+for calls. Using only the member context provided, write a brief summary of
+the member's recent activity and likely reasons for calling. Do not guess.
+Do not include information that isn't in the context.
+
+EXAMPLE (few-shot):
+Context: Paid claim for lab work; one prior call about an ID card.
+Summary: Member recently had lab work that was paid. They called before
+about an ID card, so they may be following up on that.
+
+MEMBER CONTEXT:
+- Paid medical claim: routine office visit
+- Denied Rx claim: non-preferred drug
+- Prior authorization: approved after 5 days
+- Open grievance: billing question
+- Prior call: refill delay
+```
+
+### 4. Formatter prompt
+
+```
+Convert the summary below into JSON with exactly this schema:
+{"member_id": string, "talking_points": [string]}
+Rules:
+- 3 to 5 talking points, each under 25 words.
+- No text outside the JSON.
+- Do not add facts that are not in the summary.
+```
+
+### 5. Final API response
+
+```json
+{
+  "member_id": "MBR-000123",
+  "talking_points": [
+    "Member may be calling about a recently denied prescription for a non-preferred drug.",
+    "Previous call was about a refill delay; confirm whether it has been resolved.",
+    "Prior authorization was approved after 5 days; member may want confirmation.",
+    "There is an open billing grievance; check its status before the call."
+  ]
+}
+```
+
+[SCREENSHOT: Mock CSR talking-points panel in the agent desktop, showing only Jane Doe (MBR-000123)]
+
+---
+
+## Making the LLM fast
+
+With storage reads under 30 ms, the latency budget was now dominated by the LLM path. Two changes made the biggest difference.
+
+### Optimization 1: Quantizing the few-shot selector
+
+Few-shot examples are chosen with an SBERT model in ONNX format. That step alone added **3–5 seconds**.
+
+I converted the model from FP32 to **INT8** with post-training quantization:
+
+- Model size: **~90 MB → ~22 MB** (about 75% smaller)
+- Expected inference speedup: **2–4×**
+- Expected accuracy retention: **~98–99%**
+
+*The speed and accuracy figures are estimates based on typical INT8 quantization results, not measured production numbers.* [ADD DETAIL: your measured before/after latency, if available]
+
+Quantization works because neural networks tolerate small losses in numerical precision, and most weights don't need 32 bits.
+
+### Optimization 2: Stop paying for reasoning you don't need
+
+The formatting step was running on `gemini-2.0-flash-001` and taking **~3–4 seconds**. But formatting is deterministic. The model doesn't need to *think*; it needs to follow a schema.
+
+I switched it to **Gemini 2.5 Flash-Lite with thinking disabled**:
+
+```python
+# Formatter config (illustrative)
+generation_config = {
+    "model": "gemini-2.5-flash-lite",
+    "thinking_budget": 0,        # disable internal reasoning
+    "temperature": 0.0,          # deterministic output
+    "max_output_tokens": 512,    # short, structured output
+    "top_p": 0.95
+}
+```
+
+**Result: ~1.07 s average** for the formatting step.
+
+[SCREENSHOT: Before/after latency logs for the formatter step, mock requests only]
+
+**Lesson:** match the model to the task. Use the more capable model for summarization, and use the fastest, cheapest model with thinking disabled for formatting.
+
+---
+
+## Lessons learned
+
+1. **Design storage around the read pattern.** One well-chosen row key beat a more flexible database by more than 20× on reads.
+2. **Make data LLM-ready upstream.** Human-readable status buckets and drug names simplify the prompts and reduce misinterpretation.
+3. **Config beats code.** One factory DAG and a YAML registry handled 14 datasources.
+4. **Operational safety is a feature.** Audit states, run isolation, watermarks, and `_temp` dev tables prevented whole classes of incidents.
+5. **Split LLM work by difficulty.** Don't use a reasoning model where a template-follower will do.
+6. **Be honest about trade-offs.** A single index, growing objects, and DR are real costs of Bigtable.
+
+---
+
+## What's next
+
+- **Vertex AI context caching** for repeated prompt content (currently being explored)
+- **Multi-region DR** design for the serving layer
+- [ADD DETAIL: other planned work]
+
+Prompt configuration, meaning services, model parameters, and few-shot examples per campaign, is already managed as schema-flexible config. That makes it easier to try these changes without redeploying code.
+
+---
+
+## Conclusion
+
+Call360 isn't one clever model. It's a set of plain engineering decisions that add up: a unified member view, a row key built for the main query, a pipeline framework that makes every new source boring to add, and an LLM path tuned so each step does only what it needs.
+
+The result is that when Jane Doe calls, the rep already knows why.
+
+*If you're building LLM features on enterprise data, I'd love to hear how you're handling serving latency. Leave a comment or connect with me.*
+
+---
+
+*All data and prompts in this post are fictional and for illustration only. Views are my own.*
+
+---
+
+**Tags:** Data Engineering · Google Cloud · Bigtable · LLM · Generative AI
+
+**LinkedIn teaser:**
+
+> How do you give a customer service rep a member's full story in seconds? I wrote about how Call360 uses BigQuery, Bigtable, and two simple LLM optimizations to get reads under 30 ms and cut formatter latency to ~1 s.
