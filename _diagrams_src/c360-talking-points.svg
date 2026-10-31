@@ -1,0 +1,18 @@
+<svg viewBox="0 0 800 282" role="img" aria-labelledby="c360-tp-title c360-tp-desc" xmlns="http://www.w3.org/2000/svg">
+<title id="c360-tp-title">Mock talking points panel</title>
+<desc id="c360-tp-desc">A mock agent desktop panel for Jane Doe, member MBR-000123, showing four talking points: a recently denied non-preferred prescription, a previous refill-delay call to confirm, a prior authorization approved after 5 days, and an open billing grievance to check.</desc>
+<rect class="dg-data" x="16" y="8" width="768" height="264" rx="10"/>
+<rect class="dg-key" x="16" y="8" width="768" height="46" rx="10"/>
+<text x="36" y="37" style="font-size:16px;fill:#ffffff">Call360 · Member context</text>
+<text x="764" y="37" text-anchor="end" style="font-size:12px;fill:#e4d3ee">MOCK DATA</text>
+<text x="36" y="86" style="font-size:17px;fill:#1e1e1e">Jane Doe</text>
+<text class="dg-mono" x="136" y="86" style="font-size:12px;fill:var(--accent)">MBR-000123 · age 65–70</text>
+<rect class="dg-llm" x="30" y="102" width="740" height="156" rx="8"/>
+<text class="dg-h" x="46" y="126">TALKING POINTS</text>
+<g style="font-size:14px;fill:#1e1e1e">
+<circle cx="52" cy="149" r="4" fill="var(--accent)"/><text x="66" y="154">Member may be calling about a recently denied prescription for a non-preferred drug.</text>
+<circle cx="52" cy="178" r="4" fill="var(--accent)"/><text x="66" y="183">Previous call was about a refill delay; confirm whether it has been resolved.</text>
+<circle cx="52" cy="207" r="4" fill="var(--accent)"/><text x="66" y="212">Prior authorization was approved after 5 days; member may want confirmation.</text>
+<circle cx="52" cy="236" r="4" fill="var(--accent)"/><text x="66" y="241">There is an open billing grievance; check its status before the call.</text>
+</g>
+</svg>
