@@ -1,0 +1,49 @@
+<svg viewBox="0 0 800 372" role="img" aria-labelledby="ga-wicked-problem-title ga-wicked-problem-desc" xmlns="http://www.w3.org/2000/svg">
+<title id="ga-wicked-problem-title">Wicked problem loop</title>
+<desc id="ga-wicked-problem-desc">Wicked problems, in three columns. In reality: intervene (a policy, a feature), the world changes and remembers it, a new problem appears, and you try the next fix, in a loop with no rewind: each attempt is the only one. Examples in the margin: social media, where feed leads to outrage, moderation, then bias claims; and the pandemic, where lockdown leads to harm, relaxing, then lost trust. What makes it wicked: no finish line (you cannot even state the problem precisely, so you never know you are done); no right answer (only better or worse, and no quick test); and one shot (every real attempt changes the world), highlighted as the reason simulation helps. In simulation: the same starting world is saved, rule A and rule B each run to give world A and world B, and you compare them. Rerun, intervene, compare, as many times as you can afford.</desc>
+<defs><marker id="ga-wicked-problem-head" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="dg-head"/></marker></defs>
+<text class="dg-t" x="240" y="30" style="font-size:18px">in reality</text>
+<text class="dg-t" x="512" y="30" style="font-size:18px">what makes it wicked</text>
+<text class="dg-t" x="702" y="30" style="font-size:18px">in simulation</text>
+<text class="dg-l" x="16" y="150" style="fill:#7950f2">social media:</text>
+<text class="dg-l" x="16" y="166" style="fill:#7950f2">feed → outrage →</text>
+<text class="dg-l" x="16" y="182" style="fill:#7950f2">moderation → bias</text>
+<text class="dg-l" x="16" y="198" style="fill:#7950f2">claims</text>
+<text class="dg-l" x="16" y="232" style="fill:#7950f2">pandemic:</text>
+<text class="dg-l" x="16" y="248" style="fill:#7950f2">lockdown → harm →</text>
+<text class="dg-l" x="16" y="264" style="fill:#7950f2">relax → lost trust</text>
+<rect class="dg-model" x="150" y="52" width="180" height="58" rx="8"/><text class="dg-t" x="240" y="77">intervene</text><text class="dg-t" x="240" y="96">(a policy, a feature)</text>
+<rect class="dg-data" x="150" y="162" width="180" height="58" rx="8"/><text class="dg-t" x="240" y="187">the world changes</text><text class="dg-t" x="240" y="206">and remembers it</text>
+<rect class="dg-llm" x="150" y="272" width="180" height="58" rx="8"/><text class="dg-t" x="240" y="297">a new problem</text><text class="dg-t" x="240" y="316">appears</text>
+<path class="dg-line" d="M240 110 V162" marker-end="url(#ga-wicked-problem-head)"/>
+<path class="dg-line" d="M240 220 V272" marker-end="url(#ga-wicked-problem-head)"/>
+<path class="dg-line" d="M330 301 H356 V81 H330" marker-end="url(#ga-wicked-problem-head)"/>
+<text class="dg-l" x="364" y="186">try the</text><text class="dg-l" x="364" y="202">next fix</text>
+<text class="dg-s" x="240" y="358" style="fill:#7950f2">no rewind: each attempt is the only one</text>
+<rect class="dg-data" x="422" y="52" width="180" height="84" rx="8"/>
+<text class="dg-t" x="512" y="74">no finish line</text>
+<text class="dg-s" x="512" y="90">you cannot even state the</text>
+<text class="dg-s" x="512" y="106">problem precisely, so you</text>
+<text class="dg-s" x="512" y="122">never know you are done</text>
+<rect class="dg-data" x="422" y="150" width="180" height="84" rx="8"/>
+<text class="dg-t" x="512" y="180">no right answer</text>
+<text class="dg-s" x="512" y="196">only better or worse,</text>
+<text class="dg-s" x="512" y="212">and no quick test</text>
+<rect class="dg-key" x="422" y="248" width="180" height="84" rx="8"/>
+<text class="dg-t dg-on-key" x="512" y="278">one shot</text>
+<text class="dg-s dg-on-key" x="512" y="294">every real attempt</text>
+<text class="dg-s dg-on-key" x="512" y="310">changes the world</text>
+<text class="dg-s" x="512" y="356" style="fill:var(--accent)">← this one is why simulation helps</text>
+<ellipse class="dg-data" cx="702" cy="82" rx="80" ry="32"/><text class="dg-t" x="702" y="79">same starting</text><text class="dg-t" x="702" y="96">world, saved</text>
+<path class="dg-line" d="M680 114 L656 150" marker-end="url(#ga-wicked-problem-head)"/>
+<path class="dg-line" d="M724 114 L748 150" marker-end="url(#ga-wicked-problem-head)"/>
+<rect class="dg-model" x="622" y="150" width="68" height="42" rx="8"/><text class="dg-t" x="656" y="176">rule A</text>
+<rect class="dg-llm" x="714" y="150" width="68" height="42" rx="8"/><text class="dg-t" x="748" y="176">rule B</text>
+<path class="dg-line" d="M656 192 V232" marker-end="url(#ga-wicked-problem-head)"/>
+<path class="dg-line" d="M748 192 V232" marker-end="url(#ga-wicked-problem-head)"/>
+<text class="dg-l" x="662" y="216">run</text><text class="dg-l" x="754" y="216">run</text>
+<rect class="dg-model" x="622" y="232" width="68" height="42" rx="8"/><text class="dg-t" x="656" y="258">world A</text>
+<rect class="dg-llm" x="714" y="232" width="68" height="42" rx="8"/><text class="dg-t" x="748" y="258">world B</text>
+<path class="dg-line" d="M656 274 V286 H748 V274"/><text class="dg-s" x="702" y="302">compare</text>
+<text class="dg-s" x="702" y="326" style="fill:var(--accent)">rerun · intervene · compare,</text><text class="dg-s" x="702" y="342" style="fill:var(--accent)">as many times as you can afford</text>
+</svg>

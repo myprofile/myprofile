@@ -1,0 +1,50 @@
+<svg viewBox="0 0 800 500" role="img" aria-labelledby="ga-arch-title ga-arch-desc" xmlns="http://www.w3.org/2000/svg">
+<title id="ga-arch-title">Generative agent architecture</title>
+<desc id="ga-arch-desc">The environment (town map, objects, other agents, clock) feeds perceive, which writes to the memory stream: an append-only list of natural-language records. Example records for Trang: observation 08:02 Trang reviews a case file; observation 08:10 study group meets; plan 13:00 law clinic hours, 180 minutes; observation 13:04 drafting a case memo; reflection I believe in grassroots work. Each record holds its text, when it was created and last accessed, an importance score and an embedding. Reflect reads about 100 recent records, asks questions and writes insights back, triggered when the summed importance of new memories passes a threshold. Plan works at day, hour and 5 to 15 minute levels, re-plans on surprise, and plans are written back as memories too. Retrieve takes the top-k records by score into scratch memory, the working set that fits in the prompt; the LLM turns it into an act, which says something, moves, or changes an object in the environment. Everything is a memory: perceptions, plans and reflections share one stream, and every action is built from what retrieval reads back out.</desc>
+<defs><marker id="ga-arch-head" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="dg-head"/></marker></defs>
+<rect class="dg-data" x="16" y="110" width="100" height="170" rx="10"/>
+<text class="dg-t" x="66" y="150">environment</text>
+<text class="dg-s" x="66" y="182">town map,</text><text class="dg-s" x="66" y="198">objects, other</text><text class="dg-s" x="66" y="214">agents, clock</text>
+<rect class="dg-model" x="136" y="167" width="90" height="56" rx="8"/><text class="dg-t" x="181" y="200">perceive</text>
+<path class="dg-line" d="M116 195 H136" marker-end="url(#ga-arch-head)"/>
+<path class="dg-line" d="M226 195 H264" marker-end="url(#ga-arch-head)"/>
+<text class="dg-l" x="245" y="186" style="text-anchor:middle">write</text>
+<rect class="dg-data" x="264" y="50" width="286" height="300" rx="12"/>
+<text class="dg-t" x="407" y="76" style="font-size:16px">memory stream</text>
+<text class="dg-s" x="407" y="94" style="fill:#7950f2">append-only, natural language</text>
+<rect class="dg-model" x="276" y="106" width="38" height="24" rx="3"/><text class="dg-s" x="295" y="122">obs</text><text class="dg-s" x="324" y="122" style="text-anchor:start;font-size:12.5px">08:02 Trang reviews a case file</text>
+<rect class="dg-model" x="276" y="140" width="38" height="24" rx="3"/><text class="dg-s" x="295" y="156">obs</text><text class="dg-s" x="324" y="156" style="text-anchor:start;font-size:12.5px">08:10 study group meets</text>
+<rect class="dg-llm" x="276" y="174" width="38" height="24" rx="3"/><text class="dg-s" x="295" y="190">plan</text><text class="dg-s" x="324" y="190" style="text-anchor:start;font-size:12.5px">13:00 law clinic hours, 180 min</text>
+<rect class="dg-model" x="276" y="208" width="38" height="24" rx="3"/><text class="dg-s" x="295" y="224">obs</text><text class="dg-s" x="324" y="224" style="text-anchor:start;font-size:12.5px">13:04 drafting a case memo</text>
+<rect class="dg-key" x="276" y="242" width="38" height="24" rx="3"/><text class="dg-s dg-on-key" x="295" y="258" style="fill:#ffffff">refl</text><text class="dg-s" x="324" y="258" style="text-anchor:start;font-size:12.5px">I believe in grassroots work</text>
+<rect class="dg-model" x="276" y="276" width="38" height="24" rx="3"/><text class="dg-s" x="295" y="292">obs</text><text class="dg-s" x="324" y="292" style="text-anchor:start;font-size:12.5px">…</text>
+<text class="dg-l" x="407" y="322" style="text-anchor:middle;fill:#7950f2">record = text · created · last accessed</text>
+<text class="dg-l" x="407" y="338" style="text-anchor:middle;fill:#7950f2">· importance · embedding</text>
+<rect class="dg-llm" x="600" y="10" width="184" height="70" rx="8"/>
+<text class="dg-t" x="692" y="32">plan</text><text class="dg-s" x="692" y="51">day → hour → 5–15 min</text><text class="dg-s" x="692" y="68">re-plan on surprise</text>
+<path class="dg-line" d="M600 30 H407 V50" stroke-dasharray="6 5" marker-end="url(#ga-arch-head)"/>
+<text class="dg-l" x="500" y="23" style="text-anchor:middle">plans are memories too</text>
+<rect class="dg-llm" x="600" y="96" width="184" height="68" rx="8"/>
+<text class="dg-t" x="692" y="116">reflect</text><text class="dg-s" x="692" y="135">~100 recent → questions</text><text class="dg-s" x="692" y="152">→ insights</text>
+<path class="dg-line" d="M550 118 H600" stroke-dasharray="5 4" marker-end="url(#ga-arch-head)"/>
+<path class="dg-line" d="M600 146 H550" stroke-dasharray="5 4" marker-end="url(#ga-arch-head)"/>
+<text class="dg-l" x="575" y="112" style="text-anchor:middle">read</text>
+<text class="dg-l" x="575" y="164" style="text-anchor:middle">write</text>
+<text class="dg-l" x="692" y="182" style="text-anchor:middle;fill:#7950f2">trigger: Σ importance of new</text>
+<text class="dg-l" x="692" y="197" style="text-anchor:middle;fill:#7950f2">memories &gt; threshold</text>
+<rect class="dg-data" x="600" y="212" width="184" height="52" rx="8"/>
+<text class="dg-t" x="692" y="234">retrieve</text><text class="dg-s" x="692" y="252">top-k by score</text>
+<path class="dg-line" d="M550 238 H600" marker-end="url(#ga-arch-head)"/>
+<rect class="dg-model" x="600" y="290" width="184" height="64" rx="8"/>
+<text class="dg-t" x="692" y="312">scratch memory</text><text class="dg-s" x="692" y="330">the working set that</text><text class="dg-s" x="692" y="345">fits in the prompt</text>
+<path class="dg-line" d="M692 264 V290" marker-end="url(#ga-arch-head)"/>
+<path class="dg-line" d="M784 322 H794 V45 H784" stroke-dasharray="5 4" marker-end="url(#ga-arch-head)"/>
+<rect class="dg-key" x="600" y="386" width="184" height="48" rx="8"/>
+<text class="dg-t dg-on-key" x="692" y="415">act</text>
+<path class="dg-line" d="M692 354 V386" marker-end="url(#ga-arch-head)"/>
+<text class="dg-l" x="702" y="374">LLM</text>
+<path class="dg-line" d="M600 410 H66 V280" marker-end="url(#ga-arch-head)"/>
+<text class="dg-l" x="330" y="402" style="text-anchor:middle">say something · move · change an object</text>
+<text class="dg-l" x="400" y="466" style="text-anchor:middle;fill:#7950f2;font-size:12.5px">everything is a memory: perceptions, plans and reflections share one stream,</text>
+<text class="dg-l" x="400" y="484" style="text-anchor:middle;fill:#7950f2;font-size:12.5px">and every action is built from what retrieval reads back out</text>
+</svg>

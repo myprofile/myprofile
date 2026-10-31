@@ -1,0 +1,95 @@
+<svg viewBox="0 0 800 560" role="img" aria-labelledby="ci-mock-topic-drilldown-title ci-mock-topic-drilldown-desc" xmlns="http://www.w3.org/2000/svg">
+<title id="ci-mock-topic-drilldown-title">Mock dashboard: Topic Insights drilldown</title>
+<desc id="ci-mock-topic-drilldown-desc">Mock dashboard, Topic Insights page (demo data). Breadcrumb: All groups, then Claims. A bar chart of topics in the Claims group: Inquire about claim status 31.4K, Ask why a claim was denied 22.7K, Request claim reprocessing 14.9K, Submit or file a claim 12.2K, Inquire about appeal status 8.1K. Below, a table of topic by operational metrics from the consolidated table: Inquire about claim status: 31.4K calls, 08:10 average handle time, 12% transfer, 81% resolution; Ask why a claim was denied: 22.7K calls, 11:35 average handle time, 21% transfer, 64% resolution; Request claim reprocessing: 14.9K calls, 12:50 average handle time, 25% transfer, 58% resolution; Submit or file a claim: 12.2K calls, 07:40 average handle time, 9% transfer, 83% resolution; Inquire about appeal status: 8.1K calls, 09:05 average handle time, 14% transfer, 72% resolution.</desc>
+<rect x="8" y="8" width="784" height="544" rx="8" fill="#ffffff" stroke="#1e1e1e"/>
+<rect class="dg-key" x="8" y="8" width="784" height="40" rx="8"/>
+<path d="M22 28 L28 22 L34 28 L28 34 Z" fill="#ffffff" stroke="#ffffff"/>
+<text x="42" y="33" style="font-size:15px;fill:#ffffff">Contact Intelligence</text>
+<rect class="dg-llm" x="226" y="18" width="118" height="20" rx="10"/>
+<text x="285" y="32" style="font-size:11px;fill:#1e1e1e;text-anchor:middle">DEMO · mock data</text>
+<rect class="dg-data" x="8" y="48" width="128" height="504"/>
+<text x="22" y="78" style="font-size:12px;fill:#1e1e1e">Performance</text>
+<rect class="dg-llm" x="14" y="90" width="116" height="24" rx="4"/>
+<text x="22" y="106" style="font-size:12px;fill:#40045c;font-weight:600">Topic Insights</text>
+<text x="22" y="134" style="font-size:12px;fill:#1e1e1e">Named Entities</text>
+<text x="22" y="162" style="font-size:12px;fill:#1e1e1e">Trends</text>
+<text x="22" y="190" style="font-size:12px;fill:#1e1e1e">Contact Table</text>
+<text x="22" y="218" style="font-size:12px;fill:#1e1e1e">Session Review</text>
+<text x="152" y="84" style="font-size:24px;fill:#1e1e1e">Topic Insights</text>
+<text x="152" y="106" style="font-size:12px;fill:#1e1e1e">Drill down from topic group to specific topics.</text>
+<rect x="152" y="118" width="86" height="22" rx="11" fill="#ffffff" stroke="#40045c"/>
+<text x="195.0" y="133" style="font-size:11px;fill:#40045c;text-anchor:middle">All groups</text>
+<text x="246" y="133" style="font-size:12px;fill:#40045c">›</text>
+<rect class="dg-key" x="260" y="118" width="59" height="22" rx="11"/>
+<text x="289.5" y="133" style="font-size:11px;fill:#ffffff;text-anchor:middle">Claims</text>
+<rect class="dg-data" x="148" y="152" width="636" height="196" rx="6"/>
+<text x="162" y="174" style="font-size:13px;fill:#1e1e1e;font-weight:600">Topics in group: Claims</text>
+<path d="M340.0 186 V316" stroke="#da77f2" stroke-width="1" stroke-dasharray="3 5" fill="none"/>
+<text x="340.0" y="334" style="font-size:10px;fill:#1e1e1e;text-anchor:middle">0</text>
+<path d="M400.0 186 V316" stroke="#da77f2" stroke-width="1" stroke-dasharray="3 5" fill="none"/>
+<text x="400.0" y="334" style="font-size:10px;fill:#1e1e1e;text-anchor:middle">5K</text>
+<path d="M460.0 186 V316" stroke="#da77f2" stroke-width="1" stroke-dasharray="3 5" fill="none"/>
+<text x="460.0" y="334" style="font-size:10px;fill:#1e1e1e;text-anchor:middle">10K</text>
+<path d="M520.0 186 V316" stroke="#da77f2" stroke-width="1" stroke-dasharray="3 5" fill="none"/>
+<text x="520.0" y="334" style="font-size:10px;fill:#1e1e1e;text-anchor:middle">15K</text>
+<path d="M580.0 186 V316" stroke="#da77f2" stroke-width="1" stroke-dasharray="3 5" fill="none"/>
+<text x="580.0" y="334" style="font-size:10px;fill:#1e1e1e;text-anchor:middle">20K</text>
+<path d="M640.0 186 V316" stroke="#da77f2" stroke-width="1" stroke-dasharray="3 5" fill="none"/>
+<text x="640.0" y="334" style="font-size:10px;fill:#1e1e1e;text-anchor:middle">25K</text>
+<path d="M700.0 186 V316" stroke="#da77f2" stroke-width="1" stroke-dasharray="3 5" fill="none"/>
+<text x="700.0" y="334" style="font-size:10px;fill:#1e1e1e;text-anchor:middle">30K</text>
+<path d="M760.0 186 V316" stroke="#da77f2" stroke-width="1" stroke-dasharray="3 5" fill="none"/>
+<text x="760.0" y="334" style="font-size:10px;fill:#1e1e1e;text-anchor:middle">35K</text>
+<text x="332" y="203" style="font-size:11px;fill:#1e1e1e;text-anchor:end">Inquire about claim status</text>
+<rect class="dg-model" x="340" y="190" width="377" height="18" rx="2"/>
+<text x="723" y="203" style="font-size:11px;fill:#40045c;font-weight:600">31.4K</text>
+<text x="332" y="228" style="font-size:11px;fill:#1e1e1e;text-anchor:end">Ask why a claim was denied</text>
+<rect class="dg-model" x="340" y="215" width="272" height="18" rx="2"/>
+<text x="618" y="228" style="font-size:11px;fill:#40045c;font-weight:600">22.7K</text>
+<text x="332" y="253" style="font-size:11px;fill:#1e1e1e;text-anchor:end">Request claim reprocessing</text>
+<rect class="dg-model" x="340" y="240" width="179" height="18" rx="2"/>
+<text x="525" y="253" style="font-size:11px;fill:#40045c;font-weight:600">14.9K</text>
+<text x="332" y="278" style="font-size:11px;fill:#1e1e1e;text-anchor:end">Submit or file a claim</text>
+<rect class="dg-model" x="340" y="265" width="146" height="18" rx="2"/>
+<text x="492" y="278" style="font-size:11px;fill:#40045c;font-weight:600">12.2K</text>
+<text x="332" y="303" style="font-size:11px;fill:#1e1e1e;text-anchor:end">Inquire about appeal status</text>
+<rect class="dg-model" x="340" y="290" width="97" height="18" rx="2"/>
+<text x="443" y="303" style="font-size:11px;fill:#40045c;font-weight:600">8.1K</text>
+<rect class="dg-data" x="148" y="358" width="636" height="186" rx="6"/>
+<text x="162" y="380" style="font-size:13px;fill:#1e1e1e;font-weight:600">Topic × operational metrics<tspan style="font-weight:400"> · from the consolidated table</tspan></text>
+<rect class="dg-key" x="160" y="390" width="612" height="24" rx="3"/>
+<text x="170" y="406" style="font-size:11px;fill:#ffffff;font-weight:600">Topic</text>
+<text x="392" y="406" style="font-size:11px;fill:#ffffff;font-weight:600">Calls</text>
+<text x="446" y="406" style="font-size:11px;fill:#ffffff;font-weight:600">Avg. handle time</text>
+<text x="580" y="406" style="font-size:11px;fill:#ffffff;font-weight:600">Transfer %</text>
+<text x="680" y="406" style="font-size:11px;fill:#ffffff;font-weight:600">Resolution %</text>
+<text x="170" y="430" style="font-size:11px;fill:#1e1e1e">Inquire about claim status</text>
+<text x="392" y="430" style="font-size:11px;fill:#1e1e1e">31.4K</text>
+<text x="446" y="430" style="font-size:11px;fill:#1e1e1e">08:10</text>
+<text x="580" y="430" style="font-size:11px;fill:#1e1e1e">12%</text>
+<text x="680" y="430" style="font-size:11px;fill:#1e1e1e">81%</text>
+<path d="M160 438 H772" stroke="#da77f2" stroke-width="1" fill="none"/>
+<text x="170" y="454" style="font-size:11px;fill:#1e1e1e">Ask why a claim was denied</text>
+<text x="392" y="454" style="font-size:11px;fill:#1e1e1e">22.7K</text>
+<text x="446" y="454" style="font-size:11px;fill:#1e1e1e">11:35</text>
+<text x="580" y="454" style="font-size:11px;fill:#1e1e1e">21%</text>
+<text x="680" y="454" style="font-size:11px;fill:#1e1e1e">64%</text>
+<path d="M160 462 H772" stroke="#da77f2" stroke-width="1" fill="none"/>
+<text x="170" y="478" style="font-size:11px;fill:#1e1e1e">Request claim reprocessing</text>
+<text x="392" y="478" style="font-size:11px;fill:#1e1e1e">14.9K</text>
+<text x="446" y="478" style="font-size:11px;fill:#1e1e1e">12:50</text>
+<text x="580" y="478" style="font-size:11px;fill:#1e1e1e">25%</text>
+<text x="680" y="478" style="font-size:11px;fill:#1e1e1e">58%</text>
+<path d="M160 486 H772" stroke="#da77f2" stroke-width="1" fill="none"/>
+<text x="170" y="502" style="font-size:11px;fill:#1e1e1e">Submit or file a claim</text>
+<text x="392" y="502" style="font-size:11px;fill:#1e1e1e">12.2K</text>
+<text x="446" y="502" style="font-size:11px;fill:#1e1e1e">07:40</text>
+<text x="580" y="502" style="font-size:11px;fill:#1e1e1e">9%</text>
+<text x="680" y="502" style="font-size:11px;fill:#1e1e1e">83%</text>
+<path d="M160 510 H772" stroke="#da77f2" stroke-width="1" fill="none"/>
+<text x="170" y="526" style="font-size:11px;fill:#1e1e1e">Inquire about appeal status</text>
+<text x="392" y="526" style="font-size:11px;fill:#1e1e1e">8.1K</text>
+<text x="446" y="526" style="font-size:11px;fill:#1e1e1e">09:05</text>
+<text x="580" y="526" style="font-size:11px;fill:#1e1e1e">14%</text>
+<text x="680" y="526" style="font-size:11px;fill:#1e1e1e">72%</text>
+</svg>

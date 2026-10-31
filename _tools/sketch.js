@@ -39,7 +39,9 @@ function styleFor(a) {
 }
 // white text on violet (dg-model) boxes
 const dark = [...svg.matchAll(/<rect\b([^>]*)\/>/g)].map(m => attrs(m[1])).filter(a => /\bdg-model\b/.test(a.class || ''))
-  .map(a => [+a.x, +a.y, +a.x + +a.width, +a.y + +a.height]);
+  .map(a => [+a.x, +a.y, +a.x + +a.width, +a.y + +a.height])
+  .concat([...svg.matchAll(/<ellipse\b([^>]*)\/>/g)].map(m => attrs(m[1])).filter(a => /\bdg-model\b/.test(a.class || ''))
+  .map(a => [+a.cx - +a.rx, +a.cy - +a.ry, +a.cx + +a.rx, +a.cy + +a.ry]));
 svg = svg.replace(/<text\b([^>]*)>/g, (m, s) => {
   const a = attrs(s); const x = +a.x, y = +a.y;
   if (!dark.some(([x0, y0, x1, y1]) => x >= x0 - 2 && x <= x1 + 2 && y >= y0 && y <= y1)) return m;
@@ -54,6 +56,11 @@ svg = svg.replace(/<rect\b([^>]*)\/>/g, (m, s) => {
   const o = styleFor(a);
   if (w < 20 && h < 20) { o.roughness = 0.6; o.hachureGap = 3; }   // legend chips
   return `<g>${draw(rr(x, y, w, h, +(a.rx || 0)), o, a['stroke-dasharray'])}</g>`;
+});
+// ellipses
+svg = svg.replace(/<ellipse\b([^>]*)\/>/g, (m, s) => {
+  const a = attrs(s); const o = styleFor(a);
+  return `<g>${gen.toPaths(gen.ellipse(+a.cx, +a.cy, 2 * +a.rx, 2 * +a.ry, o)).map(p => `<path d="${p.d.replace(/-?\d+\.\d+/g, n => (+n).toFixed(1))}" fill="${p.fill || 'none'}" stroke="${p.stroke || 'none'}" stroke-width="${p.strokeWidth}"${a['stroke-dasharray'] ? ` stroke-dasharray="${a['stroke-dasharray']}"` : ''}/>`).join('')}</g>`;
 });
 // circles (bullets)
 svg = svg.replace(/<circle\b([^>]*)\/>/g, (m, s) => {

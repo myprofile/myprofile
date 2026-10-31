@@ -1,0 +1,36 @@
+<svg viewBox="0 0 800 540" role="img" aria-labelledby="ga-bel-title ga-bel-desc" xmlns="http://www.w3.org/2000/svg">
+<title id="ga-bel-title">Believable versus accurate</title>
+<desc id="ga-bel-desc">A two-by-two grid with believability (does it feel alive?) on the vertical axis and accuracy (does it reproduce ground truth?) on the horizontal axis. Top left, convincing but wrong: feels alive, predicts the wrong outcome; fine for games, AI companions and rehearsal spaces such as practicing a hard conversation or a patient interview; tested by whether people buy it, Turing-style, which is what the generative agents paper did. Top right, the goal: feels real and matches ground truth; what you want before acting on a simulation of a wicked problem; nobody is reliably here yet. Bottom left, neither: unconvincing and off the mark, like a bare LLM with no memory asked to be someone for three days. Bottom right, accurate but plain: matches the data but shows no emotion; fine for social science, market research and urban planning; for example GPT-4 predicting 476 survey-experiment effects with r = 0.85 overall and 0.90 on unpublished studies.</desc>
+<defs><marker id="ga-bel-head" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="dg-head"/></marker></defs>
+<path class="dg-line" d="M76 500 V12" marker-end="url(#ga-bel-head)"/>
+<path class="dg-line" d="M76 500 H788" marker-end="url(#ga-bel-head)"/>
+<text class="dg-l" x="0" y="0" transform="translate(54 256) rotate(-90)" style="text-anchor:middle;font-size:13px">believability · does it feel alive?</text>
+<text class="dg-l" x="432" y="526" style="text-anchor:middle;font-size:13px">accuracy → does it reproduce ground truth?</text>
+<rect class="dg-llm" x="96" y="24" width="336" height="222" rx="14"/>
+<text class="dg-t" x="264" y="56" style="font-size:17px">convincing, but wrong</text>
+<text class="dg-s" x="114" y="90" style="text-anchor:start;font-size:13.5px">feels alive, predicts the wrong outcome</text>
+<text class="dg-s" x="114" y="122" style="text-anchor:start;font-size:13.5px">fine for: games, AI companions,</text>
+<text class="dg-s" x="114" y="140" style="text-anchor:start;font-size:13.5px">rehearsal spaces (practice a hard</text>
+<text class="dg-s" x="114" y="158" style="text-anchor:start;font-size:13.5px">conversation, a patient interview)</text>
+<text class="dg-s" x="114" y="190" style="text-anchor:start;font-size:13.5px">test: do people buy it? (Turing-style)</text>
+<text class="dg-s" x="114" y="208" style="text-anchor:start;font-size:13.5px">the generative agents paper did this</text>
+<rect class="dg-model" x="448" y="24" width="336" height="222" rx="14"/>
+<text class="dg-t" x="616" y="56" style="font-size:17px">the goal</text>
+<text class="dg-s" x="466" y="90" style="text-anchor:start;font-size:13.5px">feels real AND matches ground truth</text>
+<text class="dg-s" x="466" y="122" style="text-anchor:start;font-size:13.5px">what you want before acting on a</text>
+<text class="dg-s" x="466" y="140" style="text-anchor:start;font-size:13.5px">simulation of a wicked problem</text>
+<text class="dg-s" x="466" y="172" style="text-anchor:start;font-size:13.5px">nobody is reliably here yet</text>
+<rect fill="#ffffff" stroke="#40045c" x="96" y="262" width="336" height="222" rx="14"/>
+<text class="dg-t" x="264" y="294" style="font-size:17px">neither</text>
+<text class="dg-s" x="114" y="328" style="text-anchor:start;font-size:13.5px">unconvincing and off the mark</text>
+<text class="dg-s" x="114" y="360" style="text-anchor:start;font-size:13.5px">a bare LLM with no memory, asked</text>
+<text class="dg-s" x="114" y="378" style="text-anchor:start;font-size:13.5px">to "be" someone for three days</text>
+<rect class="dg-data" x="448" y="262" width="336" height="222" rx="14"/>
+<text class="dg-t" x="616" y="294" style="font-size:17px">accurate, but plain</text>
+<text class="dg-s" x="466" y="328" style="text-anchor:start;font-size:13.5px">matches the data, shows no emotion</text>
+<text class="dg-s" x="466" y="360" style="text-anchor:start;font-size:13.5px">fine for: social science, market</text>
+<text class="dg-s" x="466" y="378" style="text-anchor:start;font-size:13.5px">research, urban planning</text>
+<text class="dg-s" x="466" y="410" style="text-anchor:start;font-size:13.5px">e.g. GPT-4 predicting 476 survey-</text>
+<text class="dg-s" x="466" y="428" style="text-anchor:start;font-size:13.5px">experiment effects: r = 0.85 overall,</text>
+<text class="dg-s" x="466" y="446" style="text-anchor:start;font-size:13.5px">0.90 on unpublished studies</text>
+</svg>

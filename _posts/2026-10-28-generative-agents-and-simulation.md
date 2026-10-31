@@ -30,9 +30,10 @@ A simulation is a program that defines an **environment** and the **behaviors of
 
 The whole idea fits in one loop. The world at tick *t* is the environment plus every agent. To get the world at tick *t+1*, apply the environment's rules and each agent's behavior to the world at *t*. Feed the result back in and go again.
 
-![Simulation loop: the world at tick t (environment state plus agents) passes through step(), which applies the environment rules and lets each agent perceive and act, producing the world at tick t+1, which is fed back in as the next tick.](/assets/img/generative-agents/simulation-loop.png)
-
-*Each tick, the environment's rules and every agent's behavior turn the current world into the next one.*
+<figure class="diagram">
+{% include diagrams/ga-simulation-loop.svg %}
+<figcaption>Each tick, the environment's rules and every agent's behavior turn the current world into the next one.</figcaption>
+</figure>
 
 It's small enough to write out in full:
 
@@ -79,7 +80,9 @@ You can hand a language model a line as short as "Trang is an environmental lawy
 
 Simulation is for a particular kind of problem. Social media platforms built attention-maximizing feeds to grow, then added moderation to cope with what spread, then got hit with bias and censorship complaints over the moderation. Pandemic lockdowns slowed spread less than hoped and hurt the economy; relaxing them under shifting guidance burned public trust, which came back to bite vaccination. Every fix produced the next problem.
 
-![Wicked problem loop: intervene → the world changes → a new problem appears → intervene again, with the note that in reality you cannot rewind. Beside it, simulation breaks the loop: rerun from the same state, intervene on one rule, compare the worlds side by side.](/assets/img/generative-agents/wicked-problem-loop.png)
+<figure class="diagram">
+{% include diagrams/ga-wicked-problem.svg %}
+</figure>
 
 Design theorists named this in the 1970s: **wicked problems**. Three of their properties matter here.
 
@@ -93,7 +96,9 @@ The last one is the whole argument for simulation. If reality gives you one atte
 
 Before building anything, decide what level you're asking about. The individual agent is always the building block, but the *question* lives at one of three levels, and each has its own recipe and its own way of failing.
 
-![Three panels comparing levels of analysis. Individual: one specific person; question "would this person like these search results?"; modeled with a detailed persona and memory; fails on noise. Group: a few people who interact; question "how would these two resolve this conflict?"; modeled as several memory-equipped agents interacting over ticks; dynamics may never be fully predictable. Population: many people aggregated; question "do older adults read more than younger ones?"; modeled by sampling personas from demographics and averaging; too coarse, can reproduce bias. A double arrow underneath: trade detail for scale.](/assets/img/generative-agents/levels-of-analysis.png)
+<figure class="diagram">
+{% include diagrams/ga-levels.svg %}
+</figure>
 
 **Individuals.** One specific person with their own traits, beliefs, and history. The questions are narrow: would *this* person like these search results? How would they react to this treatment? The problem is noise. People are inconsistent, and the data on any one person is thin. Nobody has a settled recipe here; the best starting point today is a detailed persona plus a memory of that person's history, which is what Trang's second version is. Having built one, I'd add: the persona gets you the voice, the memory gets you the facts, and neither gets you consistency across two different questions about the same thing.
 
@@ -109,9 +114,10 @@ Most generative-AI simulation research right now is at the population level, for
 
 How do you turn a language model into a character that stays coherent over days of simulated time? A bare model can't. It has no memory of yesterday, and its context window won't hold two days of experience. Cognitive scientists have a name for the missing piece: a **cognitive architecture**, the fixed machinery underneath thought, such as memory, goals, and decision-making. SOAR (1983) and ACT-R (1993) were built to model human problem solving. The **generative agent** architecture from the 2023 paper of that name revives the idea with an LLM in the middle. The paper demonstrates it on a town of 25 agents. The examples below use Trang, the agent I build in the next post, an environmental lawyer with 91 memories of her life.
 
-![Generative agent architecture: the environment feeds perceive, which writes to an append-only memory stream of timestamped natural-language records (observations, plans, reflections). Retrieve pulls the top-k records by score into scratch memory, the working set that fits in the prompt; the LLM turns that into an act, which changes the environment. Reflect reads about a hundred recent records and writes insights back to the stream; plan writes day, hour, and 5–15-minute plans back to the stream too.](/assets/img/generative-agents/generative-agent-architecture.png)
-
-*Left to right: perception feeds the memory stream, retrieval pulls a small working set into scratch memory, and that set drives action. Plans and reflections loop back in as new memories.*
+<figure class="diagram">
+{% include diagrams/ga-architecture.svg %}
+<figcaption>Left to right: perception feeds the memory stream, retrieval pulls a small working set into scratch memory, and that set drives action. Plans and reflections loop back in as new memories.</figcaption>
+</figure>
 
 **1. Perceive and remember.** The agent records everything it notices ("Trang is reviewing a permit case at the clinic") in its **memory stream**, an append-only list of plain-language records. Each one carries its text, when it was created, when it was last accessed, an importance score, and an embedding. The stream gets far too long to hand to the model whole, and dumping it all in would drown the signal anyway. So the agent has to choose what to recall.
 
@@ -121,7 +127,9 @@ How do you turn a language model into a character that stays coherent over days 
 score(m) = α_rec · recency(m) + α_imp · importance(m) + α_rel · relevance(m, q)
 ```
 
-![Retrieval scoring: a query ("What did you do at the clinic?") and a memory ("Trang joined her law school's Environmental Law Clinic") feed three scorers. Recency: 0.995 to the power of hours since last accessed, drawn as a decay curve. Importance: a 1–10 rating the LLM assigns once when the memory is written (brushing teeth 2, break-up 9). Relevance: cosine similarity of the two embeddings. Each is min-max normalized to [0, 1], summed with weights of 1, sorted, and the top memories are taken until the prompt's token budget is full. What comes back is the clinic memory, not her childhood weekends in the forest.](/assets/img/generative-agents/retrieval-scoring.png)
+<figure class="diagram">
+{% include diagrams/ga-retrieval.svg %}
+</figure>
 
 The three terms, as the paper implements them:
 
@@ -181,7 +189,9 @@ So, as of now:
 
 Believable doesn't mean accurate, and accurate doesn't require believable. A simulation can feel completely convincing and predict the wrong outcome. A highly accurate one may never need to show an emotion. Trang is firmly in the believable column: she answers in character, from the memories I gave her, and I have no evidence at all that she'd predict what a real person with that history would say. Before you judge an agent, decide which of the two you need.
 
-![Two-by-two grid of believability against accuracy. Convincing but wrong: feels alive, predicts the wrong outcome; fine for games, companions, rehearsal spaces; tested Turing-style, as the generative agents paper did. The goal: feels real and matches ground truth; nobody is reliably here yet. Neither: a bare LLM with no memory asked to be someone for three days. Accurate but plain: matches the data, shows no emotion; fine for social science, market research, urban planning; e.g. GPT-4 predicting 476 survey-experiment effects at r = 0.85, 0.90 on unpublished studies.](/assets/img/generative-agents/believable-vs-accurate.png)
+<figure class="diagram">
+{% include diagrams/ga-believable.svg %}
+</figure>
 
 ## Where this leaves me
 

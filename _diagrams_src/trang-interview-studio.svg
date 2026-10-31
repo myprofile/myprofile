@@ -1,0 +1,27 @@
+<svg viewBox="0 0 800 392" role="img" aria-labelledby="trang-is-title trang-is-desc" xmlns="http://www.w3.org/2000/svg">
+<title id="trang-is-title">How Interview Studio answers a question</title>
+<desc id="trang-is-desc">How Interview Studio answers a question: your question; search memories (3 × relevance + 0.5 × importance + 0.5 × recency); build the prompt (self-description, speech pattern, top 5 memories, rules); the model replies with JSON; the answer is shown with the 5 memories it used. The memory stream (91 memories, each with importance 0–100 and an embedding) feeds the search, and reflection (insights from related memories, in the code but not yet in the app) writes back to the memory stream. Model steps use the language model; the other steps store and score memories.</desc>
+<defs><marker id="trang-is-head" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="dg-head"/></marker></defs>
+<text class="dg-t" x="16" y="32" style="text-anchor:start;font-size:22px">How Interview Studio answers a question</text>
+<text class="dg-l" x="16" y="60" style="font-size:13px">Orchid steps use the language model. Yellow steps store and score memories.</text>
+<rect class="dg-model" x="16" y="100" width="136" height="112" rx="12"/>
+<text class="dg-t" x="84" y="130">Your question</text>
+<rect class="dg-data" x="176" y="100" width="136" height="112" rx="12"/>
+<text class="dg-t" x="244" y="130">Search memories</text><text class="dg-s" x="244" y="154">3 × relevance</text><text class="dg-s" x="244" y="172">+ 0.5 × importance</text><text class="dg-s" x="244" y="190">+ 0.5 × recency</text>
+<rect class="dg-data" x="336" y="100" width="136" height="112" rx="12"/>
+<text class="dg-t" x="404" y="130">Build the prompt</text><text class="dg-s" x="404" y="154">self-description,</text><text class="dg-s" x="404" y="172">speech pattern,</text><text class="dg-s" x="404" y="190">top 5 memories, rules</text>
+<rect class="dg-llm" x="496" y="100" width="136" height="112" rx="12"/>
+<text class="dg-t" x="564" y="130">Model replies</text><text class="dg-s" x="564" y="154">with JSON:</text><text class="dg-s" x="564" y="172">{"utterance": …}</text>
+<rect class="dg-model" x="656" y="100" width="136" height="112" rx="12"/>
+<text class="dg-t" x="724" y="130">Answer</text><text class="dg-s" x="724" y="154">shown with the 5</text><text class="dg-s" x="724" y="172">memories it used</text>
+<path class="dg-line" d="M152 156 H176" marker-end="url(#trang-is-head)"/>
+<path class="dg-line" d="M312 156 H336" marker-end="url(#trang-is-head)"/>
+<path class="dg-line" d="M472 156 H496" marker-end="url(#trang-is-head)"/>
+<path class="dg-line" d="M632 156 H656" marker-end="url(#trang-is-head)"/>
+<rect class="dg-data" x="176" y="262" width="136" height="112" rx="12"/>
+<text class="dg-t" x="244" y="292">Memory stream</text><text class="dg-s" x="244" y="316">91 memories, each</text><text class="dg-s" x="244" y="334">with importance</text><text class="dg-s" x="244" y="352">0–100 + embedding</text>
+<rect class="dg-llm" x="376" y="262" width="176" height="112" rx="12"/>
+<text class="dg-t" x="464" y="292">Reflect</text><text class="dg-s" x="464" y="316">insights from related</text><text class="dg-s" x="464" y="334">memories (in the code,</text><text class="dg-s" x="464" y="352">not yet in the app)</text>
+<path class="dg-line" d="M244 262 V212" marker-end="url(#trang-is-head)"/>
+<path class="dg-line" d="M376 318 H312" marker-end="url(#trang-is-head)"/>
+</svg>

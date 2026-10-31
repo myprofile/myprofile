@@ -1,0 +1,81 @@
+<svg viewBox="0 0 800 486" role="img" aria-labelledby="ci-mock-ti-title ci-mock-ti-desc" xmlns="http://www.w3.org/2000/svg">
+<title id="ci-mock-ti-title">Mock Topic Insights dashboard</title>
+<desc id="ci-mock-ti-desc">Mock Contact Intelligence dashboard, Topic Insights page (demo, mock data). Sidebar: Performance, Topic Insights (selected), Named Entities, Trends, Contact Table, Session Review. Operational metrics: contact volume 412,500; average handle time 09:45; average hold time 01:10; transfer rate 18.0%; average sentiment 0.61; resolution 72.4%. Bar chart of calls by topic group, where shares can exceed 100% because a call can have several topics: Benefits and coverage 128K calls (31%), Claims 96K (23%), Find care / network 71K (17%), ID cards and enrollment 48K (12%), Billing and payments 41K (10%), Pharmacy 33K (8%), Website / app 27K (7%), Unfiltered 29K (7%).</desc>
+<rect x="8" y="8" width="784" height="470" rx="10" fill="#ffffff" stroke="#1e1e1e"/>
+<rect class="dg-key" x="8" y="8" width="784" height="40" rx="10"/>
+<path d="M22 28 L29 21 L36 28 L29 35 Z" fill="#ffffff" stroke="#ffffff"/>
+<text x="44" y="33" style="text-anchor:start;font-size:15px;fill:#ffffff">Contact Intelligence</text>
+<rect class="dg-llm" x="218" y="18" width="116" height="20" rx="10"/>
+<text x="276" y="32" style="text-anchor:middle;font-size:11px;fill:#1e1e1e">DEMO · mock data</text>
+<path d="M150 48 V478" stroke="#1e1e1e" stroke-width="1.2" fill="none"/>
+<text x="26" y="78" style="text-anchor:start;font-size:12.5px;fill:#1e1e1e">Performance</text>
+<rect class="dg-llm" x="16" y="90" width="126" height="26" rx="6"/>
+<text x="26" y="108" style="text-anchor:start;font-size:12.5px;fill:var(--accent)">Topic Insights</text>
+<text x="26" y="138" style="text-anchor:start;font-size:12.5px;fill:#1e1e1e">Named Entities</text>
+<text x="26" y="168" style="text-anchor:start;font-size:12.5px;fill:#1e1e1e">Trends</text>
+<text x="26" y="198" style="text-anchor:start;font-size:12.5px;fill:#1e1e1e">Contact Table</text>
+<text x="26" y="228" style="text-anchor:start;font-size:12.5px;fill:#1e1e1e">Session Review</text>
+<text x="166" y="88" style="text-anchor:start;font-size:22px;fill:#1e1e1e">Topic Insights</text>
+<text x="166" y="108" style="text-anchor:start;font-size:11px;fill:#1e1e1e">What are members contacting us about? A call can have more than one topic.</text>
+<text x="166" y="136" style="text-anchor:start;font-size:13px;fill:#1e1e1e">Operational metrics</text>
+<rect class="dg-data" x="166" y="146" width="95" height="56" rx="6"/>
+<text x="173" y="163" style="text-anchor:start;font-size:9.2px;fill:#1e1e1e">Contact Volume</text>
+<text x="173" y="190" style="text-anchor:start;font-size:17px;fill:var(--accent)">412,500</text>
+<rect class="dg-data" x="269" y="146" width="95" height="56" rx="6"/>
+<text x="276" y="163" style="text-anchor:start;font-size:9.2px;fill:#1e1e1e">Avg. Handle Time</text>
+<text x="276" y="190" style="text-anchor:start;font-size:17px;fill:var(--accent)">09:45</text>
+<rect class="dg-data" x="372" y="146" width="95" height="56" rx="6"/>
+<text x="379" y="163" style="text-anchor:start;font-size:9.2px;fill:#1e1e1e">Avg. Hold Time</text>
+<text x="379" y="190" style="text-anchor:start;font-size:17px;fill:var(--accent)">01:10</text>
+<rect class="dg-data" x="475" y="146" width="95" height="56" rx="6"/>
+<text x="482" y="163" style="text-anchor:start;font-size:9.2px;fill:#1e1e1e">Transfer Rate</text>
+<text x="482" y="190" style="text-anchor:start;font-size:17px;fill:var(--accent)">18.0%</text>
+<rect class="dg-data" x="578" y="146" width="95" height="56" rx="6"/>
+<text x="585" y="163" style="text-anchor:start;font-size:9.2px;fill:#1e1e1e">Avg. Sentiment</text>
+<text x="585" y="190" style="text-anchor:start;font-size:17px;fill:var(--accent)">0.61</text>
+<rect class="dg-data" x="681" y="146" width="95" height="56" rx="6"/>
+<text x="688" y="163" style="text-anchor:start;font-size:9.2px;fill:#1e1e1e">Resolution %</text>
+<text x="688" y="190" style="text-anchor:start;font-size:17px;fill:var(--accent)">72.4%</text>
+<rect class="dg-data" x="166" y="214" width="610" height="256" rx="8"/>
+<text x="180" y="236" style="text-anchor:start;font-size:13px;fill:#1e1e1e">Calls by topic group <tspan style="font-size:11px">· shares can exceed 100% (multi-label)</tspan></text>
+<path d="M322.0 248 V438" stroke="#da77f2" stroke-width="1" stroke-dasharray="3 5" fill="none"/>
+<text x="322.0" y="456" style="text-anchor:middle;font-size:10px;fill:#1e1e1e">0</text>
+<path d="M374.9 248 V438" stroke="#da77f2" stroke-width="1" stroke-dasharray="3 5" fill="none"/>
+<text x="374.9" y="456" style="text-anchor:middle;font-size:10px;fill:#1e1e1e">20K</text>
+<path d="M427.7 248 V438" stroke="#da77f2" stroke-width="1" stroke-dasharray="3 5" fill="none"/>
+<text x="427.7" y="456" style="text-anchor:middle;font-size:10px;fill:#1e1e1e">40K</text>
+<path d="M480.6 248 V438" stroke="#da77f2" stroke-width="1" stroke-dasharray="3 5" fill="none"/>
+<text x="480.6" y="456" style="text-anchor:middle;font-size:10px;fill:#1e1e1e">60K</text>
+<path d="M533.4 248 V438" stroke="#da77f2" stroke-width="1" stroke-dasharray="3 5" fill="none"/>
+<text x="533.4" y="456" style="text-anchor:middle;font-size:10px;fill:#1e1e1e">80K</text>
+<path d="M586.3 248 V438" stroke="#da77f2" stroke-width="1" stroke-dasharray="3 5" fill="none"/>
+<text x="586.3" y="456" style="text-anchor:middle;font-size:10px;fill:#1e1e1e">100K</text>
+<path d="M639.1 248 V438" stroke="#da77f2" stroke-width="1" stroke-dasharray="3 5" fill="none"/>
+<text x="639.1" y="456" style="text-anchor:middle;font-size:10px;fill:#1e1e1e">120K</text>
+<path d="M692.0 248 V438" stroke="#da77f2" stroke-width="1" stroke-dasharray="3 5" fill="none"/>
+<text x="692.0" y="456" style="text-anchor:middle;font-size:10px;fill:#1e1e1e">140K</text>
+<text x="314" y="263.0" style="text-anchor:end;font-size:11.5px;fill:#1e1e1e">Benefits &amp; coverage</text>
+<rect class="dg-model" x="322" y="250.0" width="338.3" height="17" rx="2"/>
+<text x="666.3" y="263.0" style="text-anchor:start;font-size:10.5px;fill:var(--accent)">128K calls · 31%</text>
+<text x="314" y="286.5" style="text-anchor:end;font-size:11.5px;fill:#1e1e1e">Claims</text>
+<rect class="dg-model" x="322" y="273.5" width="253.7" height="17" rx="2"/>
+<text x="581.7" y="286.5" style="text-anchor:start;font-size:10.5px;fill:var(--accent)">96K calls · 23%</text>
+<text x="314" y="310.0" style="text-anchor:end;font-size:11.5px;fill:#1e1e1e">Find care / network</text>
+<rect class="dg-model" x="322" y="297.0" width="187.6" height="17" rx="2"/>
+<text x="515.6" y="310.0" style="text-anchor:start;font-size:10.5px;fill:var(--accent)">71K calls · 17%</text>
+<text x="314" y="333.5" style="text-anchor:end;font-size:11.5px;fill:#1e1e1e">ID cards &amp; enrollment</text>
+<rect class="dg-model" x="322" y="320.5" width="126.9" height="17" rx="2"/>
+<text x="454.9" y="333.5" style="text-anchor:start;font-size:10.5px;fill:var(--accent)">48K calls · 12%</text>
+<text x="314" y="357.0" style="text-anchor:end;font-size:11.5px;fill:#1e1e1e">Billing &amp; payments</text>
+<rect class="dg-model" x="322" y="344.0" width="108.4" height="17" rx="2"/>
+<text x="436.4" y="357.0" style="text-anchor:start;font-size:10.5px;fill:var(--accent)">41K calls · 10%</text>
+<text x="314" y="380.5" style="text-anchor:end;font-size:11.5px;fill:#1e1e1e">Pharmacy</text>
+<rect class="dg-model" x="322" y="367.5" width="87.2" height="17" rx="2"/>
+<text x="415.2" y="380.5" style="text-anchor:start;font-size:10.5px;fill:var(--accent)">33K calls · 8%</text>
+<text x="314" y="404.0" style="text-anchor:end;font-size:11.5px;fill:#1e1e1e">Website / app</text>
+<rect class="dg-model" x="322" y="391.0" width="71.4" height="17" rx="2"/>
+<text x="399.4" y="404.0" style="text-anchor:start;font-size:10.5px;fill:var(--accent)">27K calls · 7%</text>
+<text x="314" y="427.5" style="text-anchor:end;font-size:11.5px;fill:#1e1e1e">Unfiltered</text>
+<rect class="dg-data" x="322" y="414.5" width="76.6" height="17" rx="2"/>
+<text x="404.6" y="427.5" style="text-anchor:start;font-size:10.5px;fill:var(--accent)">29K calls · 7%</text>
+</svg>
