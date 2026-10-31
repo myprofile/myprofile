@@ -1,0 +1,22 @@
+<svg viewBox="0 0 800 148" role="img" aria-labelledby="ci3-ev-title ci3-ev-desc" xmlns="http://www.w3.org/2000/svg">
+<title id="ci3-ev-title">Two-step evaluation</title>
+<desc id="ci3-ev-desc">Step 1 checks the training data: an LLM verifies each label against the summary, giving precision per topic. Step 2 checks the model: about 200 calls, with every topic at least 10 times, are reviewed by people against the transcript, giving precision and recall. Results are per-topic precision, recall and F1, averaged without weighting and re-run every six months.</desc>
+<defs><marker id="ci3-ev-head" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="dg-head"/></marker></defs>
+<rect class="dg-llm" x="16" y="16" width="230" height="116" rx="6"/>
+<text class="dg-t" x="131" y="44">1 · Training data</text>
+<text class="dg-s" x="131" y="68">an LLM checks each label</text>
+<text class="dg-s" x="131" y="86">against the summary</text>
+<text class="dg-s" x="131" y="110">→ precision per topic</text>
+<rect class="dg-model" x="285" y="16" width="230" height="116" rx="6"/>
+<text class="dg-t" x="400" y="44">2 · Model</text>
+<text class="dg-s" x="400" y="68">~200 calls, every topic ≥ 10×</text>
+<text class="dg-s" x="400" y="86">people check the transcript</text>
+<text class="dg-s" x="400" y="110">→ precision and recall</text>
+<rect class="dg-key" x="554" y="16" width="230" height="116" rx="6"/>
+<text class="dg-t dg-on-key" x="669" y="44">Per-topic P / R / F1</text>
+<text class="dg-s dg-on-key" x="669" y="68">averaged without weighting</text>
+<text class="dg-s dg-on-key" x="669" y="86">so rare topics count equally</text>
+<text class="dg-s dg-on-key" x="669" y="110">re-run every six months</text>
+<path class="dg-line" d="M246 74 H285" marker-end="url(#ci3-ev-head)"/>
+<path class="dg-line" d="M515 74 H554" marker-end="url(#ci3-ev-head)"/>
+</svg>

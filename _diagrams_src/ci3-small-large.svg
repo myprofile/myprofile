@@ -1,0 +1,30 @@
+<svg viewBox="0 0 800 204" role="img" aria-labelledby="ci3-sl-title ci3-sl-desc" xmlns="http://www.w3.org/2000/svg">
+<title id="ci3-sl-title">Separate models for small and large topics</title>
+<desc id="ci3-sl-desc">The labeled training data is split by topic volume. Small topics, each under 1 percent of calls, train one multi-label XLNet model. Large topics, each 1 percent of calls or more, train another. At inference, both models run on every call and their topics are combined into one list per call.</desc>
+<defs><marker id="ci3-sl-head" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="dg-head"/></marker></defs>
+<rect class="dg-data" x="16" y="70" width="170" height="64" rx="6"/>
+<text class="dg-t" x="101" y="97">Labeled training data</text>
+<text class="dg-s" x="101" y="116">0/1 flag per topic</text>
+<path class="dg-line" d="M186 102 H208 M208 52 V152"/>
+<path class="dg-line" d="M208 52 H230" marker-end="url(#ci3-sl-head)"/>
+<path class="dg-line" d="M208 152 H230" marker-end="url(#ci3-sl-head)"/>
+<rect class="dg-data" x="230" y="20" width="170" height="64" rx="6"/>
+<text class="dg-t" x="315" y="47">Small topics</text>
+<text class="dg-s" x="315" y="66">each &lt; 1% of calls</text>
+<rect class="dg-data" x="230" y="120" width="170" height="64" rx="6"/>
+<text class="dg-t" x="315" y="147">Large topics</text>
+<text class="dg-s" x="315" y="166">each ≥ 1% of calls</text>
+<path class="dg-line" d="M400 52 H440" marker-end="url(#ci3-sl-head)"/>
+<path class="dg-line" d="M400 152 H440" marker-end="url(#ci3-sl-head)"/>
+<rect class="dg-model" x="440" y="20" width="170" height="64" rx="6"/>
+<text class="dg-t" x="525" y="47">XLNet · small</text>
+<text class="dg-s" x="525" y="66">multi-label</text>
+<rect class="dg-model" x="440" y="120" width="170" height="64" rx="6"/>
+<text class="dg-t" x="525" y="147">XLNet · large</text>
+<text class="dg-s" x="525" y="166">multi-label</text>
+<path class="dg-line" d="M610 52 H630 M610 152 H630 M630 52 V152"/>
+<path class="dg-line" d="M630 102 H650" marker-end="url(#ci3-sl-head)"/>
+<rect class="dg-key" x="650" y="70" width="134" height="64" rx="6"/>
+<text class="dg-t dg-on-key" x="717" y="97">Combined</text>
+<text class="dg-s dg-on-key" x="717" y="116">topics per call</text>
+</svg>
