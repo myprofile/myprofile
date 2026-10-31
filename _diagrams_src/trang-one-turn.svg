@@ -1,0 +1,23 @@
+<svg viewBox="0 0 800 292" role="img" aria-labelledby="trang-ot-title trang-ot-desc" xmlns="http://www.w3.org/2000/svg">
+<title id="trang-ot-title">One turn of Trang's simulation</title>
+<desc id="trang-ot-desc">One turn of Trang's simulation: Perceive (sees the bowls, steps and oven), Retrieve (pulls the recipe from memory), Act (model call 1: "I'll add the flour"), Extract (model call 2: add 250 flour), and Apply (kitchen rules check and reply), with feedback looping back to Perceive. Act and Extract ask the language model; the other steps are plain Python.</desc>
+<defs><marker id="trang-ot-head" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="dg-head"/></marker></defs>
+<text class="dg-t" x="16" y="32" style="text-anchor:start;font-size:22px">One turn of Trang's simulation</text>
+<text class="dg-l" x="16" y="60" style="font-size:13px">Orchid steps ask the language model. Yellow steps are plain Python.</text>
+<rect class="dg-data" x="16" y="104" width="136" height="100" rx="12"/>
+<text class="dg-t" x="84" y="134">Perceive</text><text class="dg-s" x="84" y="158">sees the bowls,</text><text class="dg-s" x="84" y="176">steps and oven</text>
+<rect class="dg-data" x="176" y="104" width="136" height="100" rx="12"/>
+<text class="dg-t" x="244" y="134">Retrieve</text><text class="dg-s" x="244" y="158">pulls the recipe</text><text class="dg-s" x="244" y="176">from memory</text>
+<rect class="dg-llm" x="336" y="104" width="136" height="100" rx="12"/>
+<text class="dg-t" x="404" y="134">Act</text><text class="dg-s" x="404" y="158">model call 1:</text><text class="dg-s" x="404" y="176">"I'll add the flour"</text>
+<rect class="dg-llm" x="496" y="104" width="136" height="100" rx="12"/>
+<text class="dg-t" x="564" y="134">Extract</text><text class="dg-s" x="564" y="158">model call 2:</text><text class="dg-s" x="564" y="176">add 250 flour</text>
+<rect class="dg-data" x="656" y="104" width="136" height="100" rx="12"/>
+<text class="dg-t" x="724" y="134">Apply</text><text class="dg-s" x="724" y="158">kitchen rules</text><text class="dg-s" x="724" y="176">check and reply</text>
+<path class="dg-line" d="M152 154 H176" marker-end="url(#trang-ot-head)"/>
+<path class="dg-line" d="M312 154 H336" marker-end="url(#trang-ot-head)"/>
+<path class="dg-line" d="M472 154 H496" marker-end="url(#trang-ot-head)"/>
+<path class="dg-line" d="M632 154 H656" marker-end="url(#trang-ot-head)"/>
+<path class="dg-line" d="M724 204 V248 H84 V204" marker-end="url(#trang-ot-head)"/>
+<text class="dg-l" x="404" y="274" text-anchor="middle" style="font-size:13px">feedback goes back into her history for the next turn</text>
+</svg>

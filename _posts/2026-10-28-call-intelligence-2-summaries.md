@@ -322,8 +322,10 @@ AGENT:  I understand. Let me connect you with our pharmacy benefits team.
 
 Note what the model **didn't** do: it didn't guess a diagnosis from "thyroid medication," and it didn't invent next steps the transcript doesn't support.
 
-![Session review](/assets/img/call-intelligence/mock_session_review.png)
-*Figure 4: Session Review shows the transcript and decoded summary side by side (mock data).*
+<figure class="diagram">
+{% include diagrams/ci-mock-session-review.svg %}
+<figcaption>Figure 4: Session Review shows the transcript and decoded summary side by side (mock data).</figcaption>
+</figure>
 
 ---
 

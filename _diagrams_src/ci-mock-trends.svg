@@ -1,0 +1,84 @@
+<svg viewBox="0 0 800 530" role="img" aria-labelledby="ci-mock-tr-title ci-mock-tr-desc" xmlns="http://www.w3.org/2000/svg">
+<title id="ci-mock-tr-title">Mock Trends dashboard</title>
+<desc id="ci-mock-tr-desc">Mock Contact Intelligence dashboard, Trends page (demo, mock data). Sidebar with Trends selected. Filters: LOB-A, Jan 1 to Apr 30, granularity month. Line chart of distinct calls by topic group from January to April. All six groups rise from January to a peak in March and dip slightly in April: Benefits and coverage from about 29K to 34K, Claims about 22K to 26K, Find care / network about 16K to 19K, ID cards and enrollment about 11K to 13K, Billing and payments about 9K to 11K, and Pharmacy about 8K to 9K.</desc>
+<rect x="8" y="8" width="784" height="514" rx="10" fill="#ffffff" stroke="#1e1e1e"/>
+<rect class="dg-key" x="8" y="8" width="784" height="40" rx="10"/>
+<path d="M22 28 L29 21 L36 28 L29 35 Z" fill="#ffffff" stroke="#ffffff"/>
+<text x="44" y="33" style="text-anchor:start;font-size:15px;fill:#ffffff">Contact Intelligence</text>
+<rect class="dg-llm" x="218" y="18" width="116" height="20" rx="10"/>
+<text x="276" y="32" style="text-anchor:middle;font-size:11px;fill:#1e1e1e">DEMO · mock data</text>
+<path d="M150 48 V522" stroke="#1e1e1e" stroke-width="1.2" fill="none"/>
+<text x="26" y="78" style="text-anchor:start;font-size:12.5px;fill:#1e1e1e">Performance</text>
+<text x="26" y="108" style="text-anchor:start;font-size:12.5px;fill:#1e1e1e">Topic Insights</text>
+<text x="26" y="138" style="text-anchor:start;font-size:12.5px;fill:#1e1e1e">Named Entities</text>
+<rect class="dg-llm" x="16" y="150" width="126" height="26" rx="6"/>
+<text x="26" y="168" style="text-anchor:start;font-size:12.5px;fill:var(--accent)">Trends</text>
+<text x="26" y="198" style="text-anchor:start;font-size:12.5px;fill:#1e1e1e">Contact Table</text>
+<text x="26" y="228" style="text-anchor:start;font-size:12.5px;fill:#1e1e1e">Session Review</text>
+<text x="166" y="88" style="text-anchor:start;font-size:22px;fill:#1e1e1e">Trends</text>
+<text x="166" y="108" style="text-anchor:start;font-size:11px;fill:#1e1e1e">Topic group volume over time.</text>
+<rect class="dg-key" x="166" y="120" width="79" height="22" rx="11"/>
+<text x="205.5" y="135" style="text-anchor:middle;font-size:11px;fill:#ffffff">+ Filters</text>
+<rect class="dg-data" x="253" y="120" width="86" height="22" rx="11"/>
+<text x="296.0" y="135" style="text-anchor:middle;font-size:11px;fill:var(--accent)">LOB: LOB-A</text>
+<rect class="dg-data" x="347" y="120" width="150" height="22" rx="11"/>
+<text x="422.0" y="135" style="text-anchor:middle;font-size:11px;fill:var(--accent)">Date: Jan 1 – Apr 30</text>
+<rect class="dg-data" x="505" y="120" width="137" height="22" rx="11"/>
+<text x="573.5" y="135" style="text-anchor:middle;font-size:11px;fill:var(--accent)">Granularity: Month</text>
+<rect class="dg-data" x="166" y="154" width="610" height="360" rx="8"/>
+<text x="180" y="176" style="text-anchor:start;font-size:13px;fill:#1e1e1e">Distinct calls by topic group, month over month</text>
+<path d="M214 474.0 H640" stroke="#da77f2" stroke-width="1" stroke-dasharray="3 5" fill="none"/>
+<text x="206" y="478.0" style="text-anchor:end;font-size:10px;fill:#1e1e1e">5K</text>
+<path d="M214 427.5 H640" stroke="#da77f2" stroke-width="1" stroke-dasharray="3 5" fill="none"/>
+<text x="206" y="431.5" style="text-anchor:end;font-size:10px;fill:#1e1e1e">10K</text>
+<path d="M214 381.0 H640" stroke="#da77f2" stroke-width="1" stroke-dasharray="3 5" fill="none"/>
+<text x="206" y="385.0" style="text-anchor:end;font-size:10px;fill:#1e1e1e">15K</text>
+<path d="M214 334.5 H640" stroke="#da77f2" stroke-width="1" stroke-dasharray="3 5" fill="none"/>
+<text x="206" y="338.5" style="text-anchor:end;font-size:10px;fill:#1e1e1e">20K</text>
+<path d="M214 288.0 H640" stroke="#da77f2" stroke-width="1" stroke-dasharray="3 5" fill="none"/>
+<text x="206" y="292.0" style="text-anchor:end;font-size:10px;fill:#1e1e1e">25K</text>
+<path d="M214 241.5 H640" stroke="#da77f2" stroke-width="1" stroke-dasharray="3 5" fill="none"/>
+<text x="206" y="245.5" style="text-anchor:end;font-size:10px;fill:#1e1e1e">30K</text>
+<path d="M214 195.0 H640" stroke="#da77f2" stroke-width="1" stroke-dasharray="3 5" fill="none"/>
+<text x="206" y="199.0" style="text-anchor:end;font-size:10px;fill:#1e1e1e">35K</text>
+<text x="214" y="494" style="text-anchor:middle;font-size:11px;fill:#1e1e1e">Jan</text>
+<text x="356" y="494" style="text-anchor:middle;font-size:11px;fill:#1e1e1e">Feb</text>
+<text x="498" y="494" style="text-anchor:middle;font-size:11px;fill:#1e1e1e">Mar</text>
+<text x="640" y="494" style="text-anchor:middle;font-size:11px;fill:#1e1e1e">Apr</text>
+<path d="M214 247.1 L356 217.3 L498 202.4 L640 225.7" stroke="#40045c" stroke-width="2.5" fill="none"/>
+<circle cx="214" cy="247.1" r="3" fill="#40045c" stroke="#40045c" stroke-width="1"/>
+<circle cx="356" cy="217.3" r="3" fill="#40045c" stroke="#40045c" stroke-width="1"/>
+<circle cx="498" cy="202.4" r="3" fill="#40045c" stroke="#40045c" stroke-width="1"/>
+<circle cx="640" cy="225.7" r="3" fill="#40045c" stroke="#40045c" stroke-width="1"/>
+<text x="650" y="229.7" style="text-anchor:start;font-size:11px;fill:#40045c">Benefits &amp; coverage</text>
+<path d="M214 315.0 L356 292.6 L498 282.4 L640 299.2" stroke="#7950f2" stroke-width="2.5" fill="none"/>
+<circle cx="214" cy="315.0" r="3" fill="#7950f2" stroke="#7950f2" stroke-width="1"/>
+<circle cx="356" cy="292.6" r="3" fill="#7950f2" stroke="#7950f2" stroke-width="1"/>
+<circle cx="498" cy="282.4" r="3" fill="#7950f2" stroke="#7950f2" stroke-width="1"/>
+<circle cx="640" cy="299.2" r="3" fill="#7950f2" stroke="#7950f2" stroke-width="1"/>
+<text x="650" y="303.2" style="text-anchor:start;font-size:11px;fill:#7950f2">Claims</text>
+<path d="M214 368.9 L356 352.2 L498 344.7 L640 356.8" stroke="#da77f2" stroke-width="2.5" fill="none"/>
+<circle cx="214" cy="368.9" r="3" fill="#da77f2" stroke="#da77f2" stroke-width="1"/>
+<circle cx="356" cy="352.2" r="3" fill="#da77f2" stroke="#da77f2" stroke-width="1"/>
+<circle cx="498" cy="344.7" r="3" fill="#da77f2" stroke="#da77f2" stroke-width="1"/>
+<circle cx="640" cy="356.8" r="3" fill="#da77f2" stroke="#da77f2" stroke-width="1"/>
+<text x="650" y="360.8" style="text-anchor:start;font-size:11px;fill:#da77f2">Find care / network</text>
+<path d="M214 418.2 L356 407.0 L498 401.5 L640 409.8" stroke="#40045c" stroke-width="2.5" fill="none" stroke-dasharray="6 4"/>
+<circle cx="214" cy="418.2" r="3" fill="#40045c" stroke="#40045c" stroke-width="1"/>
+<circle cx="356" cy="407.0" r="3" fill="#40045c" stroke="#40045c" stroke-width="1"/>
+<circle cx="498" cy="401.5" r="3" fill="#40045c" stroke="#40045c" stroke-width="1"/>
+<circle cx="640" cy="409.8" r="3" fill="#40045c" stroke="#40045c" stroke-width="1"/>
+<text x="650" y="413.8" style="text-anchor:start;font-size:11px;fill:#40045c">ID cards &amp; enrollment</text>
+<path d="M214 433.1 L356 423.8 L498 419.1 L640 425.6" stroke="#7950f2" stroke-width="2.5" fill="none" stroke-dasharray="6 4"/>
+<circle cx="214" cy="433.1" r="3" fill="#7950f2" stroke="#7950f2" stroke-width="1"/>
+<circle cx="356" cy="423.8" r="3" fill="#7950f2" stroke="#7950f2" stroke-width="1"/>
+<circle cx="498" cy="419.1" r="3" fill="#7950f2" stroke="#7950f2" stroke-width="1"/>
+<circle cx="640" cy="425.6" r="3" fill="#7950f2" stroke="#7950f2" stroke-width="1"/>
+<text x="650" y="429.6" style="text-anchor:start;font-size:11px;fill:#7950f2">Billing &amp; payments</text>
+<path d="M214 449.8 L356 442.4 L498 438.7 L640 444.2" stroke="#da77f2" stroke-width="2.5" fill="none" stroke-dasharray="6 4"/>
+<circle cx="214" cy="449.8" r="3" fill="#da77f2" stroke="#da77f2" stroke-width="1"/>
+<circle cx="356" cy="442.4" r="3" fill="#da77f2" stroke="#da77f2" stroke-width="1"/>
+<circle cx="498" cy="438.7" r="3" fill="#da77f2" stroke="#da77f2" stroke-width="1"/>
+<circle cx="640" cy="444.2" r="3" fill="#da77f2" stroke="#da77f2" stroke-width="1"/>
+<text x="650" y="448.2" style="text-anchor:start;font-size:11px;fill:#da77f2">Pharmacy</text>
+</svg>

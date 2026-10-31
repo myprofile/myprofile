@@ -303,8 +303,10 @@ ORDER BY calls DESC;
 
 Use `COUNT(DISTINCT call_id)` for "how many calls," not `COUNT(*)`. Keywords repeat within a summary.
 
-![Named Entities dashboard](/assets/img/call-intelligence/mock_named_entities.png)
-*Figure 4: Dashboard view of procedure classes, with drill-down to the raw values behind a class (mock data).*
+<figure class="diagram">
+{% include diagrams/ci-mock-named-entities.svg %}
+<figcaption>Figure 4: Dashboard view of procedure classes, with drill-down to the raw values behind a class (mock data).</figcaption>
+</figure>
 
 ---
 

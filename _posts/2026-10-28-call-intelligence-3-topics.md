@@ -446,8 +446,10 @@ The model is re-evaluated **every six months**. Each cycle:
 
 Joined with operational metrics in the consolidated table ([Part 1](/posts/2026/10/28/call-intelligence-1-pipeline/)), topics show not just *what* members call about but *what each topic costs*:
 
-![Topic drilldown](/assets/img/call-intelligence/mock_topic_drilldown.png)
-*Figure 5: Drill-down from a topic group to specific topics, with operational metrics (mock data).*
+<figure class="diagram">
+{% include diagrams/ci-mock-topic-drilldown.svg %}
+<figcaption>Figure 5: Drill-down from a topic group to specific topics, with operational metrics (mock data).</figcaption>
+</figure>
 
 - **High volume and simple** → self-service candidates.
 - **High transfer rate or low resolution** → broken handoffs or unclear processes.

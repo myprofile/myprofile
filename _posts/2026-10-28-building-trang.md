@@ -46,7 +46,9 @@ In the first project, Trang is a 30-year-old baker at a neighborhood bakery: pat
 
 Every turn is the same loop: she perceives the kitchen, retrieves the recipe from memory, decides what to do, and a second model call turns her words into actions that a rulebook checks.
 
-![One turn of Trang's simulation: Perceive, Retrieve, Act, Extract, Apply, with feedback looping back to Perceive. Act and Extract are model calls.](/assets/img/building-trang/one-turn-of-trangs-simulation.png)
+<figure class="diagram">
+{% include diagrams/trang-one-turn.svg %}
+</figure>
 
 Her "memory" here is simple: a text file of unrelated articles with the recipe buried inside, and retrieval just looks for the recipe's headings. That was enough to bake, but it taught me where small-model agents break:
 
@@ -146,7 +148,9 @@ trang.save("interviewees", "trang")
 
 Ninety-one memories won't fit in a good prompt, and most are irrelevant to any one question. So for every question, Interview Studio scores all of them and keeps the top five.
 
-![How Interview Studio answers a question: your question, search memories, build the prompt, model replies with JSON, answer shown with its 5 memories. The memory stream feeds the search, and reflection writes insights back.](/assets/img/building-trang/how-interview-studio-answers.png)
+<figure class="diagram">
+{% include diagrams/trang-interview-studio.svg %}
+</figure>
 
 The score blends three signals from [the generative agents paper](https://arxiv.org/abs/2304.03442). Each has its own small function:
 

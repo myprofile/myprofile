@@ -1,0 +1,56 @@
+<svg viewBox="0 0 800 440" role="img" aria-labelledby="ga-levels-title ga-levels-desc" xmlns="http://www.w3.org/2000/svg">
+<title id="ga-levels-title">Levels of analysis</title>
+<desc id="ga-levels-desc">Three levels of analysis, trading detail for scale. Individual: one specific person. Question it answers: would THIS person like these search results? How you model it: a detailed persona prompt plus memory of their history. Failure mode: noise, because people are inconsistent and data per person is sparse. Group: a few people who interact. Question: how would these two resolve this conflict? Model: several individual agents with memory, interacting over ticks. Failure mode: dynamics may never be fully predictable. Population: many people, aggregated. Question: do older adults read more than younger ones? Model: sample N personas from demographics and average the answers. Failure mode: too coarse, and can reproduce bias and stereotypes. Group means interactions between people; population means interventions on the whole.</desc>
+<defs><marker id="ga-levels-head" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="dg-head"/></marker></defs>
+<rect class="dg-data" x="16" y="16" width="248" height="344" rx="14"/>
+<text class="dg-t" x="140" y="48" style="font-size:20px">Individual</text><text class="dg-s" x="140" y="68" style="fill:var(--accent)">one specific person</text>
+<text class="dg-h" x="32" y="100">question it answers</text>
+<text class="dg-s" x="32" y="119" style="text-anchor:start">"would THIS person like</text>
+<text class="dg-s" x="32" y="135" style="text-anchor:start">these search results?"</text>
+<text class="dg-h" x="32" y="170">how you model it</text>
+<text class="dg-s" x="32" y="189" style="text-anchor:start">detailed persona prompt +</text>
+<text class="dg-s" x="32" y="205" style="text-anchor:start">memory of their history</text>
+<text class="dg-h" x="32" y="240">failure mode</text>
+<text class="dg-s" x="32" y="259" style="text-anchor:start">noise: people are inconsistent</text>
+<text class="dg-s" x="32" y="275" style="text-anchor:start">and data per person is sparse</text>
+<rect class="dg-llm" x="276" y="16" width="248" height="344" rx="14"/>
+<text class="dg-t" x="400" y="48" style="font-size:20px">Group</text><text class="dg-s" x="400" y="68" style="fill:var(--accent)">a few people who interact</text>
+<text class="dg-h" x="292" y="100">question it answers</text>
+<text class="dg-s" x="292" y="119" style="text-anchor:start">"how would these two</text>
+<text class="dg-s" x="292" y="135" style="text-anchor:start">resolve this conflict?"</text>
+<text class="dg-h" x="292" y="170">how you model it</text>
+<text class="dg-s" x="292" y="189" style="text-anchor:start">several individual agents with</text>
+<text class="dg-s" x="292" y="205" style="text-anchor:start">memory, interacting over ticks</text>
+<text class="dg-h" x="292" y="240">failure mode</text>
+<text class="dg-s" x="292" y="259" style="text-anchor:start">dynamics may never be</text>
+<text class="dg-s" x="292" y="275" style="text-anchor:start">fully predictable</text>
+<rect class="dg-model" x="536" y="16" width="248" height="344" rx="14"/>
+<text class="dg-t" x="660" y="48" style="font-size:20px">Population</text><text class="dg-s" x="660" y="68" style="fill:var(--accent)">many people, aggregated</text>
+<text class="dg-h" x="552" y="100">question it answers</text>
+<text class="dg-s" x="552" y="119" style="text-anchor:start">"do older adults read</text>
+<text class="dg-s" x="552" y="135" style="text-anchor:start">more than younger ones?"</text>
+<text class="dg-h" x="552" y="170">how you model it</text>
+<text class="dg-s" x="552" y="189" style="text-anchor:start">sample N personas from</text>
+<text class="dg-s" x="552" y="205" style="text-anchor:start">demographics, average answers</text>
+<text class="dg-h" x="552" y="240">failure mode</text>
+<text class="dg-s" x="552" y="259" style="text-anchor:start">too coarse; can reproduce</text>
+<text class="dg-s" x="552" y="275" style="text-anchor:start">bias and stereotypes</text>
+<circle cx="140" cy="307" r="5" fill="#1e1e1e" stroke="#1e1e1e"/><path d="M140 312 V328 M132 318 H148 M140 328 L133 340 M140 328 L147 340" fill="none" stroke="#1e1e1e"/>
+<circle cx="376" cy="307" r="5" fill="#1e1e1e" stroke="#1e1e1e"/><path d="M376 312 V328 M368 318 H384 M376 328 L369 340 M376 328 L383 340" fill="none" stroke="#1e1e1e"/>
+<circle cx="400" cy="307" r="5" fill="#1e1e1e" stroke="#1e1e1e"/><path d="M400 312 V328 M392 318 H408 M400 328 L393 340 M400 328 L407 340" fill="none" stroke="#1e1e1e"/>
+<circle cx="424" cy="307" r="5" fill="#1e1e1e" stroke="#1e1e1e"/><path d="M424 312 V328 M416 318 H432 M424 328 L417 340 M424 328 L431 340" fill="none" stroke="#1e1e1e"/>
+<circle cx="612" cy="304" r="4" fill="#ffffff" stroke="#ffffff"/><path d="M612 308 V318 M606 312 H618 M612 318 L607 326 M612 318 L617 326" fill="none" stroke="#ffffff"/>
+<circle cx="636" cy="304" r="4" fill="#ffffff" stroke="#ffffff"/><path d="M636 308 V318 M630 312 H642 M636 318 L631 326 M636 318 L641 326" fill="none" stroke="#ffffff"/>
+<circle cx="660" cy="304" r="4" fill="#ffffff" stroke="#ffffff"/><path d="M660 308 V318 M654 312 H666 M660 318 L655 326 M660 318 L665 326" fill="none" stroke="#ffffff"/>
+<circle cx="684" cy="304" r="4" fill="#ffffff" stroke="#ffffff"/><path d="M684 308 V318 M678 312 H690 M684 318 L679 326 M684 318 L689 326" fill="none" stroke="#ffffff"/>
+<circle cx="708" cy="304" r="4" fill="#ffffff" stroke="#ffffff"/><path d="M708 308 V318 M702 312 H714 M708 318 L703 326 M708 318 L713 326" fill="none" stroke="#ffffff"/>
+<circle cx="624" cy="334" r="4" fill="#ffffff" stroke="#ffffff"/><path d="M624 338 V348 M618 342 H630 M624 348 L619 356 M624 348 L629 356" fill="none" stroke="#ffffff"/>
+<circle cx="648" cy="334" r="4" fill="#ffffff" stroke="#ffffff"/><path d="M648 338 V348 M642 342 H654 M648 348 L643 356 M648 348 L653 356" fill="none" stroke="#ffffff"/>
+<circle cx="672" cy="334" r="4" fill="#ffffff" stroke="#ffffff"/><path d="M672 338 V348 M666 342 H678 M672 348 L667 356 M672 348 L677 356" fill="none" stroke="#ffffff"/>
+<circle cx="696" cy="334" r="4" fill="#ffffff" stroke="#ffffff"/><path d="M696 338 V348 M690 342 H702 M696 348 L691 356 M696 348 L701 356" fill="none" stroke="#ffffff"/>
+<path class="dg-line" d="M290 392 H18" marker-end="url(#ga-levels-head)"/>
+<path class="dg-line" d="M510 392 H782" marker-end="url(#ga-levels-head)"/>
+<text class="dg-t" x="400" y="397" style="font-size:16px">trade detail for scale</text>
+<text class="dg-l" x="16" y="428">group = interactions between people</text>
+<text class="dg-l" x="784" y="428" text-anchor="end">population = interventions on the whole</text>
+</svg>

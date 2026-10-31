@@ -419,17 +419,25 @@ Two details make the numbers trustworthy:
 | **Contact Table** | Call-level records with AI fields |
 | **Session Review** | One call's transcript, summary, topics, entities and resolution side by side |
 
-![Performance](/assets/img/call-intelligence/mock_performance.png)
-*Figure 4: Performance view, filtered to one line of business (mock data).*
+<figure class="diagram">
+{% include diagrams/ci-mock-performance.svg %}
+<figcaption>Figure 4: Performance view, filtered to one line of business (mock data).</figcaption>
+</figure>
 
-![Topic Insights](/assets/img/call-intelligence/mock_topic_insights.png)
-*Figure 5: Topic Insights. Shares can exceed 100% because a call can have several topics (mock data).*
+<figure class="diagram">
+{% include diagrams/ci-mock-topic-insights.svg %}
+<figcaption>Figure 5: Topic Insights. Shares can exceed 100% because a call can have several topics (mock data).</figcaption>
+</figure>
 
-![Named Entities](/assets/img/call-intelligence/mock_named_entities.png)
-*Figure 6: Named Entities, with drill-down from a class to the values behind it (mock data).*
+<figure class="diagram">
+{% include diagrams/ci-mock-named-entities.svg %}
+<figcaption>Figure 6: Named Entities, with drill-down from a class to the values behind it (mock data).</figcaption>
+</figure>
 
-![Trends](/assets/img/call-intelligence/mock_trends.png)
-*Figure 7: Topic group trends month over month (mock data).*
+<figure class="diagram">
+{% include diagrams/ci-mock-trends.svg %}
+<figcaption>Figure 7: Topic group trends month over month (mock data).</figcaption>
+</figure>
 
 ---
 

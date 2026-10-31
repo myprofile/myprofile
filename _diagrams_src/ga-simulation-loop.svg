@@ -1,0 +1,34 @@
+<svg viewBox="0 0 800 340" role="img" aria-labelledby="ga-simulation-loop-title ga-simulation-loop-desc" xmlns="http://www.w3.org/2000/svg">
+<title id="ga-simulation-loop-title">Simulation loop</title>
+<desc id="ga-simulation-loop-desc">Simulation loop. On the left, the world at tick t: an environment state (map, objects, clock) and agents 1, 2, … n, each with its own state and memory. An arrow leads to step(world), which runs env.apply_rules(state), then for each agent a.perceive(world) and a.act(world). One LLM call per agent per tick, so the step is stochastic: each rerun is a new world. The step produces the world at tick t + 1 on the right, with the same environment and updated agents, and a dashed arrow loops back: next tick, world ← world′.</desc>
+<defs><marker id="ga-simulation-loop-head" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="dg-head"/></marker></defs>
+<rect x="16" y="16" width="256" height="252" rx="10" fill="none" stroke="#1e1e1e"/>
+<text class="dg-t" x="144" y="44" style="font-size:17px">world at tick t</text>
+<rect class="dg-data" x="32" y="58" width="224" height="54" rx="8"/><text class="dg-t" x="144" y="81">environment state</text><text class="dg-s" x="144" y="100">map · objects · clock</text>
+<text class="dg-l" x="32" y="134" style="fill:var(--accent)">agents</text>
+<ellipse class="dg-llm" cx="84" cy="170" rx="58" ry="26"/><text class="dg-s" x="84" y="166">agent 1</text><text class="dg-s" x="84" y="181">state · memory</text>
+<ellipse class="dg-llm" cx="204" cy="170" rx="58" ry="26"/><text class="dg-s" x="204" y="166">agent 2</text><text class="dg-s" x="204" y="181">state · memory</text>
+<ellipse class="dg-llm" cx="84" cy="232" rx="58" ry="26"/><text class="dg-t" x="84" y="237">…</text>
+<ellipse class="dg-llm" cx="204" cy="232" rx="58" ry="26"/><text class="dg-s" x="204" y="228">agent n</text><text class="dg-s" x="204" y="243">state · memory</text>
+<rect x="528" y="16" width="256" height="252" rx="10" fill="none" stroke="#1e1e1e"/>
+<text class="dg-t" x="656" y="44" style="font-size:17px">world at tick t + 1</text>
+<rect class="dg-data" x="544" y="58" width="224" height="54" rx="8"/><text class="dg-t" x="656" y="81">environment state</text><text class="dg-s" x="656" y="100">map · objects · clock</text>
+<text class="dg-l" x="544" y="134" style="fill:var(--accent)">agents</text>
+<ellipse class="dg-model" cx="596" cy="170" rx="58" ry="26"/><text class="dg-s" x="596" y="166">agent 1</text><text class="dg-s" x="596" y="181">state · memory</text>
+<ellipse class="dg-model" cx="716" cy="170" rx="58" ry="26"/><text class="dg-s" x="716" y="166">agent 2</text><text class="dg-s" x="716" y="181">state · memory</text>
+<ellipse class="dg-model" cx="596" cy="232" rx="58" ry="26"/><text class="dg-t" x="596" y="237">…</text>
+<ellipse class="dg-model" cx="716" cy="232" rx="58" ry="26"/><text class="dg-s" x="716" y="228">agent n</text><text class="dg-s" x="716" y="243">state · memory</text>
+<rect class="dg-key" x="304" y="84" width="192" height="116" rx="10"/>
+<text class="dg-t dg-on-key" x="400" y="110" style="font-size:16px">step(world)</text>
+<text class="dg-mono" x="318" y="134" style="text-anchor:start;fill:#ffffff;white-space:pre" xml:space="preserve">env.apply_rules(state)</text>
+<text class="dg-mono" x="318" y="150" style="text-anchor:start;fill:#ffffff;white-space:pre" xml:space="preserve">for a in agents:</text>
+<text class="dg-mono" x="318" y="166" style="text-anchor:start;fill:#ffffff;white-space:pre" xml:space="preserve">  a.perceive(world)</text>
+<text class="dg-mono" x="318" y="182" style="text-anchor:start;fill:#ffffff;white-space:pre" xml:space="preserve">  a.act(world)</text>
+<path class="dg-line" d="M272 142 H304" marker-end="url(#ga-simulation-loop-head)"/>
+<path class="dg-line" d="M496 142 H528" marker-end="url(#ga-simulation-loop-head)"/>
+<text class="dg-s" x="400" y="226" style="fill:var(--accent)">one LLM call per agent per tick,</text>
+<text class="dg-s" x="400" y="242" style="fill:var(--accent)">so the step is stochastic:</text>
+<text class="dg-s" x="400" y="258" style="fill:var(--accent)">each rerun is a new world</text>
+<path class="dg-line" d="M656 268 V300 H144 V274" stroke-dasharray="6 5" marker-end="url(#ga-simulation-loop-head)"/>
+<text class="dg-t" x="400" y="326">next tick: world ← world′</text>
+</svg>
