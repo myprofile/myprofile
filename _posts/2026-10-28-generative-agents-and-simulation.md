@@ -102,16 +102,16 @@ Most generative-AI simulation research right now is at the population level, for
 
 ## 4. How is an AI agent built?
 
-How do you turn a language model into a character that stays coherent over days of simulated time? A bare model can't. It has no memory of yesterday, and its context window won't hold two days of experience. Cognitive scientists have a name for the missing piece: a **cognitive architecture**, the fixed machinery underneath thought, such as memory, goals, and decision-making. SOAR (1983) and ACT-R (1993) were built to model human problem solving. The **generative agent** architecture from the 2023 paper of that name revives the idea with an LLM in the middle. The paper demonstrates it on a town of 25 agents. The examples below use Trang, the agent I build in the next post, an environmental lawyer with 91 memories of her life.
+A bare language model can't stay in character over days of simulated time. It has no memory of yesterday, and its context window won't hold two days of experience. Cognitive scientists call the missing piece a **cognitive architecture**: the fixed machinery underneath thought, such as memory, goals, and decision-making. SOAR (1983) and ACT-R (1993) were built to model human problem solving. The **generative agent** architecture from the 2023 paper of that name revives the idea with an LLM in the middle, and demonstrates it on a town of 25 agents.
 
 <figure class="diagram">
 {% include diagrams/ga-architecture.svg %}
 <figcaption>Left to right: perception feeds the memory stream, retrieval pulls a small working set into scratch memory, and that set drives action. Plans and reflections loop back in as new memories.</figcaption>
 </figure>
 
-**1. Perceive and remember.** The agent records everything it notices ("Trang is reviewing a permit case at the clinic") in its **memory stream**, an append-only list of plain-language records. Each one carries its text, when it was created, when it was last accessed, an importance score, and an embedding. The stream gets far too long to hand to the model whole, and dumping it all in would drown the signal anyway. So the agent has to choose what to recall.
+**1. Perceive and remember.** The agent records everything it notices ("reviewing a case file at the clinic") in its **memory stream**, an append-only list of plain-language records. Each record carries its text, when it was created and last accessed, an importance score, and an embedding. The stream soon grows too long to hand to the model whole, so the agent has to choose what to recall.
 
-**2. Retrieve.** Retrieval scores every record against the current situation and takes the top of the list:
+**2. Retrieve.** Retrieval scores every record against the current situation and keeps the top of the list:
 
 ```
 score(m) = α_rec · recency(m) + α_imp · importance(m) + α_rel · relevance(m, q)
@@ -121,29 +121,19 @@ score(m) = α_rec · recency(m) + α_imp · importance(m) + α_rel · relevance(
 {% include diagrams/ga-retrieval.svg %}
 </figure>
 
-The three terms, as the paper implements them:
+- **Recency** decays exponentially (0.995 per simulated hour) since the memory was *last accessed*, so things the agent keeps thinking about stay warm.
+- **Importance** is a 1–10 score the LLM gives when the record is written. Brushing teeth is near the bottom; a breakup is near the top.
+- **Relevance** is the cosine similarity between the record's embedding and the query's.
 
-- **Recency** is an exponential decay over simulated hours since the memory was *last accessed*, not created, with a factor of 0.995 per hour. Touching a memory refreshes it, so things the agent keeps thinking about stay warm.
-- **Importance** is one integer the LLM assigns when the record is written, by rating how poignant the event is. Brushing teeth near the bottom, a breakup near the top.
-- **Relevance** is cosine similarity between the record's embedding and the query's, from the same embedding model.
+Each term is normalized to [0, 1] before summing, and the paper weights all three equally. The top records that fit the prompt are kept, and their last-accessed times are refreshed.
 
-Each term is min-max normalized to [0, 1] across the candidates before summing, and the paper sets all three weights to 1. The sorted list gets truncated to whatever fits the prompt's token budget, and every record that makes the cut has its last-accessed time refreshed.
+**3. Act.** The retrieved records become **scratch memory**, the agent's working set. The LLM reads it, along with a short summary of who the agent is and what it's doing, and decides what to do: say something, walk somewhere, or change an object in the world.
 
-> **From building Trang.** The code I started Trang from rates importance 0–100, and I'd assumed that was the paper's scale too. It isn't; the paper uses 1–10. I spent a while wondering whether I'd broken something before noticing that the normalization step makes the scale irrelevant: 1–10 and 0–100 land in the same [0, 1] range before they're summed. What *does* matter is giving the model anchors in the prompt ("routine events 0–15, defining life events 70–100"), because without them a small model rates everything in the sixties.
->
-> The weights matter more than the scale. For an interview agent that answers one question at a time, I ended up at 3 · relevance + 0.5 · importance + 0.5 · recency, because being on topic beats everything else, with decay per time step rather than per hour. The best answer to Trang's opening interview question came from a memory rated 30 out of 100; 74 of her 91 memories outrank it on importance. It won because it was exactly on topic. With the paper's equal weights, I'm fairly sure it would have lost to a childhood memory about the forest. The next post has the full ranking table.
+**4. Reflect.** Observations alone don't let an agent generalize about itself. When the summed importance of recent events crosses a threshold (a few times a day), the agent reviews its recent records, asks what questions they raise, and writes higher-level insights back into the stream, such as "I care more about grassroots work than I thought." Later reflections can build on earlier ones, so over time you get a tree, with observations at the leaves and more abstract beliefs higher up.
 
-Ask Trang "What have you worked on in your law school's Environmental Law Clinic?" and retrieval surfaces the clinic memory, not her childhood weekends in the forest.
+**5. Plan.** An agent should also make sense across a whole day. The LLM drafts a rough day in a handful of chunks, then breaks each chunk into hours, then into 5–15 minute actions. Plans are stored as memories too, and if something unexpected happens the agent re-plans from that point.
 
-**3. Act.** The retrieved records land in **scratch memory**, the agent's working set. The prompt is scratch memory plus a summary of who the agent is and what it's doing right now, and the LLM decides: say something, walk somewhere, or change the world, like pulling up a case file.
-
-**4. Reflect.** Observations alone don't let an agent generalize about itself. So periodically it reviews its hundred or so most recent records and writes higher-level thoughts, such as "Losing the city council race deepened my commitment to grassroots activism." The mechanics: reflection fires when the summed importance of recent events crosses a threshold (150 in the paper, so a few times a day). The agent asks the LLM for the three most salient questions those records raise, retrieves against each question, and asks for insights that cite the supporting records. The insights go into the stream as new records, which means later reflections can build on earlier ones. Over time you get a tree: observations at the leaves, increasingly abstract thoughts higher up.
-
-This is the part of Trang I haven't wired into the app yet. The function exists, and when I ran it by hand on "what has losing the city council race taught me?" (she ran for city council in her backstory, and lost), she produced a belief about public service that no single memory states. The model rated those insights higher than almost all her raw memories, which is the point: reflections are what should win retrieval when someone asks a big question.
-
-**5. Plan.** Sensible moment-to-moment behavior isn't enough; an agent should also make sense across a day. Planning is top-down and recursive. The LLM drafts a rough day in five to eight chunks (wake at 7, clinic at 9, study group from 2 to 5), then expands each chunk into hourly steps, then into five-to-fifteen-minute actions with a location, a start time, and a duration. Plans are stored as memories too. Each tick the agent checks whether what it just saw calls for a reaction, and if so it re-plans from that point rather than following the stale schedule.
-
-The idea underneath all five steps is that **everything is a memory**. Perceptions, plans, and reflections go into one stream, and everything the agent does is built from what it reads back out. That's what keeps behavior consistent over time, and it's what makes the thing debuggable: when an agent does something strange, print the records it retrieved and you can usually see why. Trang's interview app shows the retrieved memories and their scores under every answer for exactly this reason; it's the single feature that made the project tolerable to work on. It's also what makes the architecture expensive. Cost is agents × ticks × LLM calls per tick, and a tick can involve perception, retrieval scoring, action generation, and the occasional reflection and planning pass.
+The idea underneath all five steps is that **everything is a memory**. Perceptions, plans, and reflections share one stream, and every action is built from what retrieval reads back out. That keeps behavior consistent and makes the agent debuggable: when it does something strange, print the records it retrieved and you can usually see why. It's also what makes the architecture expensive. Cost grows with agents × ticks × LLM calls per tick.
 
 ## 5. Is it any good? Believable versus accurate
 
