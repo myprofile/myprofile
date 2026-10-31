@@ -25,7 +25,7 @@
 <path class="dg-line" d="M389 226 H410" marker-end="url(#c360-fw-head)"/>
 <path class="dg-line" d="M586 226 H607" marker-end="url(#c360-fw-head)"/>
 <path class="dg-line" d="M695 256 V284" marker-end="url(#c360-fw-head)"/>
-<rect class="dg-data" x="607" y="284" width="177" height="52" rx="6"/><text class="dg-t" x="695" y="306">Bigtable</text><text class="dg-s dg-code" x="695" y="324" style="font-size:11px">member_context_table</text>
+<rect class="dg-model" x="607" y="284" width="177" height="52" rx="6"/><text class="dg-t" x="695" y="306">Bigtable</text><text class="dg-s dg-code" x="695" y="324" style="font-size:11px">member_context_table</text>
 <text class="dg-l" x="16" y="306">A new source = one config entry.</text>
 <text class="dg-l" x="16" y="324">No new pipeline code.</text>
 </svg>

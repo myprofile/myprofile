@@ -5,12 +5,15 @@ const gen = rough.generator();
 const [,, inp, out] = process.argv;
 let svg = fs.readFileSync(inp, 'utf8');
 const ACC = '#40045c';
+const INK = '#1e1e1e';
+// Excalidraw palette, solid fills (no hachure)
 const STY = {
-  'dg-data':  { stroke: '#8f8f8f', fill: '#d4d4d4', fillStyle: 'hachure' },
-  'dg-llm':   { stroke: ACC, fill: '#c9a3dc', fillStyle: 'hachure' },
-  'dg-model': { stroke: ACC },
-  'dg-key':   { stroke: ACC, fill: ACC, fillStyle: 'solid' },
-  'dg-line':  { stroke: '#7a7a7a', strokeWidth: 1.4 },
+  'dg-data':  { stroke: INK, fill: '#ffec99', fillStyle: 'solid' },  // yellow: data and pipelines
+  'dg-llm':   { stroke: INK, fill: '#ffc9c9', fillStyle: 'solid' },  // pink: LLM steps
+  'dg-model': { stroke: INK, fill: '#b2f2bb', fillStyle: 'solid' },  // green: serving store, small models
+  'dg-key':   { stroke: ACC, fill: ACC, fillStyle: 'solid' },        // purple: what the rep sees
+  'dg-skip':  { stroke: '#adb5bd', fill: '#f1f3f5', fillStyle: 'solid' },
+  'dg-line':  { stroke: '#495057', strokeWidth: 1.4 },
 };
 const attrs = s => Object.fromEntries([...s.matchAll(/([\w:-]+)="([^"]*)"/g)].map(m => [m[1], m[2]]));
 let seed = 1;
