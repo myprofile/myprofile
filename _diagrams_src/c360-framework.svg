@@ -10,7 +10,7 @@
 <path class="dg-line" d="M192 56 H213" marker-end="url(#c360-fw-head)"/>
 <path class="dg-line" d="M389 56 H410" marker-end="url(#c360-fw-head)"/>
 <path class="dg-line" d="M586 56 H607" marker-end="url(#c360-fw-head)"/>
-<rect x="16" y="98" width="768" height="32" rx="6" fill="none" stroke="#c9c9c9" stroke-width="1.25" stroke-dasharray="5 4"/>
+<rect x="16" y="98" width="768" height="32" rx="6" fill="none" stroke="#40045c" stroke-width="1.25" stroke-dasharray="5 4"/>
 <text class="dg-s" x="400" y="119">audit check before every write · one ID per run · duplicate runs blocked</text>
 <path class="dg-line" d="M695 130 V196" stroke-dasharray="4 4" marker-end="url(#c360-fw-head)"/>
 <text class="dg-l" x="685" y="166" text-anchor="end">reads BigQuery tables</text>

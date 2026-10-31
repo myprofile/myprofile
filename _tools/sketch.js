@@ -12,8 +12,8 @@ const STY = {
   'dg-llm':   { stroke: INK, fill: '#ffc9c9', fillStyle: 'solid' },  // pink: LLM steps
   'dg-model': { stroke: INK, fill: '#b2f2bb', fillStyle: 'solid' },  // green: serving store, small models
   'dg-key':   { stroke: ACC, fill: ACC, fillStyle: 'solid' },        // purple: what the rep sees
-  'dg-skip':  { stroke: '#adb5bd', fill: '#f1f3f5', fillStyle: 'solid' },
-  'dg-line':  { stroke: '#495057', strokeWidth: 1.4 },
+  'dg-skip':  { stroke: INK, fill: '#fff9db', fillStyle: 'solid' },         // pale yellow: skipped row
+  'dg-line':  { stroke: INK, strokeWidth: 1.4 },
 };
 const attrs = s => Object.fromEntries([...s.matchAll(/([\w:-]+)="([^"]*)"/g)].map(m => [m[1], m[2]]));
 let seed = 1;
@@ -30,7 +30,7 @@ function styleFor(a) {
   const o = { ...base(), ...(cls ? STY[cls] : {}) };
   if (!cls) {
     const st = a.stroke || (a.style || '').match(/stroke:\s*([^;]+)/)?.[1];
-    o.stroke = st && st.includes('var(--accent)') ? ACC : (st || '#8f8f8f');
+    o.stroke = st && st.includes('var(--accent)') ? ACC : (st || INK);
     const f = a.fill;
     if (f && f !== 'none') { o.fill = f.includes('var(--accent)') ? ACC : f; o.fillStyle = 'solid'; }
   }
@@ -44,6 +44,11 @@ svg = svg.replace(/<rect\b([^>]*)\/>/g, (m, s) => {
   const o = styleFor(a);
   if (w < 20 && h < 20) { o.roughness = 0.6; o.hachureGap = 3; }   // legend chips
   return `<g>${draw(rr(x, y, w, h, +(a.rx || 0)), o, a['stroke-dasharray'])}</g>`;
+});
+// circles (bullets)
+svg = svg.replace(/<circle\b([^>]*)\/>/g, (m, s) => {
+  const a = attrs(s); const o = styleFor(a); o.roughness = 0.6;
+  return `<g>${gen.toPaths(gen.circle(+a.cx, +a.cy, 2 * +a.r + 2, o)).map(p => `<path d="${p.d}" fill="${p.fill || 'none'}" stroke="${p.stroke || 'none'}" stroke-width="${p.strokeWidth}"/>`).join('')}</g>`;
 });
 // paths (lines, arrows, brackets) — skip arrowhead marker defs
 svg = svg.replace(/<path\b([^>]*)\/>/g, (m, s) => {

@@ -11,6 +11,6 @@ node _tools/sketch.js _diagrams_src/c360-architecture.svg _includes/diagrams/c36
 ```
 
 Colors (Excalidraw palette, solid fills): `dg-data` yellow, `dg-llm` pink, `dg-model` green,
-`dg-key` purple, `dg-skip` grey.
+`dg-key` purple, `dg-skip` pale yellow. No grey.
 
 Labels use the Virgil font (`assets/fonts/Virgil.woff2`, SIL Open Font License, from Excalidraw).

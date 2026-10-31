@@ -139,6 +139,10 @@ footer p { margin: 0; }
 .sketch .dg-s, .sketch .dg-l { font-size: 11px; }
 .sketch .dg-h { font-size: 12px; letter-spacing: .03em; }
 .sketch .dg-mono, .sketch .dg-code { font-family: var(--mono); }
+.sketch .dg-s, .sketch .dg-l { fill: #1e1e1e; }
+.sketch .dg-h { fill: var(--accent); }
+.sketch .dg-faint { fill: #9b6bb5; }
+.sketch .dg-s.dg-on-key { fill: #e4d3ee; }
 
 /* Syntax highlighting (Rouge, light) */
 .highlight .c, .highlight .c1, .highlight .cm, .highlight .cs, .highlight .ch, .highlight .cd { color: #8a8a8a; font-style: italic; }
