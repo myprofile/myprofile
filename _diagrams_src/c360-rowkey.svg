@@ -13,9 +13,9 @@
 <rect class="dg-model" x="140" y="124" width="230" height="56"/><text class="dg-mono" x="152" y="156">MBR-000123#2025-01-08</text>
 <rect class="dg-model" x="370" y="124" width="220" height="56"/><text class="dg-mono" x="382" y="148">reason: ID card</text><text class="dg-mono" x="382" y="166">outcome: resolved</text>
 <rect class="dg-model" x="590" y="124" width="194" height="56"/><text class="dg-mono dg-faint" x="602" y="156">(unchanged)</text>
-<rect class="dg-data" x="140" y="180" width="230" height="56"/><text class="dg-mono dg-faint" x="152" y="212">MBR-000456#2025-01-14</text>
-<rect class="dg-data" x="370" y="180" width="220" height="56"/><text class="dg-mono dg-faint" x="382" y="212">reason: billing</text>
-<rect class="dg-data" x="590" y="180" width="194" height="56"/><text class="dg-mono dg-faint" x="602" y="212">age_band: 40–45</text>
+<rect class="dg-skip" x="140" y="180" width="230" height="56"/><text class="dg-mono dg-faint" x="152" y="212">MBR-000456#2025-01-14</text>
+<rect class="dg-skip" x="370" y="180" width="220" height="56"/><text class="dg-mono dg-faint" x="382" y="212">reason: billing</text>
+<rect class="dg-skip" x="590" y="180" width="194" height="56"/><text class="dg-mono dg-faint" x="602" y="212">age_band: 40–45</text>
 </g>
 <path d="M126 72 H118 V176 H126" fill="none" stroke="var(--accent)" stroke-width="2"/>
 <text class="dg-s" x="62" y="114" style="fill:var(--accent);font-weight:600">prefix scan</text>
