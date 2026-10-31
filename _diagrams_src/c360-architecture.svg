@@ -1,0 +1,37 @@
+<svg viewBox="0 0 800 580" role="img" aria-labelledby="c360-arch-title c360-arch-desc" xmlns="http://www.w3.org/2000/svg">
+<title id="c360-arch-title">Call360 architecture</title>
+<desc id="c360-arch-desc">Six sources (call summaries, medical claims, Rx claims, prior authorization, grievances and surveys) feed Layer 1, BigQuery domain pipelines on Cloud Composer that keep full history. A factory DAG on Dataproc Serverless loads Layer 2, Bigtable, with a 90-day window keyed by memberId#eventDate. The Call360 API picks few-shot examples with an INT8 SBERT model, summarizes with Gemini, formats JSON with Gemini 2.5 Flash-Lite with thinking off, and sends talking points to the agent desktop.</desc>
+<defs><marker id="c360-arch-head" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="dg-head"/></marker></defs>
+<text class="dg-h" x="16" y="12">SOURCES · REFRESHED DAILY</text>
+<rect class="dg-data" x="16" y="24" width="120" height="48" rx="6"/><text class="dg-t" x="76" y="44">Call summaries</text><text class="dg-s" x="76" y="61">several LOBs</text>
+<rect class="dg-data" x="144" y="24" width="120" height="48" rx="6"/><text class="dg-t" x="204" y="53">Medical claims</text>
+<rect class="dg-data" x="272" y="24" width="120" height="48" rx="6"/><text class="dg-t" x="332" y="53">Rx claims</text>
+<rect class="dg-data" x="400" y="24" width="120" height="48" rx="6"/><text class="dg-t" x="460" y="53">Prior auth</text>
+<rect class="dg-data" x="528" y="24" width="120" height="48" rx="6"/><text class="dg-t" x="588" y="53">Grievances</text>
+<rect class="dg-data" x="656" y="24" width="120" height="48" rx="6"/><text class="dg-t" x="716" y="53">Surveys</text>
+<path class="dg-line" d="M76 72 V96 M204 72 V96 M332 72 V96 M460 72 V96 M588 72 V96 M716 72 V96 M76 96 H716"/>
+<path class="dg-line" d="M400 96 V120" marker-end="url(#c360-arch-head)"/>
+<rect class="dg-data" x="16" y="120" width="768" height="64" rx="6"/>
+<text class="dg-t" x="400" y="146">Layer 1 · BigQuery domain pipelines (full history)</text>
+<text class="dg-s" x="400" y="166">Airflow on Cloud Composer · population → enrich → status buckets → global member ID</text>
+<path class="dg-line" d="M400 184 V216" marker-end="url(#c360-arch-head)"/>
+<rect class="dg-model" x="16" y="216" width="768" height="64" rx="6"/>
+<text class="dg-t" x="400" y="242">Layer 2 · Bigtable (90-day window)</text>
+<text class="dg-s" x="400" y="262">factory DAG · Dataproc Serverless PySpark · row key memberId#eventDate</text>
+<path class="dg-line" d="M400 280 V312" marker-end="url(#c360-arch-head)"/>
+<rect x="16" y="312" width="768" height="120" rx="8" fill="none" stroke="#c9c9c9" stroke-width="1.25" stroke-dasharray="5 4"/>
+<text class="dg-h" x="32" y="334">CALL360 API · PER REQUEST</text>
+<rect class="dg-model" x="32" y="352" width="224" height="60" rx="6"/><text class="dg-t" x="144" y="377">Few-shot selection</text><text class="dg-s" x="144" y="396">SBERT · ONNX INT8</text>
+<rect class="dg-llm" x="288" y="352" width="224" height="60" rx="6"/><text class="dg-t" x="400" y="377">Step 1 · Summarize</text><text class="dg-s" x="400" y="396">Gemini</text>
+<rect class="dg-llm" x="544" y="352" width="224" height="60" rx="6"/><text class="dg-t" x="656" y="377">Step 2 · Format JSON</text><text class="dg-s" x="656" y="396">Gemini 2.5 Flash-Lite</text>
+<path class="dg-line" d="M256 382 H288" marker-end="url(#c360-arch-head)"/>
+<path class="dg-line" d="M512 382 H544" marker-end="url(#c360-arch-head)"/>
+<path class="dg-line" d="M656 412 V448 H400 V464" marker-end="url(#c360-arch-head)"/>
+<rect class="dg-key" x="200" y="464" width="400" height="60" rx="6"/>
+<text class="dg-t dg-on-key" x="400" y="490">Agent desktop</text>
+<text class="dg-s dg-on-key" x="400" y="509">talking points before the rep says hello</text>
+<rect class="dg-data" x="16" y="554" width="14" height="14" rx="3"/><text class="dg-l" x="38" y="566">Data and pipelines</text>
+<rect class="dg-model" x="180" y="554" width="14" height="14" rx="3"/><text class="dg-l" x="202" y="566">Serving store or small model</text>
+<rect class="dg-llm" x="394" y="554" width="14" height="14" rx="3"/><text class="dg-l" x="416" y="566">LLM</text>
+<rect class="dg-key" x="470" y="554" width="14" height="14" rx="3"/><text class="dg-l" x="492" y="566">What the rep sees</text>
+</svg>

@@ -1,0 +1,26 @@
+<svg viewBox="0 0 800 300" role="img" aria-labelledby="c360-rk-title c360-rk-desc" xmlns="http://www.w3.org/2000/svg">
+<title id="c360-rk-title">Bigtable row key and column families</title>
+<desc id="c360-rk-desc">The mock member_context_table has a row key of member ID, a hash sign, and event date, plus one column family per source: call_summary and member_details. Two rows for member MBR-000123 sit next to each other, so a prefix scan on MBR-000123# returns both. A row for a different member, MBR-000456, is skipped.</desc>
+<text class="dg-code" x="140" y="20" style="font-size:13px;fill:var(--text)">member_context_table</text>
+<text class="dg-l" x="784" y="20" text-anchor="end">mock data</text>
+<rect class="dg-key" x="140" y="32" width="230" height="36" rx="0"/><text class="dg-t dg-on-key" x="255" y="55">Row key</text>
+<rect class="dg-llm" x="370" y="32" width="220" height="36"/><text class="dg-t" x="480" y="55">CF: call_summary</text>
+<rect class="dg-llm" x="590" y="32" width="194" height="36"/><text class="dg-t" x="687" y="55">CF: member_details</text>
+<g>
+<rect class="dg-model" x="140" y="68" width="230" height="56"/><text class="dg-mono" x="152" y="100">MBR-000123#2025-01-15</text>
+<rect class="dg-model" x="370" y="68" width="220" height="56"/><text class="dg-mono" x="382" y="92">reason: refill delay</text><text class="dg-mono" x="382" y="110">outcome: check pharmacy</text>
+<rect class="dg-model" x="590" y="68" width="194" height="56"/><text class="dg-mono" x="602" y="100">age_band: 65–70</text>
+<rect class="dg-model" x="140" y="124" width="230" height="56"/><text class="dg-mono" x="152" y="156">MBR-000123#2025-01-08</text>
+<rect class="dg-model" x="370" y="124" width="220" height="56"/><text class="dg-mono" x="382" y="148">reason: ID card</text><text class="dg-mono" x="382" y="166">outcome: resolved</text>
+<rect class="dg-model" x="590" y="124" width="194" height="56"/><text class="dg-mono dg-faint" x="602" y="156">(unchanged)</text>
+<rect class="dg-data" x="140" y="180" width="230" height="56"/><text class="dg-mono dg-faint" x="152" y="212">MBR-000456#2025-01-14</text>
+<rect class="dg-data" x="370" y="180" width="220" height="56"/><text class="dg-mono dg-faint" x="382" y="212">reason: billing</text>
+<rect class="dg-data" x="590" y="180" width="194" height="56"/><text class="dg-mono dg-faint" x="602" y="212">age_band: 40–45</text>
+</g>
+<path d="M126 72 H118 V176 H126" fill="none" stroke="var(--accent)" stroke-width="2"/>
+<text class="dg-s" x="62" y="114" style="fill:var(--accent);font-weight:600">prefix scan</text>
+<text class="dg-mono" x="62" y="132" text-anchor="middle" style="fill:var(--accent)">MBR-000123#</text>
+<text class="dg-s" x="62" y="212" >skipped</text>
+<text class="dg-l" x="140" y="264">Member ID first spreads writes; date second keeps a member's rows together, in order.</text>
+<text class="dg-l" x="140" y="284">A new source is a new column family, with no schema change.</text>
+</svg>
