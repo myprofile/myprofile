@@ -14,3 +14,14 @@ Colors (Excalidraw palette, solid fills): `dg-data` #fff9db, `dg-llm` #da77f2, `
 `dg-key` purple, `dg-skip` pale yellow. No grey.
 
 Labels use the Virgil font (`assets/fonts/Virgil.woff2`, SIL Open Font License, from Excalidraw).
+
+## Recoloring PNG diagrams
+
+`recolor.py` maps the Excalidraw colors in the Generative Agents and Building Trang PNG
+diagrams onto the same palette (#fff9db, #da77f2, #7950f2), turns text on solid violet
+boxes white, and recolors colored or grey text. The per-image color mapping is in `MAPS`.
+Needs numpy, pillow and scipy:
+
+```sh
+python _tools/recolor.py original.png out.png <image-name-without-.png>
+```
