@@ -131,6 +131,14 @@ footer p { margin: 0; }
 .dg-line { fill: none; stroke: #8c8c8c; stroke-width: 1.5; }
 .dg-head { fill: #8c8c8c; }
 
+/* Hand-drawn (Excalidraw-style) diagrams */
+@font-face { font-family: "Virgil"; src: url("../fonts/Virgil.woff2") format("woff2"); font-display: swap; }
+.sketch text { font-family: "Virgil", "Comic Sans MS", cursive; font-weight: 400; }
+.sketch .dg-t { font-size: 14px; }
+.sketch .dg-s, .sketch .dg-l { font-size: 11px; }
+.sketch .dg-h { font-size: 12px; letter-spacing: .03em; }
+.sketch .dg-mono, .sketch .dg-code { font-family: var(--mono); }
+
 /* Syntax highlighting (Rouge, light) */
 .highlight .c, .highlight .c1, .highlight .cm, .highlight .cs, .highlight .ch, .highlight .cd { color: #8a8a8a; font-style: italic; }
 .highlight .k, .highlight .kd, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kc, .highlight .ow { color: #40045c; font-weight: 600; }
