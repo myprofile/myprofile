@@ -5,11 +5,11 @@ summary: "Why researchers are building little towns full of AI people, how the a
 date: 2026-10-28 10:00:00
 ---
 
-*Part 1 of 2 on generative agents. Part 2: [Building Trang](/posts/2026/10/28/building-trang/), an implementation of a generative agent.*
+*Part 1 of 2 on generative agents. Part 2: [Building Trang](/posts/2026/10/28/building-trang/), the implementation.*
 
 I've spent the last few months building a generative agent called Trang. She started as a baker in an 8×8 pixel kitchen and ended up as an environmental lawyer you can interview about her life. I had the architecture working long before I understood what it was *for*. Why simulate people at all? And how would you know if the answer was wrong?
 
-This post covers the ideas, and [Part 2](/posts/2026/10/28/building-trang/) is the implementation of a generative agent. Everything here is about **simulation agents**, which are built to imitate how people behave. **Task agents**, like coding assistants, are built to get work done. The two share most of their wiring, but they're judged by different standards.
+This post is the ideas, and [Part 2](/posts/2026/10/28/building-trang/) is the implementation. Everything here is about **simulation agents**, which are built to imitate how people behave. **Task agents**, like coding assistants, are built to get work done. The two share most of their wiring, but they're judged by different standards.
 
 ## 1. What is a simulation?
 
