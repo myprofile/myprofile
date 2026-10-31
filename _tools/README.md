@@ -10,7 +10,7 @@ npm install roughjs@4.6.6   # once, in the folder you run node from (or set NODE
 node _tools/sketch.js _diagrams_src/c360-architecture.svg _includes/diagrams/c360-architecture.svg
 ```
 
-Colors (Excalidraw palette, solid fills): `dg-data` yellow, `dg-llm` pink, `dg-model` green,
+Colors (Excalidraw palette, solid fills): `dg-data` #fff9db, `dg-llm` #da77f2, `dg-model` #7950f2 (white text),
 `dg-key` purple, `dg-skip` pale yellow. No grey.
 
 Labels use the Virgil font (`assets/fonts/Virgil.woff2`, SIL Open Font License, from Excalidraw).

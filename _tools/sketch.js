@@ -8,9 +8,9 @@ const ACC = '#40045c';
 const INK = '#1e1e1e';
 // Excalidraw palette, solid fills (no hachure)
 const STY = {
-  'dg-data':  { stroke: INK, fill: '#ffec99', fillStyle: 'solid' },  // yellow: data and pipelines
-  'dg-llm':   { stroke: INK, fill: '#ffc9c9', fillStyle: 'solid' },  // pink: LLM steps
-  'dg-model': { stroke: INK, fill: '#b2f2bb', fillStyle: 'solid' },  // green: serving store, small models
+  'dg-data':  { stroke: INK, fill: '#fff9db', fillStyle: 'solid' },  // pale yellow: data and pipelines
+  'dg-llm':   { stroke: INK, fill: '#da77f2', fillStyle: 'solid' },  // orchid: LLM steps
+  'dg-model': { stroke: INK, fill: '#7950f2', fillStyle: 'solid' },  // violet: serving store, small models
   'dg-key':   { stroke: ACC, fill: ACC, fillStyle: 'solid' },        // purple: what the rep sees
   'dg-skip':  { stroke: INK, fill: '#fff9db', fillStyle: 'solid' },         // pale yellow: skipped row
   'dg-line':  { stroke: INK, strokeWidth: 1.4 },
@@ -37,6 +37,16 @@ function styleFor(a) {
   if (a['stroke-width']) o.strokeWidth = +a['stroke-width'];
   return o;
 }
+// white text on violet (dg-model) boxes
+const dark = [...svg.matchAll(/<rect\b([^>]*)\/>/g)].map(m => attrs(m[1])).filter(a => /\bdg-model\b/.test(a.class || ''))
+  .map(a => [+a.x, +a.y, +a.x + +a.width, +a.y + +a.height]);
+svg = svg.replace(/<text\b([^>]*)>/g, (m, s) => {
+  const a = attrs(s); const x = +a.x, y = +a.y;
+  if (!dark.some(([x0, y0, x1, y1]) => x >= x0 - 2 && x <= x1 + 2 && y >= y0 && y <= y1)) return m;
+  const sub = /\bdg-(s|faint)\b/.test(a.class || '');
+  const fill = `fill:${sub ? '#f3f0ff' : '#ffffff'}`;
+  return a.style ? m.replace(/style="([^"]*)"/, (q, st) => `style="${st};${fill}"`) : m.replace('<text', `<text style="${fill}"`);
+});
 // rects
 svg = svg.replace(/<rect\b([^>]*)\/>/g, (m, s) => {
   const a = attrs(s);
