@@ -7,19 +7,9 @@ date: 2026-10-28 10:00:00
 
 *Part 1 of 2 on generative agents. Part 2: [Building Trang](/posts/2026/10/28/building-trang/), the code.*
 
-I've spent the last few months building a generative agent called Trang. She started as a baker in an 8×8 pixel kitchen and ended up as an environmental lawyer you can interview about her life. Along the way I had the architecture before I had the reasons for it: I knew an agent needs a memory stream, a retrieval function, and a reflection step, because the paper said so and the code worked. What I didn't have was a clear picture of what the whole thing was *for*. Why simulate people at all? What question is a town of 25 AI residents supposed to answer? And how would you know if the answer was wrong?
+I've spent the last few months building a generative agent called Trang. She started as a baker in an 8×8 pixel kitchen and ended up as an environmental lawyer you can interview about her life. I had the architecture working long before I understood what it was *for*. Why simulate people at all? And how would you know if the answer was wrong?
 
-This post is the ideas. The next one is the code. Here: what a simulation is, which problems it's for, what you choose to simulate, how an agent is wired, and how to judge one. Next: building Trang's memory stream, retrieval, and reflection from scratch on a local model, where every number in section 4 below shows up in Python. I'll point at Trang a few times along the way, because the ideas made more sense to me once something concrete had gone wrong.
-
-One distinction first, because it decides what this post is about. **Task agents** (coding assistants, travel bookers, AutoGPT-style tools) are built to get work done. **Simulation agents** are built to imitate and predict how people behave. They share most of their architecture and the two camps borrow from each other constantly, but they're judged by different standards. Trang is a simulation agent, and so is everything below.
-
-**The short version**
-
-1. A simulation is an environment plus agents, stepped forward one tick at a time.
-2. It earns its keep on *wicked problems*, where reality gives you one attempt.
-3. Pick your level of analysis before you build: individual, group, or population.
-4. A generative agent is an LLM wrapped in a memory stream with retrieval, reflection, and planning. Retrieval scores `recency + importance + relevance`, each normalized to [0, 1].
-5. Judge it by the right standard: believable (feels alive) or accurate (predicts correctly). These are different things, and the evidence for each sits at different levels.
+This post is the ideas, and Part 2 is the code. Everything here is about **simulation agents**, which are built to imitate how people behave. **Task agents**, like coding assistants, are built to get work done. The two share most of their wiring, but they're judged by different standards.
 
 ## 1. What is a simulation?
 
