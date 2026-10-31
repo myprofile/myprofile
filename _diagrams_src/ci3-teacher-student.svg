@@ -1,0 +1,39 @@
+<svg viewBox="0 0 800 316" role="img" aria-labelledby="ci3-ts-title ci3-ts-desc" xmlns="http://www.w3.org/2000/svg">
+<title id="ci3-ts-title">LLM as teacher, XLNet as student</title>
+<desc id="ci3-ts-desc">Training runs once per model version: 10,000 structured summaries go to an LLM labeler, which produces training data with a 0 or 1 flag per topic. An LLM check verifies each label. XLNet is fine-tuned on the training data. In production, every day, new summaries go through the fine-tuned XLNet model, which writes a list of topics per call to the call_topic table.</desc>
+<defs><marker id="ci3-ts-head" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="dg-head"/></marker></defs>
+<text class="dg-h" x="16" y="24">TRAINING · once per model version</text>
+<rect class="dg-data" x="16" y="36" width="150" height="64" rx="6"/>
+<text class="dg-t" x="91" y="63">10,000 summaries</text>
+<text class="dg-s" x="91" y="82">from Part 2</text>
+<rect class="dg-llm" x="196" y="36" width="170" height="64" rx="6"/>
+<text class="dg-t" x="281" y="63">LLM labeler</text>
+<text class="dg-s" x="281" y="82">few-shot, two-step</text>
+<rect class="dg-data" x="396" y="36" width="170" height="64" rx="6"/>
+<text class="dg-t" x="481" y="63">Training data</text>
+<text class="dg-s" x="481" y="82">text + 0/1 per topic</text>
+<rect class="dg-model" x="596" y="36" width="188" height="64" rx="6"/>
+<text class="dg-t" x="690" y="63">Fine-tune XLNet</text>
+<text class="dg-s" x="690" y="82">multi-label</text>
+<path class="dg-line" d="M166 68 H196" marker-end="url(#ci3-ts-head)"/>
+<path class="dg-line" d="M366 68 H396" marker-end="url(#ci3-ts-head)"/>
+<path class="dg-line" d="M566 68 H596" marker-end="url(#ci3-ts-head)"/>
+<path class="dg-line" d="M481 100 V124" marker-end="url(#ci3-ts-head)"/>
+<rect class="dg-llm" x="386" y="124" width="190" height="56" rx="6"/>
+<text class="dg-t" x="481" y="148">LLM label check</text>
+<text class="dg-s" x="481" y="166">is the topic in the summary?</text>
+<path class="dg-line" d="M690 100 V206 H401 V236" marker-end="url(#ci3-ts-head)"/>
+<text class="dg-s" x="640" y="198">deploy</text>
+<text class="dg-h" x="16" y="224">PRODUCTION · every day</text>
+<rect class="dg-data" x="16" y="236" width="170" height="64" rx="6"/>
+<text class="dg-t" x="101" y="263">New summaries</text>
+<text class="dg-s" x="101" y="282">~820K calls a day</text>
+<rect class="dg-model" x="306" y="236" width="190" height="64" rx="6"/>
+<text class="dg-t" x="401" y="263">Fine-tuned XLNet</text>
+<text class="dg-s" x="401" y="282">Dataproc · 4× L4 GPUs</text>
+<rect class="dg-data" x="596" y="236" width="188" height="64" rx="6"/>
+<text class="dg-t dg-code" x="690" y="263">call_topic</text>
+<text class="dg-s" x="690" y="282">list of topics per call</text>
+<path class="dg-line" d="M186 268 H306" marker-end="url(#ci3-ts-head)"/>
+<path class="dg-line" d="M496 268 H596" marker-end="url(#ci3-ts-head)"/>
+</svg>

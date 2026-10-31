@@ -1,0 +1,37 @@
+<svg viewBox="0 0 800 296" role="img" aria-labelledby="ci4-pl-title ci4-pl-desc" xmlns="http://www.w3.org/2000/svg">
+<title id="ci4-pl-title">Entity pipeline</title>
+<desc id="ci4-pl-desc">Keyword-to-class tables for four entity types are expanded into singular and plural variants. Each day's structured summaries are matched exactly against those keywords. The longest match claims its span of text first, the class is attached from the table, and results are written to one table per entity type and a combined table.</desc>
+<defs><marker id="ci4-pl-head" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="dg-head"/></marker></defs>
+<rect class="dg-data" x="16" y="16" width="200" height="56" rx="6"/>
+<text class="dg-t" x="116" y="40">Keyword → class tables</text>
+<text class="dg-s" x="116" y="58">one per entity type</text>
+<path class="dg-line" d="M216 44 H250" marker-end="url(#ci4-pl-head)"/>
+<rect class="dg-model" x="250" y="16" width="196" height="56" rx="6"/>
+<text class="dg-t" x="348" y="40">Expand variants</text>
+<text class="dg-s" x="348" y="58">singular, plural, lemmatized</text>
+<path class="dg-line" d="M348 72 V120" marker-end="url(#ci4-pl-head)"/>
+<rect class="dg-llm" x="16" y="120" width="200" height="56" rx="6"/>
+<text class="dg-t" x="116" y="144">Structured summaries</text>
+<text class="dg-s" x="116" y="162">daily, from Part 2</text>
+<path class="dg-line" d="M216 148 H250" marker-end="url(#ci4-pl-head)"/>
+<rect class="dg-model" x="250" y="120" width="196" height="56" rx="6"/>
+<text class="dg-t" x="348" y="144">Exact match</text>
+<text class="dg-s" x="348" y="162">every keyword, every span</text>
+<path class="dg-line" d="M446 148 H480" marker-end="url(#ci4-pl-head)"/>
+<rect class="dg-key" x="480" y="120" width="136" height="56" rx="6"/>
+<text class="dg-t dg-on-key" x="548" y="144">Longest wins</text>
+<text class="dg-s dg-on-key" x="548" y="162">claims its span first</text>
+<path class="dg-line" d="M616 148 H648" marker-end="url(#ci4-pl-head)"/>
+<rect class="dg-model" x="648" y="120" width="136" height="56" rx="6"/>
+<text class="dg-t" x="716" y="144">Attach class</text>
+<text class="dg-s" x="716" y="162">from the table</text>
+<path class="dg-line" d="M716 176 V200 M548 200 H716"/>
+<path class="dg-line" d="M548 200 V224" marker-end="url(#ci4-pl-head)"/>
+<path class="dg-line" d="M716 200 V224" marker-end="url(#ci4-pl-head)"/>
+<rect class="dg-data" x="480" y="224" width="136" height="56" rx="6"/>
+<text class="dg-t" x="548" y="248">Entity tables</text>
+<text class="dg-s" x="548" y="266">one per type</text>
+<rect class="dg-data" x="648" y="224" width="136" height="56" rx="6"/>
+<text class="dg-t" x="716" y="248">Combined table</text>
+<text class="dg-s" x="716" y="266">+ entity_type column</text>
+</svg>

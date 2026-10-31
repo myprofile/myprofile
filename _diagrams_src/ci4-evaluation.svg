@@ -1,0 +1,25 @@
+<svg viewBox="0 0 800 200" role="img" aria-labelledby="ci4-ev-title ci4-ev-desc" xmlns="http://www.w3.org/2000/svg">
+<title id="ci4-ev-title">Entity evaluation flow</title>
+<desc id="ci4-ev-desc">A few hundred summaries are labeled by hand as ground-truth value and class pairs. The model's output is compared against them to count true positives, false positives and false negatives. Precision, recall and F1 are then reported as a micro average, for overall performance, and a macro average, which surfaces weak classes.</desc>
+<defs><marker id="ci4-ev-head" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="dg-head"/></marker></defs>
+<rect class="dg-data" x="16" y="72" width="170" height="56" rx="6"/>
+<text class="dg-t" x="101" y="96">Hand-label</text>
+<text class="dg-s" x="101" y="114">a few hundred summaries</text>
+<path class="dg-line" d="M186 100 H214" marker-end="url(#ci4-ev-head)"/>
+<rect class="dg-data" x="214" y="72" width="170" height="56" rx="6"/>
+<text class="dg-t" x="299" y="96">Ground truth</text>
+<text class="dg-s" x="299" y="114">(value, class) pairs</text>
+<path class="dg-line" d="M384 100 H412" marker-end="url(#ci4-ev-head)"/>
+<rect class="dg-model" x="412" y="72" width="170" height="56" rx="6"/>
+<text class="dg-t" x="497" y="96">Compare to output</text>
+<text class="dg-s" x="497" y="114">TP · FP · FN</text>
+<path class="dg-line" d="M582 100 H598 M598 52 V148"/>
+<path class="dg-line" d="M598 52 H614" marker-end="url(#ci4-ev-head)"/>
+<path class="dg-line" d="M598 148 H614" marker-end="url(#ci4-ev-head)"/>
+<rect class="dg-key" x="614" y="16" width="170" height="72" rx="6"/>
+<text class="dg-t dg-on-key" x="699" y="46">Micro average</text>
+<text class="dg-s dg-on-key" x="699" y="66">overall performance</text>
+<rect class="dg-key" x="614" y="112" width="170" height="72" rx="6"/>
+<text class="dg-t dg-on-key" x="699" y="142">Macro average</text>
+<text class="dg-s dg-on-key" x="699" y="162">surfaces weak classes</text>
+</svg>

@@ -1,0 +1,26 @@
+<svg viewBox="0 0 800 140" role="img" aria-labelledby="ci2-eval-title ci2-eval-desc" xmlns="http://www.w3.org/2000/svg">
+<title id="ci2-eval-title">How summaries are evaluated</title>
+<desc id="ci2-eval-desc">Today: sample calls, have people score every section for accuracy and completeness on a 0, 0.5, 1 scale, then aggregate per section and overall. Planned: an LLM judge applies the same rubric at scale, with drift monitoring.</desc>
+<defs><marker id="ci2-eval-head" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="dg-head"/></marker></defs>
+<text class="dg-h" x="16" y="22">TODAY</text>
+<rect class="dg-data" x="16" y="32" width="170" height="92" rx="6"/>
+<text class="dg-t" x="101" y="64">Sample calls</text>
+<text class="dg-s" x="101" y="84">a set of production</text>
+<text class="dg-s" x="101" y="100">calls and summaries</text>
+<path class="dg-line" d="M186 78 H214" marker-end="url(#ci2-eval-head)"/>
+<rect class="dg-model" x="214" y="32" width="170" height="92" rx="6"/>
+<text class="dg-t" x="299" y="64">Human review</text>
+<text class="dg-s" x="299" y="84">score every section:</text>
+<text class="dg-s" x="299" y="100">accuracy · completeness</text>
+<path class="dg-line" d="M384 78 H412" marker-end="url(#ci2-eval-head)"/>
+<rect class="dg-model" x="412" y="32" width="170" height="92" rx="6"/>
+<text class="dg-t" x="497" y="64">Aggregate</text>
+<text class="dg-s" x="497" y="84">per section</text>
+<text class="dg-s" x="497" y="100">and overall</text>
+<path class="dg-line" d="M582 78 H610" marker-end="url(#ci2-eval-head)"/>
+<text class="dg-h" x="610" y="22">PLANNED</text>
+<rect class="dg-llm" x="610" y="32" width="174" height="92" rx="6"/>
+<text class="dg-t" x="697" y="64">LLM-as-judge</text>
+<text class="dg-s" x="697" y="84">same rubric, at scale</text>
+<text class="dg-s" x="697" y="100">+ drift monitoring</text>
+</svg>

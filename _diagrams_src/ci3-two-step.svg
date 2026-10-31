@@ -1,0 +1,34 @@
+<svg viewBox="0 0 800 224" role="img" aria-labelledby="ci3-two-title ci3-two-desc" xmlns="http://www.w3.org/2000/svg">
+<title id="ci3-two-title">Two-step labeling: group first, then topic</title>
+<desc id="ci3-two-desc">Each component, either one intent or the concise summary, goes to a first LLM call that predicts topic groups from a fixed list. A hand-curated map turns those groups into a short list of candidate topics. A second LLM call, given few-shot examples picked by n-gram overlap, chooses the topic or topics from that short list, or None.</desc>
+<defs><marker id="ci3-two-head" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="dg-head"/></marker></defs>
+<rect class="dg-data" x="16" y="36" width="170" height="72" rx="6"/>
+<text class="dg-t" x="101" y="62">Component</text>
+<text class="dg-s" x="101" y="82">one intent, or the</text>
+<text class="dg-s" x="101" y="98">concise summary</text>
+<text class="dg-h" x="215" y="24">LLM CALL 1</text>
+<rect class="dg-llm" x="215" y="36" width="170" height="72" rx="6"/>
+<text class="dg-t" x="300" y="62">Predict topic groups</text>
+<text class="dg-s" x="300" y="82">from a fixed list</text>
+<text class="dg-s" x="300" y="98">up to 3</text>
+<rect class="dg-data" x="414" y="36" width="170" height="72" rx="6"/>
+<text class="dg-t" x="499" y="62">Candidate topics</text>
+<text class="dg-s" x="499" y="82">only the topics in</text>
+<text class="dg-s" x="499" y="98">those groups</text>
+<text class="dg-h" x="614" y="24">LLM CALL 2</text>
+<rect class="dg-llm" x="614" y="36" width="170" height="72" rx="6"/>
+<text class="dg-t" x="699" y="62">Pick topic(s) or None</text>
+<text class="dg-s" x="699" y="82">intent: exactly 1</text>
+<text class="dg-s" x="699" y="98">summary: up to 3</text>
+<path class="dg-line" d="M186 72 H215" marker-end="url(#ci3-two-head)"/>
+<path class="dg-line" d="M385 72 H414" marker-end="url(#ci3-two-head)"/>
+<path class="dg-line" d="M584 72 H614" marker-end="url(#ci3-two-head)"/>
+<rect class="dg-model" x="414" y="152" width="170" height="56" rx="6"/>
+<text class="dg-t" x="499" y="176">Group → topic map</text>
+<text class="dg-s" x="499" y="194">curated by hand</text>
+<rect class="dg-model" x="614" y="152" width="170" height="56" rx="6"/>
+<text class="dg-t" x="699" y="176">Few-shot examples</text>
+<text class="dg-s" x="699" y="194">picked by n-gram overlap</text>
+<path class="dg-line" d="M499 152 V108" marker-end="url(#ci3-two-head)"/>
+<path class="dg-line" d="M699 152 V108" marker-end="url(#ci3-two-head)"/>
+</svg>

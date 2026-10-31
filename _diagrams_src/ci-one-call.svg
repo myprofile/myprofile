@@ -1,0 +1,29 @@
+<svg viewBox="0 0 800 344" role="img" aria-labelledby="ci-one-title ci-one-desc" xmlns="http://www.w3.org/2000/svg">
+<title id="ci-one-title">One call, summarized first</title>
+<desc id="ci-one-desc">A mock transcript excerpt about a denied stress test claim is turned by an LLM into a short structured JSON summary. The topic model, the entity dictionary and human reviewers all read that summary instead of the transcript.</desc>
+<defs><marker id="ci-one-head" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="dg-head"/></marker></defs>
+<text class="dg-h" x="16" y="26">1 · Raw transcript (excerpt)</text>
+<rect class="dg-data" x="16" y="38" width="250" height="290" rx="6"/>
+<text class="dg-mono" x="28" y="62" xml:space="preserve"><tspan x="28" dy="0">AGENT: Thanks for calling. How</tspan><tspan x="28" dy="18">       can I help today?</tspan><tspan x="28" dy="18">CALLER: My claim for a stress</tspan><tspan x="28" dy="18">        test was denied and I</tspan><tspan x="28" dy="18">        don't know why.</tspan><tspan x="28" dy="18">AGENT: Let me look... I see it</tspan><tspan x="28" dy="18">       needed a prior</tspan><tspan x="28" dy="18">       authorization.</tspan><tspan x="28" dy="18">CALLER: My cardiologist said</tspan><tspan x="28" dy="18">        he sent it.</tspan><tspan x="28" dy="18">AGENT: I'll send a reprocessing</tspan><tspan x="28" dy="18">       request today.</tspan><tspan class="dg-faint" x="28" dy="24">… greetings, ID checks, hold …</tspan></text>
+<path class="dg-line" d="M266 183 H290" marker-end="url(#ci-one-head)"/>
+<text class="dg-h" x="290" y="26">2 · Structured summary (LLM)</text>
+<rect class="dg-llm" x="290" y="38" width="270" height="290" rx="6"/>
+<text class="dg-mono" x="302" y="62" xml:space="preserve"><tspan x="302" dy="0">{</tspan><tspan x="302" dy="18">  "concise_summary":</tspan><tspan x="302" dy="18">    "Member asked why a stress</tspan><tspan x="302" dy="18">     test claim was denied …",</tspan><tspan x="302" dy="18">  "call_intents": [{</tspan><tspan x="302" dy="18">    "intent": "Ask why a</tspan><tspan x="302" dy="18">      cardiology stress test</tspan><tspan x="302" dy="18">      claim was denied",</tspan><tspan x="302" dy="18">    "solution": "Found missing</tspan><tspan x="302" dy="18">      prior auth; sent a</tspan><tspan x="302" dy="18">      reprocessing request"</tspan><tspan x="302" dy="18">  }],</tspan><tspan x="302" dy="18">  "transfer_count": 0</tspan><tspan x="302" dy="18">}</tspan></text>
+<path class="dg-line" d="M560 183 H580 M580 78 V288"/>
+<path class="dg-line" d="M580 78 H600" marker-end="url(#ci-one-head)"/>
+<path class="dg-line" d="M580 183 H600" marker-end="url(#ci-one-head)"/>
+<path class="dg-line" d="M580 288 H600" marker-end="url(#ci-one-head)"/>
+<text class="dg-h" x="600" y="26">3 · Read from the summary</text>
+<rect class="dg-model" x="600" y="38" width="184" height="80" rx="6"/>
+<text class="dg-t" x="692" y="64">Call topics</text>
+<text class="dg-s" x="692" y="84">Claims ›</text>
+<text class="dg-s" x="692" y="100">Ask why a claim was denied</text>
+<rect class="dg-model" x="600" y="143" width="184" height="80" rx="6"/>
+<text class="dg-t" x="692" y="169">Named entities</text>
+<text class="dg-s" x="692" y="189">specialist: Cardiologist</text>
+<text class="dg-s" x="692" y="205">procedure: Cardiothoracic</text>
+<rect class="dg-model" x="600" y="248" width="184" height="80" rx="6"/>
+<text class="dg-t" x="692" y="274">Session review</text>
+<text class="dg-s" x="692" y="294">people check AI fields</text>
+<text class="dg-s" x="692" y="310">against the call</text>
+</svg>
