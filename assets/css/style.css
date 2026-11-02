@@ -42,11 +42,12 @@ section h2 { font-size: 1.8rem; font-weight: 700; margin: 0 0 2rem; }
   font-family: var(--mono); font-size: 48px; font-weight: 500;
 }
 .social-links {
-  display: flex; flex-wrap: wrap; justify-content: center; gap: .35rem .9rem;
-  width: 200px; list-style: none; margin: 0; padding: 0; font-size: .9rem;
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 1.1rem;
+  width: 200px; list-style: none; margin: 0; padding: 0;
 }
-.social-links a { color: var(--text-muted); }
-.social-links a:hover { color: var(--accent); }
+.social-links a { display: block; color: var(--text-muted); transition: color .15s; }
+.social-links a:hover, .social-links a:focus-visible { color: var(--accent); }
+.social-links svg { display: block; width: 22px; height: 22px; fill: currentColor; }
 .bio-name { font-size: 2.5rem; font-weight: 600; margin: 0 0 1rem; line-height: 1.2; }
 .bio p { margin: 0 0 1rem; }
 .bio p:last-child { margin-bottom: 0; }
