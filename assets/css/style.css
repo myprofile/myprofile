@@ -69,6 +69,8 @@ section h2 { font-size: 1.8rem; font-weight: 700; margin: 0 0 2rem; }
   transition: background .15s, color .15s;
 }
 .pill:hover { background: var(--accent); color: var(--bg); text-decoration: none; }
+.pill-soon { border-style: dashed; color: var(--text-muted); border-color: var(--text-muted); font-weight: 500; }
+.pill-soon:hover { background: none; color: var(--text-muted); }
 
 .subhead { font-size: 1.25rem; font-weight: 600; margin: 2.5rem 0 1rem; }
 .plain-list { margin: 0; padding-left: 1.3rem; display: flex; flex-direction: column; gap: .4rem; }
