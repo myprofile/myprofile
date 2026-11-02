@@ -1,4 +1,5 @@
 # One entry per project. Links appear as buttons at the bottom of each card.
+# A link without a url shows as a "coming soon" label.
 
 - title: Call Intelligence
   description: >
@@ -7,7 +8,7 @@
     writes a structured summary of every call; a fine-tuned XLNet model, a keyword dictionary and SQL turn
     those summaries into one BigQuery table that powers the team's dashboards. Written up as a four-part series.
   links:
-    - { label: "Overview", url: "/posts/2026/10/28/call-intelligence-1-pipeline/" }
+    - { label: "Part 1: Overview", url: "/posts/2026/10/28/call-intelligence-1-pipeline/" }
     - { label: "Part 2: Summaries", url: "/posts/2026/10/28/call-intelligence-2-summaries/" }
     - { label: "Part 3: Topics", url: "/posts/2026/10/28/call-intelligence-3-topics/" }
     - { label: "Part 4: Entities", url: "/posts/2026/10/28/call-intelligence-4-entities/" }
@@ -21,5 +22,7 @@
     path turns it into short, personalized talking points in the agent desktop. Built jointly by the data science and
     data engineering teams; I led the engineering side.
   links:
-    - { label: "Read the write-up", url: "/posts/2026/10/30/call360/" }
+    - { label: "Part 1: Overview", url: "/posts/2026/10/30/call360/" }
+    - { label: "Part 2: External Context Caching" }
+    - { label: "Part 3: Evaluation" }
   tags: [gcp, bigtable, bigquery, gemini, airflow]
