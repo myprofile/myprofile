@@ -4,7 +4,7 @@
   <p class="card-authors">{{ include.item.authors | replace: site.author, "<strong>Raju Nekadi</strong>" }}</p>
   {% endif %}
   {% if include.item.venue %}<p class="card-venue"><em>{{ include.item.venue }}</em></p>{% endif %}
-  <p class="card-text">{{ include.item.description | strip }}</p>
+  {% if include.item.description %}<p class="card-text">{{ include.item.description | strip }}</p>{% endif %}
   {% if include.item.tags and include.item.tags.size > 0 %}
   <p class="card-tags">{{ include.item.tags | join: " · " }}</p>
   {% endif %}
