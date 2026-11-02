@@ -61,6 +61,8 @@ section h2 { font-size: 1.8rem; font-weight: 700; margin: 0 0 2rem; }
 .card-list { display: flex; flex-direction: column; gap: 1.25rem; }
 .card { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 1.1rem 1.25rem; }
 .card-title { font-size: 1.1rem; font-weight: 600; line-height: 1.4; margin: 0 0 .3rem; }
+/* Long titles marked one_line in _data: one line on wide screens, normal wrap on phones */
+@media (min-width: 800px) { .card-title.one-line { font-size: .85rem; white-space: nowrap; } }
 .card-text { margin: 0 0 .5rem; font-size: .97rem; }
 .card-tags { margin: 0 0 .6rem; font-family: var(--mono); font-size: .78rem; color: var(--text-muted); }
 .card-links { display: flex; flex-wrap: wrap; gap: .5rem; }

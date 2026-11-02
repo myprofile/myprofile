@@ -1,5 +1,5 @@
 <article class="card">
-  <h3 class="card-title">{{ include.item.title }}</h3>
+  <h3 class="card-title{% if include.item.one_line %} one-line{% endif %}">{{ include.item.title }}</h3>
   {% if include.item.authors %}
   <p class="card-authors">{{ include.item.authors | replace: site.author, "<strong>Raju Nekadi</strong>" }}</p>
   {% endif %}
