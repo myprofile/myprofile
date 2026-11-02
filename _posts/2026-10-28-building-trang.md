@@ -8,7 +8,7 @@ code:
   - { label: "Code: Baking agent", url: "https://github.com/Sim-Intelligence-Lab/sim_baking_agent" }
 ---
 
-*Part 2 of 2 on generative agents. Part 1: [Generative Agents and Simulation](/posts/2026/10/28/generative-agents-and-simulation/), the ideas behind the code.*
+*Part 2 of 2 on generative agents. Part 1: [Generative AI Agents and Simulation](/posts/2026/10/28/generative-agents-and-simulation/), the ideas behind the code.*
 
 Trang started out as a baker.
 

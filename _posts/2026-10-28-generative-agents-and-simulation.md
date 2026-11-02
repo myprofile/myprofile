@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Generative Agents and Simulation"
+title: "Generative AI Agents and Simulation"
 summary: "Why researchers are building little towns full of AI people, how the agents inside them are wired, and how to tell whether any of it is trustworthy"
 date: 2026-10-28 10:00:00
 ---
