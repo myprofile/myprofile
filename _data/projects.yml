@@ -1,19 +1,6 @@
 # One entry per project. Links appear as buttons at the bottom of each card.
 # A link without a url shows as a "coming soon" label.
 
-- title: Call Intelligence
-  description: >
-    A summary-first AI pipeline on GCP that reads about 300 million customer calls a year and turns each one
-    into structured data: why the member called, what they talked about, and whether it was resolved. An LLM
-    writes a structured summary of every call; a fine-tuned XLNet model, a keyword dictionary and SQL turn
-    those summaries into one BigQuery table that powers the team's dashboards. Written up as a four-part series.
-  links:
-    - { label: "Part 1: Overview", url: "/posts/2026/10/28/call-intelligence-1-pipeline/" }
-    - { label: "Part 2: Summaries", url: "/posts/2026/10/28/call-intelligence-2-summaries/" }
-    - { label: "Part 3: Topics", url: "/posts/2026/10/28/call-intelligence-3-topics/" }
-    - { label: "Part 4: Entities", url: "/posts/2026/10/28/call-intelligence-4-entities/" }
-  tags: [gcp, bigquery, gemini, xlnet, airflow]
-
 - title: Call360
   description: >
     A real-time context API that gives customer service reps a member's full story before they say hello.
@@ -26,3 +13,16 @@
     - { label: "Part 2: External Context Caching" }
     - { label: "Part 3: Evaluation" }
   tags: [gcp, bigtable, bigquery, gemini, airflow]
+
+- title: Call Intelligence
+  description: >
+    A summary-first AI pipeline on GCP that reads about 300 million customer calls a year and turns each one
+    into structured data: why the member called, what they talked about, and whether it was resolved. An LLM
+    writes a structured summary of every call; a fine-tuned XLNet model, a keyword dictionary and SQL turn
+    those summaries into one BigQuery table that powers the team's dashboards. Written up as a four-part series.
+  links:
+    - { label: "Part 1: Overview", url: "/posts/2026/10/28/call-intelligence-1-pipeline/" }
+    - { label: "Part 2: Summaries", url: "/posts/2026/10/28/call-intelligence-2-summaries/" }
+    - { label: "Part 3: Topics", url: "/posts/2026/10/28/call-intelligence-3-topics/" }
+    - { label: "Part 4: Entities", url: "/posts/2026/10/28/call-intelligence-4-entities/" }
+  tags: [gcp, bigquery, gemini, xlnet, airflow]
