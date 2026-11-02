@@ -1,5 +1,6 @@
 # One entry per paper. Your name is bolded automatically in the author list.
 - title: "Kairos: Decision-Class Composition for Evaluating Generative AI Agent Population Simulation in Healthcare"
+  one_line: true
   authors: Raju Nekadi
   venue: Coming soon
 
