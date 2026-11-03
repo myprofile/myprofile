@@ -100,40 +100,90 @@ The way I keep them straight: **group models are about interactions between peop
 
 Most generative-AI simulation research right now is at the population level, for two reasons that are a bit unflattering. It's the easiest to check, because you can rerun a published study and compare. And it dodges the open problem of modeling one specific person. In one sentence: population models are too coarse, individual models are too noisy, and group models may never be predictable. Pick the level that matches your question, and evaluate at that level.
 
-## 4. How is an AI agent built?
+## 4. How does a generative agent work?
 
-A bare language model can't stay in character over days of simulated time. It has no memory of yesterday, and its context window won't hold two days of experience. Cognitive scientists call the missing piece a **cognitive architecture**: the fixed machinery underneath thought, such as memory, goals, and decision-making. SOAR (1983) and ACT-R (1993) were built to model human problem solving. The **generative agent** architecture from the 2023 paper of that name revives the idea with an LLM in the middle, and demonstrates it on a town of 25 agents.
+### Good at a moment, bad at a day
 
-<figure class="diagram">
-{% include diagrams/ga-architecture.svg %}
-<figcaption>Left to right: perception feeds the memory stream, retrieval pulls a small working set into scratch memory, and that set drives action. Plans and reflections loop back in as new memories.</figcaption>
-</figure>
+Ask a language model what a law student would do at 8 a.m. on a Tuesday and you'll get a good answer. A simulation asks again at 8:15, at 8:30, and every fifteen minutes for a week, and that's where three things go wrong:
 
-**1. Perceive and remember.** The agent records everything it notices ("reviewing a case file at the clinic") in its **memory stream**, an append-only list of plain-language records. Each record carries its text, when it was created and last accessed, an importance score, and an embedding. The stream soon grows too long to hand to the model whole, so the agent has to choose what to recall.
+- **It forgets.** Every call starts from nothing. You can't paste a week of someone's life into every prompt.
+- **It never steps back.** Even with the history in front of it, the model sees a list of events. It doesn't notice "I keep doing this, so it must matter to me."
+- **It doesn't stick to anything.** Every answer is the most plausible thing *right now*. Checking email at 9:00 makes sense, and at 9:20 it still makes sense, so the agent checks email all morning.
 
-**2. Retrieve.** Retrieval scores every record against the current situation and keeps the top of the list:
+A **generative agent** is a language model plus one fix for each problem: a **memory** it can search, **reflection** so it can draw conclusions, and **planning** so its actions hold together over a day. The design comes from the 2023 paper of the same name, which ran 25 of these agents in a small simulated town.
+
+### What it looks like from the outside
+
+Our example agent is a law student, and all we write is one paragraph about who she is. From that, she plans her day: study group at 8, the law clinic from 1 to 4. A classmate mentions a talk on Friday, so she adds it to her plan. On Thursday, asked about her week, she brings up the talk and who told her about it. None of that is scripted. It all comes from the loop below.
+
+### Everything is a memory
+
+The agent keeps one long list called the **memory stream**. Each entry is a plain-English sentence with a timestamp:
 
 ```
-score(m) = α_rec · recency(m) + α_imp · importance(m) + α_rel · relevance(m, q)
+08:02  reviews a case file
+08:10  study group meets
+13:00  plan: law clinic hours, 180 minutes
+13:04  drafting a case memo
+```
+
+What she sees, does, plans and concludes all go into this one list, in plain English the model can read directly.
+
+### Memory: find the few entries that matter
+
+**The problem.** After a few days the list holds thousands of entries. You can't send them all. If you squash them into one summary, the details wash out, and "What have you been up to?" gets a vague answer like "classes and errands."
+
+**The fix.** Score every memory against the current question, and send only the top few. The score adds three things:
+
+```
+score = recency + importance + relevance
 ```
 
 <figure class="diagram">
 {% include diagrams/ga-retrieval.svg %}
 </figure>
 
-- **Recency** decays exponentially (0.995 per simulated hour) since the memory was *last accessed*, so things the agent keeps thinking about stay warm.
-- **Importance** is a 1–10 score the LLM gives when the record is written. Brushing teeth is near the bottom; a breakup is near the top.
-- **Relevance** is the cosine similarity between the record's embedding and the query's.
+- **Recency:** was it used recently? Every memory fades a little each hour (×0.995), and using it makes it fresh again.
+- **Importance:** how big a deal was it? The model rates each memory from 1 to 10 when it's saved. Brushing teeth is a 2; a break-up is a 9.
+- **Relevance:** is it about the question? This compares the meaning of the memory and the question (cosine similarity of their embeddings).
 
-Each term is normalized to [0, 1] before summing, and the paper weights all three equally. The top records that fit the prompt are kept, and their last-accessed times are refreshed.
+Each score is scaled to 0–1 and the three are added with equal weight. Ask "What did you do at the clinic?" and you get the clinic memory back, not her childhood weekends in the forest.
 
-**3. Act.** The retrieved records become **scratch memory**, the agent's working set. The LLM reads it, along with a short summary of who the agent is and what it's doing, and decides what to do: say something, walk somewhere, or change an object in the world.
+### Reflection: turn events into beliefs
 
-**4. Reflect.** Observations alone don't let an agent generalize about itself. When the summed importance of recent events crosses a threshold (a few times a day), the agent reviews its recent records, asks what questions they raise, and writes higher-level insights back into the stream, such as "I care more about grassroots work than I thought." Later reflections can build on earlier ones, so over time you get a tree, with observations at the leaves and more abstract beliefs higher up.
+**The problem.** Memories are only events. Ask "What do you care about?" and the agent reads off what it did lately: "I reviewed a case file and went to study group." True, but no person answers that way.
 
-**5. Plan.** An agent should also make sense across a whole day. The LLM drafts a rough day in a handful of chunks, then breaks each chunk into hours, then into 5–15 minute actions. Plans are stored as memories too, and if something unexpected happens the agent re-plans from that point.
+**The fix.** Every so often the agent stops to think. When the importance of her recent memories adds up past a threshold (a few times a day), she looks back over them and asks a few questions about herself. She pulls the matching memories and writes down a conclusion along with its evidence:
 
-The idea underneath all five steps is that **everything is a memory**. Perceptions, plans, and reflections share one stream, and every action is built from what retrieval reads back out. That keeps behavior consistent and makes the agent debuggable: when it does something strange, print the records it retrieved and you can usually see why. It's also what makes the architecture expensive. Cost grows with agents × ticks × LLM calls per tick.
+```
+reflection: I believe in grassroots work
+  because: volunteers with a neighborhood group, picked the clinic's
+  local water case, stayed late to help a tenant
+```
+
+Reflections go back into the memory stream, so retrieval can find them and later reflections can build on them: events at the bottom, beliefs about herself on top. Now "What do you care about?" gets a real answer.
+
+### Planning: make the day hold together
+
+**The problem.** Without a plan, every moment is decided on its own, which is how you get the agent that checks email all morning.
+
+**The fix.** Plan from the top down. Each morning the model sketches the day in 5–8 chunks: study group, lunch, clinic, gym, dinner. It then breaks each chunk into hours, and each hour into 5–15 minute steps. Plans are saved as memories too.
+
+**Reacting.** A plan isn't a cage. At every step the agent asks, "Given what I just saw, should I keep going or react?" If a client walks into the clinic upset, she stops drafting the memo and talks to them. The rest of her plan is then rewritten from that moment on.
+
+### The whole loop
+
+<figure class="diagram">
+{% include diagrams/ga-architecture.svg %}
+<figcaption>Perceive, save to memory, retrieve what matters, act. Reflection and planning both read from memory and write back to it.</figcaption>
+</figure>
+
+The idea underneath every step is that **everything is a memory**. Observations, plans and reflections all live in one list, and every action is built from whatever retrieval pulls out. That gives you two useful side effects:
+
+- **You can see why.** When an agent does something strange, print the memories it retrieved. The reason is usually right there.
+- **Social behavior comes free.** Put several agents in one town and they pass along news, remember each other and make plans together, because a conversation is just one more thing they perceive and remember.
+
+The cost is the number of model calls: agents × time steps × calls per step. A town living through a few days makes a lot of calls.
 
 ## 5. Is it any good? Believable versus accurate
 
@@ -156,6 +206,8 @@ In practice the difficulty depends on the level:
 - **Individuals:** what axis do you even evaluate on? And people disagree with themselves.
 - **Groups:** the dynamics are complex, and some researchers think prediction here is impossible in principle.
 - **Populations:** ground truth is sometimes missing, and if you rerun a famous study, the model may just have memorized it.
+
+One thing helps accuracy more than anything clever in the architecture: **what you tell the agent about the person.** A one-line description like "35-year-old nurse from Ohio" gives the model nothing except a stereotype, so you get the average of everyone who fits it. An agent starts to behave like a *specific* person only when it can draw on what that person actually said about their own life: their history, their reasons and their routines, in their own words. That's the same memory stream as above, filled with real material instead of made-up material.
 
 That last problem led to a sharper test: can a model predict studies it *could not have seen*? A Stanford study, first released in 2024, did exactly this. GPT-4 was asked to predict the outcomes of 70 pre-registered, nationally representative US survey experiments, 476 treatment effects in all, covering more than 100,000 participants. The predictions correlated with the real results at *r* = 0.85. On a held-out set of studies still unpublished at the time, and so not in any training data, it was *r* = 0.90. GPT-4 matched or beat human forecasters on the same task. That number surprised me more than anything else in this material.
 
@@ -185,6 +237,6 @@ Next post: the implementation. [Building Trang](/posts/2026/10/28/building-trang
 - Horst Rittel and Melvin Webber, [Dilemmas in a General Theory of Planning](https://doi.org/10.1007/BF01405730), *Policy Sciences* (1973)
 - Allen Newell, *Unified Theories of Cognition* (1990)
 - Joseph Bates, [The Role of Emotion in Believable Agents](https://doi.org/10.1145/176789.176803), *Communications of the ACM* (1994)
-- Joon Sung Park et al., [Social Simulacra](https://arxiv.org/abs/2208.04024) (UIST 2022) and [Generative Agents: Interactive Simulacra of Human Behavior](https://arxiv.org/abs/2304.03442) (UIST 2023); the [reference code](https://github.com/joonspk-research/generative_agents) is open source
+- [Social Simulacra](https://arxiv.org/abs/2208.04024) (UIST 2022) and [Generative Agents: Interactive Simulacra of Human Behavior](https://arxiv.org/abs/2304.03442) (UIST 2023); the [reference code](https://github.com/joonspk-research/generative_agents) is open source
 - Theodore Sumers, Shunyu Yao, Karthik Narasimhan and Thomas Griffiths, [Cognitive Architectures for Language Agents](https://arxiv.org/abs/2309.02427), *TMLR* (2024), the general framework that generative agents are one instance of
 - Luke Hewitt, Ashwini Ashokkumar, Isaias Ghezae and Robb Willer, [Predicting Results of Social Science Experiments Using Large Language Models](https://ai4pb.stanford.edu/projects/predicting-results-of-social-science-experiments-using-large-language-models) (2024 preprint; since published in *Nature*)

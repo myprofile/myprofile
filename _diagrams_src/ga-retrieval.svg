@@ -1,6 +1,6 @@
 <svg viewBox="0 0 800 580" role="img" aria-labelledby="ga-ret-title ga-ret-desc" xmlns="http://www.w3.org/2000/svg">
 <title id="ga-ret-title">Retrieval scoring</title>
-<desc id="ga-ret-desc">A query, "What did you do at the clinic?", and a memory m, "joined the Environmental Law Clinic", are scored three ways. Recency: 0.995 to the power of hours since the memory was last accessed, drawn as a decaying curve. Importance: asked of the LLM once, when the memory is written; brushing teeth scores 2 and a break-up 9 (1 to 10 in the paper, 0 to 100 in the CS222 code). Relevance: cosine similarity of the embedding vectors, cos(emb(m), emb(query)), using the same model for both and computed per query. Each score is min-max normalized to the range 0 to 1, then combined as score(m) = alpha_rec times recency plus alpha_imp times importance plus alpha_rel times relevance, with all alphas equal to 1. The memories are sorted in descending order and the top ones are taken until the prompt token budget is full. What comes back is the clinic memory, not her childhood weekends in the forest.</desc>
+<desc id="ga-ret-desc">A query, "What did you do at the clinic?", and a memory m, "joined the Environmental Law Clinic", are scored three ways. Recency: 0.995 to the power of hours since the memory was last accessed, drawn as a decaying curve. Importance: asked of the LLM once, when the memory is written; brushing teeth scores 2 and a break-up 9 (on a scale of 1 to 10). Relevance: cosine similarity of the embedding vectors, cos(emb(m), emb(query)), using the same model for both and computed per query. Each score is min-max normalized to the range 0 to 1, then combined as score(m) = alpha_rec times recency plus alpha_imp times importance plus alpha_rel times relevance, with all alphas equal to 1. The memories are sorted in descending order and the top ones are taken until the prompt token budget is full. What comes back is the clinic memory, not her childhood weekends in the forest.</desc>
 <defs><marker id="ga-ret-head" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="dg-head"/></marker></defs>
 <ellipse class="dg-data" cx="176" cy="52" rx="158" ry="38"/>
 <text class="dg-s" x="176" y="42" style="font-size:13px">query</text>
@@ -21,8 +21,7 @@
 <text class="dg-s" x="400" y="186">when the memory is written</text>
 <text class="dg-mono" x="300" y="216">brushing teeth → 2</text>
 <text class="dg-mono" x="300" y="234">break-up → 9</text>
-<text class="dg-mono" x="300" y="266">(1–10 in the paper;</text>
-<text class="dg-mono" x="300" y="284">0–100 in CS222 code)</text>
+<text class="dg-mono" x="300" y="266">(scale of 1 to 10)</text>
 <rect class="dg-model" x="544" y="120" width="240" height="196" rx="12"/>
 <text class="dg-t" x="664" y="148" style="font-size:17px">relevance</text>
 <text class="dg-s" x="664" y="170">cosine similarity of</text>
