@@ -1,97 +1,116 @@
-<svg class="diagram-svg" viewBox="0 0 942 500" role="img" aria-labelledby="c360-arch-title c360-arch-desc" xmlns="http://www.w3.org/2000/svg">
+<svg class="diagram-svg" viewBox="0 0 950 466" role="img" aria-labelledby="c360-arch-title c360-arch-desc" xmlns="http://www.w3.org/2000/svg">
 <title id="c360-arch-title">Call360 architecture</title>
-<desc id="c360-arch-desc">Source data (call data, membership, medical and Rx claims, regulatory, surveys and member events) flows through Cloud Composer pipelines into BigQuery, then into per-domain Bigtable tables keyed by member ID and date with a 90-day TTL. The Call360 API selects few-shot examples with Sentence-BERT, summarizes with Gemini 2.5 Flash-Lite on Vertex AI, formats JSON in a second Gemini pass, and sends talking points to the agent desktop.</desc>
+<desc id="c360-arch-desc">Six sources (call data, membership, medical and Rx claims, regulatory, surveys, member events) feed pipelines run by Cloud Composer: streaming ingest, Dataproc Serverless batch jobs and Gemini transcript summaries, then field-level PII tokenization, into BigQuery. A daily load writes eight per-domain Bigtable tables (calls, claims, Rx, prior auth, grievances, complaints, surveys, member feedback) keyed by memberId#eventDate with a 90-day TTL. The Call360 API reads them in about 27 ms and handles each request in order: gateway OAuth check, the Spring Boot API on GKE, Sentence-BERT few-shot selection, Gemini 2.5 Flash-Lite summarization, a second Gemini pass that formats JSON, and talking points on the agent desktop. Every call is logged to an audit trail.</desc>
 <defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="dg-head"/></marker></defs>
-<text class="dg-h" x="96.0" y="16" text-anchor="middle">SOURCES</text>
-<text class="dg-h" x="346.0" y="16" text-anchor="middle">WAREHOUSE &amp; PIPELINES</text>
-<text class="dg-h" x="596.0" y="16" text-anchor="middle">SERVING · BIGTABLE</text>
-<text class="dg-h" x="846.0" y="16" text-anchor="middle">CALL360 API · VERTEX AI</text>
+<text class="dg-h" x="96" y="16" text-anchor="middle">SOURCES</text>
+<text class="dg-h" x="346" y="16" text-anchor="middle">WAREHOUSE &amp; PIPELINES</text>
+<text class="dg-h" x="596" y="16" text-anchor="middle">SERVING · BIGTABLE</text>
+<text class="dg-h" x="846" y="16" text-anchor="middle">CALL360 API · VERTEX AI</text>
 <rect x="0" y="30" width="192" height="56" rx="6" class="dg-data"/>
-<text class="dg-t" x="96.0" y="54.0">Call data</text>
-<text class="dg-s" x="96.0" y="71.0">Summaries, transcripts, IVR</text>
+<text class="dg-t" x="96.0" y="55">Call data</text>
+<text class="dg-s" x="96.0" y="71">Summaries, transcripts, IVR</text>
 <rect x="0" y="96" width="192" height="56" rx="6" class="dg-data"/>
-<text class="dg-t" x="96.0" y="120.0">Membership</text>
-<text class="dg-s" x="96.0" y="137.0">Enrollment and accounts</text>
+<text class="dg-t" x="96.0" y="121">Membership</text>
+<text class="dg-s" x="96.0" y="137">Enrollment and accounts</text>
 <rect x="0" y="162" width="192" height="56" rx="6" class="dg-data"/>
-<text class="dg-t" x="96.0" y="186.0">Medical &amp; Rx claims</text>
-<text class="dg-s" x="96.0" y="203.0">Claims and prior auth</text>
+<text class="dg-t" x="96.0" y="187">Medical &amp; Rx claims</text>
+<text class="dg-s" x="96.0" y="203">Claims and prior auth</text>
 <rect x="0" y="228" width="192" height="56" rx="6" class="dg-data"/>
-<text class="dg-t" x="96.0" y="252.0">Regulatory</text>
-<text class="dg-s" x="96.0" y="269.0">Grievances, complaints</text>
+<text class="dg-t" x="96.0" y="253">Regulatory</text>
+<text class="dg-s" x="96.0" y="269">Grievances, complaints</text>
 <rect x="0" y="294" width="192" height="56" rx="6" class="dg-data"/>
-<text class="dg-t" x="96.0" y="318.0">Surveys</text>
-<text class="dg-s" x="96.0" y="335.0">CSAT, NPS, verbatims</text>
+<text class="dg-t" x="96.0" y="319">Surveys</text>
+<text class="dg-s" x="96.0" y="335">CSAT, NPS, verbatims</text>
 <rect x="0" y="360" width="192" height="56" rx="6" class="dg-data"/>
-<text class="dg-t" x="96.0" y="384.0">Member events</text>
-<text class="dg-s" x="96.0" y="401.0">Real-time, streamed</text>
-<rect x="250" y="30" width="192" height="56" rx="6" class="dg-data"/>
-<text class="dg-t" x="346.0" y="54.0">Cloud Composer</text>
-<text class="dg-s" x="346.0" y="71.0">Airflow, 10+ DAGs, daily</text>
-<rect x="250" y="96" width="192" height="56" rx="6" class="dg-data"/>
-<text class="dg-t" x="346.0" y="120.0">BigQuery</text>
-<text class="dg-s" x="346.0" y="137.0">Source and staging tables</text>
-<rect x="250" y="162" width="192" height="56" rx="6" class="dg-data"/>
-<text class="dg-t" x="346.0" y="186.0">Dataproc Serverless</text>
-<text class="dg-s" x="346.0" y="203.0">PySpark batch jobs</text>
-<rect x="250" y="228" width="192" height="56" rx="6" class="dg-data"/>
-<text class="dg-t" x="346.0" y="252.0">PII tokenization</text>
-<text class="dg-s" x="346.0" y="269.0">Field-level, before storage</text>
-<rect x="250" y="294" width="192" height="56" rx="6" class="dg-data"/>
-<text class="dg-t" x="346.0" y="318.0">Streaming ingest</text>
-<text class="dg-s" x="346.0" y="335.0">Hourly, offset-tracked</text>
-<rect x="250" y="360" width="192" height="56" rx="6" class="dg-data"/>
-<text class="dg-t" x="346.0" y="384.0">Transcript summaries</text>
-<text class="dg-s" x="346.0" y="401.0">Gemini, batch on Dataproc</text>
-<rect x="500" y="30" width="192" height="40" rx="6" class="dg-model"/>
-<text class="dg-t" x="596.0" y="46.0">Calls</text>
-<text class="dg-s" x="596.0" y="63.0">Summaries, transcripts</text>
-<rect x="500" y="77" width="192" height="40" rx="6" class="dg-model"/>
-<text class="dg-t" x="596.0" y="93.0">Claims</text>
-<text class="dg-s" x="596.0" y="110.0">Medical</text>
-<rect x="500" y="124" width="192" height="40" rx="6" class="dg-model"/>
-<text class="dg-t" x="596.0" y="140.0">Rx</text>
-<text class="dg-s" x="596.0" y="157.0">Pharmacy claims</text>
-<rect x="500" y="171" width="192" height="40" rx="6" class="dg-model"/>
-<text class="dg-t" x="596.0" y="187.0">Prior auth</text>
-<text class="dg-s" x="596.0" y="204.0">Status and appeals</text>
-<rect x="500" y="218" width="192" height="40" rx="6" class="dg-model"/>
-<text class="dg-t" x="596.0" y="234.0">Grievances</text>
-<text class="dg-s" x="596.0" y="251.0">Open and resolved</text>
-<rect x="500" y="265" width="192" height="40" rx="6" class="dg-model"/>
-<text class="dg-t" x="596.0" y="281.0">Complaints</text>
-<text class="dg-s" x="596.0" y="298.0">CMS complaints</text>
-<rect x="500" y="312" width="192" height="40" rx="6" class="dg-model"/>
-<text class="dg-t" x="596.0" y="328.0">Surveys</text>
-<text class="dg-s" x="596.0" y="345.0">CSAT, NPS, verbatims</text>
-<rect x="500" y="359" width="192" height="40" rx="6" class="dg-model"/>
-<text class="dg-t" x="596.0" y="375.0">Member feedback</text>
-<text class="dg-s" x="596.0" y="392.0">Response summaries</text>
-<rect x="750" y="30" width="192" height="56" rx="6" class="dg-model"/>
-<text class="dg-t" x="846.0" y="54.0">Few-shot selection</text>
-<text class="dg-s" x="846.0" y="71.0">Sentence-BERT, ONNX INT8</text>
-<rect x="750" y="96" width="192" height="56" rx="6" class="dg-llm"/>
-<text class="dg-t" x="846.0" y="120.0">Pass 1: Summarize</text>
-<text class="dg-s" x="846.0" y="137.0">Gemini 2.5 Flash-Lite</text>
-<rect x="750" y="162" width="192" height="56" rx="6" class="dg-llm"/>
-<text class="dg-t" x="846.0" y="186.0">Pass 2: Format JSON</text>
-<text class="dg-s" x="846.0" y="203.0">Gemini 2.5 Flash-Lite</text>
-<rect x="750" y="228" width="192" height="56" rx="6" class="dg-model"/>
-<text class="dg-t" x="846.0" y="252.0">Call360 API</text>
-<text class="dg-s" x="846.0" y="269.0">Spring Boot, Java 21, GKE</text>
-<rect x="750" y="294" width="192" height="56" rx="6" class="dg-data"/>
-<text class="dg-t" x="846.0" y="318.0">Audit trail</text>
-<text class="dg-s" x="846.0" y="335.0">Every call logged</text>
-<rect x="750" y="360" width="192" height="56" rx="6" class="dg-data"/>
-<text class="dg-t" x="846.0" y="384.0">Gateway auth</text>
-<text class="dg-s" x="846.0" y="401.0">OAuth token check</text>
-<rect x="500" y="436" width="192" height="60" rx="6" class="dg-model"/>
-<text class="dg-t" x="596.0" y="462.0">memberId#eventDate</text>
-<text class="dg-s" x="596.0" y="479.0">Row key · 90-day TTL</text>
-<rect x="750" y="436" width="192" height="60" rx="6" class="dg-key"/>
-<text class="dg-t dg-on-key" x="846.0" y="462.0">Agent desktop</text>
-<text class="dg-s dg-on-key" x="846.0" y="479.0">Talking points before hello</text>
-<path class="dg-line" d="M194 215 H248" marker-end="url(#arr)"/>
-<path class="dg-line" d="M444 215 H498" marker-end="url(#arr)"/>
-<path class="dg-line" d="M694 215 H748" marker-end="url(#arr)"/>
-<path class="dg-line" d="M846.0 417 V434" marker-end="url(#arr)"/>
+<text class="dg-t" x="96.0" y="385">Member events</text>
+<text class="dg-s" x="96.0" y="401">Real-time, streamed</text>
+<path class="dg-line" d="M198 30 H208 V416 H198"/>
+<path class="dg-line" d="M208 215 H242" marker-end="url(#arr)"/>
+<rect x="244" y="30" width="204" height="346" rx="10" fill="none" stroke="#1e1e1e" stroke-dasharray="6 5"/>
+<text class="dg-t" x="346" y="51">Cloud Composer</text>
+<text class="dg-s" x="346" y="67">Airflow, 10+ DAGs, daily</text>
+<rect x="250" y="78" width="192" height="46" rx="6" class="dg-data"/>
+<text class="dg-t" x="346.0" y="98">Streaming ingest</text>
+<text class="dg-s" x="346.0" y="114">Hourly, offset-tracked</text>
+<rect x="250" y="130" width="192" height="46" rx="6" class="dg-data"/>
+<text class="dg-t" x="346.0" y="150">Dataproc Serverless</text>
+<text class="dg-s" x="346.0" y="166">PySpark batch jobs</text>
+<rect x="250" y="182" width="192" height="46" rx="6" class="dg-llm"/>
+<text class="dg-t" x="346.0" y="202">Transcript summaries</text>
+<text class="dg-s" x="346.0" y="218">Gemini, batch on Dataproc</text>
+<path class="dg-line" d="M346 230 V246" marker-end="url(#arr)"/>
+<rect x="250" y="248" width="192" height="46" rx="6" class="dg-data"/>
+<text class="dg-t" x="346.0" y="268">PII tokenization</text>
+<text class="dg-s" x="346.0" y="284">Field-level, before storage</text>
+<path class="dg-line" d="M346 296 V312" marker-end="url(#arr)"/>
+<rect x="250" y="314" width="192" height="50" rx="6" class="dg-model"/>
+<text class="dg-t" x="346.0" y="336">BigQuery</text>
+<text class="dg-s" x="346.0" y="352">Source and staging tables</text>
+<path class="dg-line" d="M444 339 H492" marker-end="url(#arr)"/>
+<text class="dg-s" x="468" y="330">daily</text>
+<text class="dg-s" x="468" y="356">load</text>
+<rect x="494" y="30" width="204" height="388" rx="10" fill="none" stroke="#1e1e1e" stroke-dasharray="6 5"/>
+<text class="dg-t" x="596" y="51">memberId#eventDate</text>
+<text class="dg-s" x="596" y="67">Row key · 90-day TTL</text>
+<rect x="500" y="78" width="192" height="38" rx="6" class="dg-model"/>
+<text class="dg-t" x="596.0" y="94">Calls</text>
+<text class="dg-s" x="596.0" y="110">Summaries, transcripts</text>
+<rect x="500" y="120" width="192" height="38" rx="6" class="dg-model"/>
+<text class="dg-t" x="596.0" y="136">Claims</text>
+<text class="dg-s" x="596.0" y="152">Medical</text>
+<rect x="500" y="162" width="192" height="38" rx="6" class="dg-model"/>
+<text class="dg-t" x="596.0" y="178">Rx</text>
+<text class="dg-s" x="596.0" y="194">Pharmacy claims</text>
+<rect x="500" y="204" width="192" height="38" rx="6" class="dg-model"/>
+<text class="dg-t" x="596.0" y="220">Prior auth</text>
+<text class="dg-s" x="596.0" y="236">Status and appeals</text>
+<rect x="500" y="246" width="192" height="38" rx="6" class="dg-model"/>
+<text class="dg-t" x="596.0" y="262">Grievances</text>
+<text class="dg-s" x="596.0" y="278">Open and resolved</text>
+<rect x="500" y="288" width="192" height="38" rx="6" class="dg-model"/>
+<text class="dg-t" x="596.0" y="304">Complaints</text>
+<text class="dg-s" x="596.0" y="320">CMS complaints</text>
+<rect x="500" y="330" width="192" height="38" rx="6" class="dg-model"/>
+<text class="dg-t" x="596.0" y="346">Surveys</text>
+<text class="dg-s" x="596.0" y="362">CSAT, NPS, verbatims</text>
+<rect x="500" y="372" width="192" height="38" rx="6" class="dg-model"/>
+<text class="dg-t" x="596.0" y="388">Member feedback</text>
+<text class="dg-s" x="596.0" y="404">Response summaries</text>
+<path class="dg-line" d="M700 117 H748" marker-end="url(#arr)"/>
+<text class="dg-s" x="724" y="108">read</text>
+<text class="dg-s" x="725" y="134">27 ms</text>
+<rect x="750" y="30" width="192" height="46" rx="6" class="dg-data"/>
+<text class="dg-t" x="846.0" y="50">Gateway auth</text>
+<text class="dg-s" x="846.0" y="66">OAuth token check</text>
+<path class="dg-line" d="M846 78 V92" marker-end="url(#arr)"/>
+<rect x="750" y="94" width="192" height="46" rx="6" class="dg-model"/>
+<text class="dg-t" x="846.0" y="114">Call360 API</text>
+<text class="dg-s" x="846.0" y="130">Spring Boot, Java 21, GKE</text>
+<path class="dg-line" d="M846 142 V156" marker-end="url(#arr)"/>
+<rect x="750" y="158" width="192" height="46" rx="6" class="dg-model"/>
+<text class="dg-t" x="846.0" y="178">Few-shot selection</text>
+<text class="dg-s" x="846.0" y="194">Sentence-BERT, ONNX INT8</text>
+<path class="dg-line" d="M846 206 V220" marker-end="url(#arr)"/>
+<rect x="750" y="222" width="192" height="46" rx="6" class="dg-llm"/>
+<text class="dg-t" x="846.0" y="242">Pass 1: Summarize</text>
+<text class="dg-s" x="846.0" y="258">Gemini 2.5 Flash-Lite</text>
+<path class="dg-line" d="M846 270 V284" marker-end="url(#arr)"/>
+<rect x="750" y="286" width="192" height="46" rx="6" class="dg-llm"/>
+<text class="dg-t" x="846.0" y="306">Pass 2: Format JSON</text>
+<text class="dg-s" x="846.0" y="322">Gemini 2.5 Flash-Lite</text>
+<path class="dg-line" d="M846 334 V348" marker-end="url(#arr)"/>
+<rect x="750" y="350" width="192" height="50" rx="6" class="dg-key"/>
+<text class="dg-t dg-on-key" x="846.0" y="372">Agent desktop</text>
+<text class="dg-s dg-on-key" x="846.0" y="388">Talking points before hello</text>
+<rect x="750" y="416" width="192" height="46" rx="6" class="dg-data" stroke-dasharray="5 4"/>
+<text class="dg-t" x="846.0" y="436">Audit trail</text>
+<text class="dg-s" x="846.0" y="452">Every call logged</text>
+<rect x="0" y="440" width="14" height="14" rx="3" class="dg-data"/>
+<text class="dg-s" x="20" y="451" style="text-anchor:start">data &amp; pipelines</text>
+<rect x="136" y="440" width="14" height="14" rx="3" class="dg-model"/>
+<text class="dg-s" x="156" y="451" style="text-anchor:start">storage &amp; services</text>
+<rect x="290" y="440" width="14" height="14" rx="3" class="dg-llm"/>
+<text class="dg-s" x="310" y="451" style="text-anchor:start">LLM call</text>
+<rect x="380" y="440" width="14" height="14" rx="3" class="dg-key"/>
+<text class="dg-s" x="400" y="451" style="text-anchor:start">what the rep sees</text>
 </svg>
