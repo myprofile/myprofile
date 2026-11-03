@@ -1,37 +1,97 @@
-<svg viewBox="0 0 800 580" role="img" aria-labelledby="c360-arch-title c360-arch-desc" xmlns="http://www.w3.org/2000/svg">
+<svg class="diagram-svg" viewBox="0 0 942 500" role="img" aria-labelledby="c360-arch-title c360-arch-desc" xmlns="http://www.w3.org/2000/svg">
 <title id="c360-arch-title">Call360 architecture</title>
-<desc id="c360-arch-desc">Six sources (call summaries, medical claims, Rx claims, prior authorization, grievances and surveys) feed Layer 1, BigQuery domain pipelines on Cloud Composer that keep full history. A factory DAG on Dataproc Serverless loads Layer 2, Bigtable, with a 90-day window keyed by memberId#eventDate. The Call360 API picks few-shot examples with an INT8 SBERT model, summarizes with Gemini, formats JSON with Gemini 2.5 Flash-Lite with thinking off, and sends talking points to the agent desktop.</desc>
-<defs><marker id="c360-arch-head" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="dg-head"/></marker></defs>
-<text class="dg-h" x="16" y="12">SOURCES · REFRESHED DAILY</text>
-<rect class="dg-data" x="16" y="24" width="120" height="48" rx="6"/><text class="dg-t" x="76" y="44">Call summaries</text><text class="dg-s" x="76" y="61">several LOBs</text>
-<rect class="dg-data" x="144" y="24" width="120" height="48" rx="6"/><text class="dg-t" x="204" y="53">Medical claims</text>
-<rect class="dg-data" x="272" y="24" width="120" height="48" rx="6"/><text class="dg-t" x="332" y="53">Rx claims</text>
-<rect class="dg-data" x="400" y="24" width="120" height="48" rx="6"/><text class="dg-t" x="460" y="53">Prior auth</text>
-<rect class="dg-data" x="528" y="24" width="120" height="48" rx="6"/><text class="dg-t" x="588" y="53">Grievances</text>
-<rect class="dg-data" x="656" y="24" width="120" height="48" rx="6"/><text class="dg-t" x="716" y="53">Surveys</text>
-<path class="dg-line" d="M76 72 V96 M204 72 V96 M332 72 V96 M460 72 V96 M588 72 V96 M716 72 V96 M76 96 H716"/>
-<path class="dg-line" d="M400 96 V120" marker-end="url(#c360-arch-head)"/>
-<rect class="dg-data" x="16" y="120" width="768" height="64" rx="6"/>
-<text class="dg-t" x="400" y="146">Layer 1 · BigQuery domain pipelines (full history)</text>
-<text class="dg-s" x="400" y="166">Airflow on Cloud Composer · population → enrich → status buckets → global member ID</text>
-<path class="dg-line" d="M400 184 V216" marker-end="url(#c360-arch-head)"/>
-<rect class="dg-model" x="16" y="216" width="768" height="64" rx="6"/>
-<text class="dg-t" x="400" y="242">Layer 2 · Bigtable (90-day window)</text>
-<text class="dg-s" x="400" y="262">factory DAG · Dataproc Serverless PySpark · row key memberId#eventDate</text>
-<path class="dg-line" d="M400 280 V312" marker-end="url(#c360-arch-head)"/>
-<rect x="16" y="312" width="768" height="120" rx="8" fill="none" stroke="#40045c" stroke-width="1.25" stroke-dasharray="5 4"/>
-<text class="dg-h" x="32" y="334">CALL360 API · PER REQUEST</text>
-<rect class="dg-model" x="32" y="352" width="224" height="60" rx="6"/><text class="dg-t" x="144" y="377">Few-shot selection</text><text class="dg-s" x="144" y="396">SBERT · ONNX INT8</text>
-<rect class="dg-llm" x="288" y="352" width="224" height="60" rx="6"/><text class="dg-t" x="400" y="377">Step 1 · Summarize</text><text class="dg-s" x="400" y="396">Gemini</text>
-<rect class="dg-llm" x="544" y="352" width="224" height="60" rx="6"/><text class="dg-t" x="656" y="377">Step 2 · Format JSON</text><text class="dg-s" x="656" y="396">Gemini 2.5 Flash-Lite</text>
-<path class="dg-line" d="M256 382 H288" marker-end="url(#c360-arch-head)"/>
-<path class="dg-line" d="M512 382 H544" marker-end="url(#c360-arch-head)"/>
-<path class="dg-line" d="M656 412 V448 H400 V464" marker-end="url(#c360-arch-head)"/>
-<rect class="dg-key" x="200" y="464" width="400" height="60" rx="6"/>
-<text class="dg-t dg-on-key" x="400" y="490">Agent desktop</text>
-<text class="dg-s dg-on-key" x="400" y="509">talking points before the rep says hello</text>
-<rect class="dg-data" x="16" y="554" width="14" height="14" rx="3"/><text class="dg-l" x="38" y="566">Data and pipelines</text>
-<rect class="dg-model" x="180" y="554" width="14" height="14" rx="3"/><text class="dg-l" x="202" y="566">Serving store or small model</text>
-<rect class="dg-llm" x="394" y="554" width="14" height="14" rx="3"/><text class="dg-l" x="416" y="566">LLM</text>
-<rect class="dg-key" x="470" y="554" width="14" height="14" rx="3"/><text class="dg-l" x="492" y="566">What the rep sees</text>
+<desc id="c360-arch-desc">Source data (call data, membership, medical and Rx claims, regulatory, surveys and member events) flows through Cloud Composer pipelines into BigQuery, then into per-domain Bigtable tables keyed by member ID and date with a 90-day TTL. The Call360 API selects few-shot examples with Sentence-BERT, summarizes with Gemini 2.5 Flash-Lite on Vertex AI, formats JSON in a second Gemini pass, and sends talking points to the agent desktop.</desc>
+<defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="dg-head"/></marker></defs>
+<text class="dg-h" x="96.0" y="16" text-anchor="middle">SOURCES</text>
+<text class="dg-h" x="346.0" y="16" text-anchor="middle">WAREHOUSE &amp; PIPELINES</text>
+<text class="dg-h" x="596.0" y="16" text-anchor="middle">SERVING · BIGTABLE</text>
+<text class="dg-h" x="846.0" y="16" text-anchor="middle">CALL360 API · VERTEX AI</text>
+<rect x="0" y="30" width="192" height="56" rx="6" class="dg-data"/>
+<text class="dg-t" x="96.0" y="54.0">Call data</text>
+<text class="dg-s" x="96.0" y="71.0">Summaries, transcripts, IVR</text>
+<rect x="0" y="96" width="192" height="56" rx="6" class="dg-data"/>
+<text class="dg-t" x="96.0" y="120.0">Membership</text>
+<text class="dg-s" x="96.0" y="137.0">Enrollment and accounts</text>
+<rect x="0" y="162" width="192" height="56" rx="6" class="dg-data"/>
+<text class="dg-t" x="96.0" y="186.0">Medical &amp; Rx claims</text>
+<text class="dg-s" x="96.0" y="203.0">Claims and prior auth</text>
+<rect x="0" y="228" width="192" height="56" rx="6" class="dg-data"/>
+<text class="dg-t" x="96.0" y="252.0">Regulatory</text>
+<text class="dg-s" x="96.0" y="269.0">Grievances, complaints</text>
+<rect x="0" y="294" width="192" height="56" rx="6" class="dg-data"/>
+<text class="dg-t" x="96.0" y="318.0">Surveys</text>
+<text class="dg-s" x="96.0" y="335.0">CSAT, NPS, verbatims</text>
+<rect x="0" y="360" width="192" height="56" rx="6" class="dg-data"/>
+<text class="dg-t" x="96.0" y="384.0">Member events</text>
+<text class="dg-s" x="96.0" y="401.0">Real-time, streamed</text>
+<rect x="250" y="30" width="192" height="56" rx="6" class="dg-data"/>
+<text class="dg-t" x="346.0" y="54.0">Cloud Composer</text>
+<text class="dg-s" x="346.0" y="71.0">Airflow, 10+ DAGs, daily</text>
+<rect x="250" y="96" width="192" height="56" rx="6" class="dg-data"/>
+<text class="dg-t" x="346.0" y="120.0">BigQuery</text>
+<text class="dg-s" x="346.0" y="137.0">Source and staging tables</text>
+<rect x="250" y="162" width="192" height="56" rx="6" class="dg-data"/>
+<text class="dg-t" x="346.0" y="186.0">Dataproc Serverless</text>
+<text class="dg-s" x="346.0" y="203.0">PySpark batch jobs</text>
+<rect x="250" y="228" width="192" height="56" rx="6" class="dg-data"/>
+<text class="dg-t" x="346.0" y="252.0">PII tokenization</text>
+<text class="dg-s" x="346.0" y="269.0">Field-level, before storage</text>
+<rect x="250" y="294" width="192" height="56" rx="6" class="dg-data"/>
+<text class="dg-t" x="346.0" y="318.0">Streaming ingest</text>
+<text class="dg-s" x="346.0" y="335.0">Hourly, offset-tracked</text>
+<rect x="250" y="360" width="192" height="56" rx="6" class="dg-data"/>
+<text class="dg-t" x="346.0" y="384.0">Transcript summaries</text>
+<text class="dg-s" x="346.0" y="401.0">Gemini, batch on Dataproc</text>
+<rect x="500" y="30" width="192" height="40" rx="6" class="dg-model"/>
+<text class="dg-t" x="596.0" y="46.0">Calls</text>
+<text class="dg-s" x="596.0" y="63.0">Summaries, transcripts</text>
+<rect x="500" y="77" width="192" height="40" rx="6" class="dg-model"/>
+<text class="dg-t" x="596.0" y="93.0">Claims</text>
+<text class="dg-s" x="596.0" y="110.0">Medical</text>
+<rect x="500" y="124" width="192" height="40" rx="6" class="dg-model"/>
+<text class="dg-t" x="596.0" y="140.0">Rx</text>
+<text class="dg-s" x="596.0" y="157.0">Pharmacy claims</text>
+<rect x="500" y="171" width="192" height="40" rx="6" class="dg-model"/>
+<text class="dg-t" x="596.0" y="187.0">Prior auth</text>
+<text class="dg-s" x="596.0" y="204.0">Status and appeals</text>
+<rect x="500" y="218" width="192" height="40" rx="6" class="dg-model"/>
+<text class="dg-t" x="596.0" y="234.0">Grievances</text>
+<text class="dg-s" x="596.0" y="251.0">Open and resolved</text>
+<rect x="500" y="265" width="192" height="40" rx="6" class="dg-model"/>
+<text class="dg-t" x="596.0" y="281.0">Complaints</text>
+<text class="dg-s" x="596.0" y="298.0">CMS complaints</text>
+<rect x="500" y="312" width="192" height="40" rx="6" class="dg-model"/>
+<text class="dg-t" x="596.0" y="328.0">Surveys</text>
+<text class="dg-s" x="596.0" y="345.0">CSAT, NPS, verbatims</text>
+<rect x="500" y="359" width="192" height="40" rx="6" class="dg-model"/>
+<text class="dg-t" x="596.0" y="375.0">Member feedback</text>
+<text class="dg-s" x="596.0" y="392.0">Response summaries</text>
+<rect x="750" y="30" width="192" height="56" rx="6" class="dg-model"/>
+<text class="dg-t" x="846.0" y="54.0">Few-shot selection</text>
+<text class="dg-s" x="846.0" y="71.0">Sentence-BERT, ONNX INT8</text>
+<rect x="750" y="96" width="192" height="56" rx="6" class="dg-llm"/>
+<text class="dg-t" x="846.0" y="120.0">Pass 1: Summarize</text>
+<text class="dg-s" x="846.0" y="137.0">Gemini 2.5 Flash-Lite</text>
+<rect x="750" y="162" width="192" height="56" rx="6" class="dg-llm"/>
+<text class="dg-t" x="846.0" y="186.0">Pass 2: Format JSON</text>
+<text class="dg-s" x="846.0" y="203.0">Gemini 2.5 Flash-Lite</text>
+<rect x="750" y="228" width="192" height="56" rx="6" class="dg-model"/>
+<text class="dg-t" x="846.0" y="252.0">Call360 API</text>
+<text class="dg-s" x="846.0" y="269.0">Spring Boot, Java 21, GKE</text>
+<rect x="750" y="294" width="192" height="56" rx="6" class="dg-data"/>
+<text class="dg-t" x="846.0" y="318.0">Audit trail</text>
+<text class="dg-s" x="846.0" y="335.0">Every call logged</text>
+<rect x="750" y="360" width="192" height="56" rx="6" class="dg-data"/>
+<text class="dg-t" x="846.0" y="384.0">Gateway auth</text>
+<text class="dg-s" x="846.0" y="401.0">OAuth token check</text>
+<rect x="500" y="436" width="192" height="60" rx="6" class="dg-model"/>
+<text class="dg-t" x="596.0" y="462.0">memberId#eventDate</text>
+<text class="dg-s" x="596.0" y="479.0">Row key · 90-day TTL</text>
+<rect x="750" y="436" width="192" height="60" rx="6" class="dg-key"/>
+<text class="dg-t dg-on-key" x="846.0" y="462.0">Agent desktop</text>
+<text class="dg-s dg-on-key" x="846.0" y="479.0">Talking points before hello</text>
+<path class="dg-line" d="M194 215 H248" marker-end="url(#arr)"/>
+<path class="dg-line" d="M444 215 H498" marker-end="url(#arr)"/>
+<path class="dg-line" d="M694 215 H748" marker-end="url(#arr)"/>
+<path class="dg-line" d="M846.0 417 V434" marker-end="url(#arr)"/>
 </svg>
