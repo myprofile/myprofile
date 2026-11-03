@@ -1,6 +1,6 @@
 <svg viewBox="0 0 800 352" role="img" aria-labelledby="c360-fw-title c360-fw-desc" xmlns="http://www.w3.org/2000/svg">
 <title id="c360-fw-title">Call360 pipeline framework</title>
-<desc id="c360-fw-desc">Step 1: every source runs the same four BigQuery steps (population, join and enrich, status buckets with a global member ID, final insert) behind an audit check that gives each run its own ID and blocks duplicate runs. Step 2: one factory DAG reads a list of 14 sources and generates a load job per source, which reads the BigQuery tables and loads Bigtable. A new source is one config entry, with no new pipeline code.</desc>
+<desc id="c360-fw-desc">Step 1: every source runs the same four BigQuery steps (population, join and enrich, status buckets with a global member ID, final insert) behind an audit check that gives each run its own ID and blocks duplicate runs. Step 2: one factory DAG reads a list of 9 sources and generates a load job per source, which reads the BigQuery tables and loads Bigtable. A new source is one config entry, with no new pipeline code.</desc>
 <defs><marker id="c360-fw-head" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="dg-head"/></marker></defs>
 <text class="dg-h" x="16" y="14">STEP 1 · BIGQUERY: SAME FOUR STEPS FOR EVERY SOURCE</text>
 <rect class="dg-data" x="16" y="26" width="176" height="60" rx="6"/><text class="dg-t" x="104" y="51">1 · Population</text><text class="dg-s" x="104" y="70">eligible members</text>
@@ -14,8 +14,8 @@
 <text class="dg-s" x="400" y="119">audit check before every write · one ID per run · duplicate runs blocked</text>
 <path class="dg-line" d="M695 130 V196" stroke-dasharray="4 4" marker-end="url(#c360-fw-head)"/>
 <text class="dg-l" x="685" y="166" text-anchor="end">reads BigQuery tables</text>
-<text class="dg-h" x="16" y="184">STEP 2 · BIGTABLE: ONE FACTORY DAG FOR ALL 14 SOURCES</text>
-<rect class="dg-data" x="16" y="196" width="176" height="60" rx="6"/><text class="dg-t dg-code" x="104" y="221">registry.yaml</text><text class="dg-s" x="104" y="240">list of 14 sources</text>
+<text class="dg-h" x="16" y="184">STEP 2 · BIGTABLE: ONE FACTORY DAG FOR ALL 9 SOURCES</text>
+<rect class="dg-data" x="16" y="196" width="176" height="60" rx="6"/><text class="dg-t dg-code" x="104" y="221">registry.yaml</text><text class="dg-s" x="104" y="240">list of 9 sources</text>
 <rect class="dg-key" x="213" y="196" width="176" height="60" rx="6"/><text class="dg-t dg-on-key" x="301" y="221">Factory DAG</text><text class="dg-s dg-on-key" x="301" y="240">one DAG per source</text>
 <rect class="dg-model" x="422" y="186" width="164" height="60" rx="6"/>
 <rect class="dg-model" x="416" y="191" width="170" height="60" rx="6"/>
