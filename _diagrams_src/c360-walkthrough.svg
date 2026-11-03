@@ -1,0 +1,76 @@
+<svg class="diagram-svg" viewBox="0 0 800 510" role="img" aria-labelledby="c360-walk-title c360-walk-desc" xmlns="http://www.w3.org/2000/svg">
+<title id="c360-walk-title">Jane's call, end to end</title>
+<desc id="c360-walk-desc">Jane Doe's path through Call360 in seven steps, with mock data at each step. 1, overnight load: Composer DAGs move her data through BigQuery into the Bigtable tables, for example a calls row MBR-000123#2025-01-14 with reason refill delay, plus claims, rx, prior_auth and grievances tables. 2, Jane calls: the agent desktop requests member MBR-000123; the gateway checks the OAuth token and writes the audit trail. 3, read her rows: a prefix scan on MBR-000123# across five tables returns five rows from the last 90 days, about 27 ms per read. 4, few-shot selection: Sentence-BERT picks the closest example, a paid lab claim plus a prior call. 5, pass 1: Gemini 2.5 Flash-Lite summarizes: denied non-preferred Rx, prior call about a refill delay, prior authorization approved, billing grievance open. 6, pass 2: the same model formats JSON with the member ID and four talking points. 7, agent desktop: the rep sees the talking points before saying hello.</desc>
+<defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="dg-head"/></marker></defs>
+<text class="dg-h" x="170" y="18" text-anchor="middle">STEP</text>
+<text class="dg-h" x="570" y="18" text-anchor="middle">JANE'S DATA (MOCK)</text>
+<circle cx="18" cy="55" r="11" class="dg-data"/>
+<text class="dg-t" x="18" y="60">1</text>
+<rect x="40" y="30" width="260" height="50" rx="6" class="dg-data"/>
+<text class="dg-t" x="170" y="51">Overnight load</text>
+<text class="dg-s" x="170" y="68">Composer DAGs → BigQuery → Bigtable</text>
+<path class="dg-line" d="M302 55 H336" marker-end="url(#arr)"/>
+<rect x="340" y="30" width="460" height="50" rx="6" fill="#ffffff" stroke="#1e1e1e" stroke-dasharray="5 4"/>
+<text class="dg-mono" x="354" y="51" xml:space="preserve">calls       MBR-000123#2025-01-14  refill delay</text>
+<text class="dg-mono" x="354" y="67" xml:space="preserve">+ claims, rx, prior_auth, grievances tables</text>
+<path class="dg-line" d="M170 82 V98" marker-end="url(#arr)"/>
+<circle cx="18" cy="125" r="11" class="dg-data"/>
+<text class="dg-t" x="18" y="130">2</text>
+<rect x="40" y="100" width="260" height="50" rx="6" class="dg-data"/>
+<text class="dg-t" x="170" y="121">Jane calls</text>
+<text class="dg-s" x="170" y="138">Gateway: OAuth check, audit log</text>
+<path class="dg-line" d="M302 125 H336" marker-end="url(#arr)"/>
+<rect x="340" y="100" width="460" height="50" rx="6" fill="#ffffff" stroke="#1e1e1e" stroke-dasharray="5 4"/>
+<text class="dg-mono" x="354" y="121" xml:space="preserve">request: member MBR-000123</text>
+<text class="dg-mono" x="354" y="137" xml:space="preserve">OAuth token ✓   audit trail ✓</text>
+<path class="dg-line" d="M170 152 V168" marker-end="url(#arr)"/>
+<circle cx="18" cy="195" r="11" class="dg-model"/>
+<text class="dg-t" style="fill:#ffffff" x="18" y="200">3</text>
+<rect x="40" y="170" width="260" height="50" rx="6" class="dg-model"/>
+<text class="dg-t" x="170" y="191">Read her rows</text>
+<text class="dg-s" x="170" y="208">Prefix scan on each domain table</text>
+<path class="dg-line" d="M302 195 H336" marker-end="url(#arr)"/>
+<rect x="340" y="170" width="460" height="50" rx="6" fill="#ffffff" stroke="#1e1e1e" stroke-dasharray="5 4"/>
+<text class="dg-mono" x="354" y="191" xml:space="preserve">scan MBR-000123# on 5 tables</text>
+<text class="dg-mono" x="354" y="207" xml:space="preserve">5 rows from the last 90 days · ~27 ms per read</text>
+<path class="dg-line" d="M170 222 V238" marker-end="url(#arr)"/>
+<circle cx="18" cy="265" r="11" class="dg-model"/>
+<text class="dg-t" style="fill:#ffffff" x="18" y="270">4</text>
+<rect x="40" y="240" width="260" height="50" rx="6" class="dg-model"/>
+<text class="dg-t" x="170" y="261">Few-shot selection</text>
+<text class="dg-s" x="170" y="278">Sentence-BERT</text>
+<path class="dg-line" d="M302 265 H336" marker-end="url(#arr)"/>
+<rect x="340" y="240" width="460" height="50" rx="6" fill="#ffffff" stroke="#1e1e1e" stroke-dasharray="5 4"/>
+<text class="dg-mono" x="354" y="261" xml:space="preserve">closest example: paid lab claim + prior call</text>
+<text class="dg-mono" x="354" y="277" xml:space="preserve">added to the prompt as a model answer</text>
+<path class="dg-line" d="M170 292 V308" marker-end="url(#arr)"/>
+<circle cx="18" cy="335" r="11" class="dg-llm"/>
+<text class="dg-t" x="18" y="340">5</text>
+<rect x="40" y="310" width="260" height="50" rx="6" class="dg-llm"/>
+<text class="dg-t" x="170" y="331">Pass 1: Summarize</text>
+<text class="dg-s" x="170" y="348">Gemini 2.5 Flash-Lite</text>
+<path class="dg-line" d="M302 335 H336" marker-end="url(#arr)"/>
+<rect x="340" y="310" width="460" height="50" rx="6" fill="#ffffff" stroke="#1e1e1e" stroke-dasharray="5 4"/>
+<text class="dg-mono" x="354" y="331" xml:space="preserve">"Denied non-preferred Rx; prior call about a refill</text>
+<text class="dg-mono" x="354" y="347" xml:space="preserve">delay; PA approved; billing grievance open."</text>
+<path class="dg-line" d="M170 362 V378" marker-end="url(#arr)"/>
+<circle cx="18" cy="405" r="11" class="dg-llm"/>
+<text class="dg-t" x="18" y="410">6</text>
+<rect x="40" y="380" width="260" height="50" rx="6" class="dg-llm"/>
+<text class="dg-t" x="170" y="401">Pass 2: Format JSON</text>
+<text class="dg-s" x="170" y="418">Same model, second call</text>
+<path class="dg-line" d="M302 405 H336" marker-end="url(#arr)"/>
+<rect x="340" y="380" width="460" height="50" rx="6" fill="#ffffff" stroke="#1e1e1e" stroke-dasharray="5 4"/>
+<text class="dg-mono" x="354" y="401" xml:space="preserve">{"member_id": "MBR-000123",</text>
+<text class="dg-mono" x="354" y="417" xml:space="preserve">  "talking_points": [ 4 items ]}</text>
+<path class="dg-line" d="M170 432 V448" marker-end="url(#arr)"/>
+<circle cx="18" cy="475" r="11" class="dg-key"/>
+<text class="dg-t" style="fill:#ffffff" x="18" y="480">7</text>
+<rect x="40" y="450" width="260" height="50" rx="6" class="dg-key"/>
+<text class="dg-t dg-on-key" x="170" y="471">Agent desktop</text>
+<text class="dg-s dg-on-key" x="170" y="488">Talking points before hello</text>
+<path class="dg-line" d="M302 475 H336" marker-end="url(#arr)"/>
+<rect x="340" y="450" width="460" height="50" rx="6" fill="#ffffff" stroke="#1e1e1e" stroke-dasharray="5 4"/>
+<text class="dg-mono" x="354" y="471" xml:space="preserve">• Denied prescription?   • Refill delay resolved?</text>
+<text class="dg-mono" x="354" y="487" xml:space="preserve">• PA approved, 5 days   • Open billing grievance</text>
+</svg>
