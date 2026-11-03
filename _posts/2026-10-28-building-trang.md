@@ -32,13 +32,13 @@ This post follows both versions of Trang, and by the end you'll have built the c
 
 The result is a chatbot that talks with you using the memories you give it.
 
-**Part 1** is Trang in the kitchen. **Part 2** is the interview.
+There are two projects: **Trang in the kitchen**, then **the interview**.
 
 Everything runs locally on [Ollama](https://ollama.com). No API key, no cloud bill.
 
-## Part 1: Trang in the kitchen
+## Project 1: Trang in the kitchen
 
-In the first project, Trang is a 30-year-old baker at a neighborhood bakery: patient, careful, a bit of a perfectionist. She lives in an 8×8 pixel kitchen and bakes a cake or a pizza from a recipe stored in her memory.
+Trang bakes a cake or a pizza from a recipe stored in her memory.
 
 <video src="/assets/img/building-trang/trang-baking-pizza.mp4" poster="/assets/img/building-trang/trang-baking-pizza-poster.png" autoplay muted loop playsinline aria-label="Trang starting a pizza: she preheats the oven, walks to each dough ingredient, and the ingredient bars fill green as steps get checked off" style="width:100%;height:auto"></video>
 
@@ -56,9 +56,9 @@ Her "memory" here is simple: a text file of unrelated articles with the recipe b
 - **The world had to talk back.** Phrases that matched nothing used to do nothing, silently, so she repeated herself forever. Now the kitchen says what didn't work.
 - **Rules beat prompts.** She kept recounting finished steps and the kitchen counted them twice. Telling her not to failed. Refusing extra flour in code worked.
 
-The bigger lesson: an agent that acts needs a world that keeps state. An agent that talks needs a real memory. That's Part 2.
+The bigger lesson: an agent that acts needs a world that keeps state. An agent that talks needs a real memory. That's the second project.
 
-## Part 2: Talking to Trang
+## Project 2: Talking to Trang
 
 For the second project I gave Trang a different life, one with enough memories to make conversation interesting. In Interview Studio, she grew up in Huntsville, Alabama, exploring forests with her grandmother. She became an environmental advocate, ran for city council, lost, and went to law school to study environmental law.
 
@@ -84,12 +84,12 @@ PORT=5050 python interview_app.py
 
 The core lives in two files: `generative_agent/modules/memory_stream.py` (storing, scoring, reflecting) and `generative_agent/modules/interaction.py` (answering). Let's build it up one module at a time.
 
-## Step 1: The memory stream
+### Step 1: The memory stream
 
 A generative agent's memory is a list of plain-English records called nodes. Each one carries three things that make retrieval possible later:
 
 - **When** it was formed and last recalled, as time steps.
-- **How important** it is, from 0 to 100.
+- **How important** it is, from 0 to 100. (Part 1 used a 1–10 scale; since scores are scaled to 0–1 before they're combined, either works.)
 - **An embedding**: a list of numbers that captures its meaning, stored alongside.
 
 ```python
@@ -144,7 +144,7 @@ trang.remember("Trang won her law school's moot court final.")
 trang.save("interviewees", "trang")
 ```
 
-## Step 2: Retrieval
+### Step 2: Retrieval
 
 Ninety-one memories won't fit in a good prompt, and most are irrelevant to any one question. So for every question, Interview Studio scores all of them and keeps the top five.
 
@@ -196,7 +196,7 @@ The winning memory is rated just 30 out of 100. Seventy-four of her 91 memories 
 
 One detail: recency is 0.5 for every memory here. Each interview question is answered on its own, at the same time step, so all memories look equally fresh. In a long-running agent, recency would start to matter.
 
-## Step 3: Reflection
+### Step 3: Reflection
 
 Memories are specific: a lost election, a law school application, a voter registration drive. People also carry bigger ideas built from many such moments. Reflection is how an agent forms those.
 
@@ -227,7 +227,7 @@ No memory says that. She drew it from ten, including the loss itself, her decisi
 
 Interview Studio has `reflect()` in its code but doesn't call it from the app yet, so every answer comes from raw memories. Wiring it in is the first exercise at the end.
 
-## Step 4: The chatbot
+### Step 4: The chatbot
 
 With memory and retrieval in place, answering is a well-built prompt. Interview Studio assembles Trang's description from three sections:
 
@@ -275,7 +275,7 @@ Finally, the **"How Trang answered"** panel makes the whole pipeline visible: th
 - **Make recency real.** Advance the time step with each question and pass `stateless=False`, so recently discussed memories stay fresh across an interview.
 - **Tune the weights.** Try relevance at 1 instead of 3. Do her most important memories start crowding out the right ones?
 - **Remember the interview.** Store each question and answer as a new memory, so Trang can refer back to what you asked earlier.
-- **Give the baker a real memory.** Replace Part 1's heading-based recipe lookup with this retrieval, and let her remember every cake she bakes.
+- **Give the baker a real memory.** Replace the kitchen project's heading-based recipe lookup with this retrieval, and let her remember every cake she bakes.
 
 ## Try it yourself
 
