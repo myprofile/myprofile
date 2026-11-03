@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Building Trang: A Generative Agent That Bakes, Remembers and Talks"
+title: "Building Trang: A Generative AI Agent That Bakes, Remembers and Talks"
 summary: "How I gave an AI persona a past, and what it took for her to answer like she'd lived it."
 date: 2026-10-28 11:00:00
 code:
@@ -279,9 +279,9 @@ Finally, the **"How Trang answered"** panel makes the whole pipeline visible: th
 
 ## Try it yourself
 
-Both projects run on your laptop with Ollama. Pick one and give it a try:
+Both projects run on your laptop with [Ollama](https://ollama.com), with no API key and no cloud bill. Each README walks you through setup.
 
-- **Talk to Trang:** [Sim-Intelligence-Lab/sim\_interview\_agent](https://github.com/Sim-Intelligence-Lab/sim_interview_agent)
-- **Trang in the kitchen:** [Sim-Intelligence-Lab/sim\_baking\_agent](https://github.com/Sim-Intelligence-Lab/sim_baking_agent)
+- **Project 1, Trang in the kitchen:** [sim_baking_agent](https://github.com/Sim-Intelligence-Lab/sim_baking_agent). Press Play and watch her bake a cake or a pizza.
+- **Project 2, Talking to Trang:** [sim_interview_agent](https://github.com/Sim-Intelligence-Lab/sim_interview_agent). Ask her the 18 prepared questions, or your own.
 
-Each README walks you through setup. Ask Trang a question, or press Play and watch her bake, and let me know what she gets right and what she gets wrong.
+If she gets something right, or something wrong, I'd love to hear about it on [LinkedIn](https://www.linkedin.com/in/rn369/) or [X](https://x.com/RajuNekadir369).
