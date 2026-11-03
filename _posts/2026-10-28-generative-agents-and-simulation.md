@@ -191,9 +191,9 @@ You've built an agent. How do you know whether it works? That depends on what it
 
 ### Believable agents
 
-Disney's animators described their craft as the *illusion of life*: characters who seem to think, decide, and act of their own volition. AI researchers borrowed the idea in the 1990s as the **believable agent**, the interactive cousin of a believable character in a film. Believability is about whether the agent *feels alive*.
+Disney animators Frank Thomas and Ollie Johnston called their craft [*the illusion of life*](https://en.wikipedia.org/wiki/The_Illusion_of_Life) (1981): characters who seem to think, decide, and act on their own. In 1994, AI researcher Joseph Bates borrowed the idea as the [**believable agent**](https://doi.org/10.1145/176789.176803), the interactive cousin of a believable character in a film. Believability is about whether the agent *feels alive*.
 
-You test it the way the Turing test does: do people buy it? The generative agents paper evaluated its agents this way, by interviewing them and having human raters judge the responses. It also ablated the architecture, removing reflection, planning, or observation memory in turn. Each removal measurably hurt believability, and the full architecture outscored human crowdworkers role-playing the same characters. Believable agents are what you want for games, storytelling, AI companions, and rehearsal spaces where people practice hard conversations, patient interviews, or conflict resolution.
+You test it the way the [Turing test](https://doi.org/10.1093/mind/LIX.236.433) does: do people buy it? The [generative agents paper](https://arxiv.org/abs/2304.03442) evaluated its agents this way, by interviewing them and having human raters judge the responses. It also ablated the architecture, removing reflection, planning, or observation memory in turn. Each removal measurably hurt believability, and the full architecture outscored human crowdworkers role-playing the same characters. Believable agents are what you want for games, storytelling, AI companions, and rehearsal spaces where people practice hard conversations, patient interviews, or conflict resolution.
 
 Believable agents don't need to be smart. Reactivity, emotion, and social competence matter more than reasoning. But believability is only a convincing imitation, and a convincing character can still be wrong.
 
@@ -204,17 +204,17 @@ An **accurate** simulation is a prediction of the future. Most wicked problems i
 In practice the difficulty depends on the level:
 
 - **Individuals:** what axis do you even evaluate on? And people disagree with themselves.
-- **Groups:** the dynamics are complex, and some researchers think prediction here is impossible in principle.
+- **Groups:** the dynamics are complex, and they may not be predictable even in principle.
 - **Populations:** ground truth is sometimes missing, and if you rerun a famous study, the model may just have memorized it.
 
-One thing helps accuracy more than anything clever in the architecture: **what you tell the agent about the person.** A one-line description like "35-year-old nurse from Ohio" gives the model nothing except a stereotype, so you get the average of everyone who fits it. An agent starts to behave like a *specific* person only when it can draw on what that person actually said about their own life: their history, their reasons and their routines, in their own words. That's the same memory stream as above, filled with real material instead of made-up material.
+That last problem led to a sharper test: can a model predict studies it *could not have seen*? A [2024 Stanford study](https://ai4pb.stanford.edu/projects/predicting-results-of-social-science-experiments-using-large-language-models) did exactly this. GPT-4 was asked to predict the outcomes of 70 pre-registered, nationally representative US survey experiments, 476 treatment effects in all, covering more than 100,000 participants. The predictions correlated with the real results at *r* = 0.85. On a held-out set of studies still unpublished at the time, and so not in any training data, it was *r* = 0.90. GPT-4 matched or beat human forecasters on the same task. That number surprised me more than anything else in this material.
 
-That last problem led to a sharper test: can a model predict studies it *could not have seen*? A Stanford study, first released in 2024, did exactly this. GPT-4 was asked to predict the outcomes of 70 pre-registered, nationally representative US survey experiments, 476 treatment effects in all, covering more than 100,000 participants. The predictions correlated with the real results at *r* = 0.85. On a held-out set of studies still unpublished at the time, and so not in any training data, it was *r* = 0.90. GPT-4 matched or beat human forecasters on the same task. That number surprised me more than anything else in this material.
+For individuals, the most promising lever is **what you tell the agent about the person.** A one-line description like "35-year-old nurse from Ohio" gives the model little more than a stereotype, so you get the average of everyone who fits it. In a [2024 study](https://arxiv.org/abs/2411.10109) that built agents for about 1,000 real people, agents given each person's own two-hour interview matched that person's survey answers better than agents given only their demographics. That's the same memory stream as above, filled with a real person's words instead of made-up ones.
 
 So, as of now:
 
 - **Population level:** promising, even where memorization is ruled out.
-- **Individual level:** the verdict is still out.
+- **Individual level:** early, but encouraging when agents are built from a person's own words.
 - **Group level:** open, and maybe the real question.
 
 ### The part I'd underline
@@ -236,7 +236,10 @@ Next post: the implementation. [Building Trang](/posts/2026/10/28/building-trang
 - Thomas C. Schelling, [Dynamic Models of Segregation](https://doi.org/10.1080/0022250X.1971.9989794), *Journal of Mathematical Sociology* (1971), and *Micromotives and Macrobehavior* (1978)
 - Horst Rittel and Melvin Webber, [Dilemmas in a General Theory of Planning](https://doi.org/10.1007/BF01405730), *Policy Sciences* (1973)
 - Allen Newell, *Unified Theories of Cognition* (1990)
+- Alan Turing, [Computing Machinery and Intelligence](https://doi.org/10.1093/mind/LIX.236.433), *Mind* (1950)
+- Frank Thomas and Ollie Johnston, *The Illusion of Life: Disney Animation* (1981)
 - Joseph Bates, [The Role of Emotion in Believable Agents](https://doi.org/10.1145/176789.176803), *Communications of the ACM* (1994)
 - [Social Simulacra](https://arxiv.org/abs/2208.04024) (UIST 2022) and [Generative Agents: Interactive Simulacra of Human Behavior](https://arxiv.org/abs/2304.03442) (UIST 2023); the [reference code](https://github.com/joonspk-research/generative_agents) is open source
+- [Generative Agent Simulations of 1,000 People](https://arxiv.org/abs/2411.10109) (2024)
 - Theodore Sumers, Shunyu Yao, Karthik Narasimhan and Thomas Griffiths, [Cognitive Architectures for Language Agents](https://arxiv.org/abs/2309.02427), *TMLR* (2024), the general framework that generative agents are one instance of
-- Luke Hewitt, Ashwini Ashokkumar, Isaias Ghezae and Robb Willer, [Predicting Results of Social Science Experiments Using Large Language Models](https://ai4pb.stanford.edu/projects/predicting-results-of-social-science-experiments-using-large-language-models) (2024 preprint; since published in *Nature*)
+- Luke Hewitt, Ashwini Ashokkumar, Isaias Ghezae and Robb Willer, [Predicting Results of Social Science Experiments Using Large Language Models](https://ai4pb.stanford.edu/projects/predicting-results-of-social-science-experiments-using-large-language-models) (2024 working paper)
