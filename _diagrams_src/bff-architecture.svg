@@ -1,0 +1,27 @@
+<svg viewBox="0 0 800 300" role="img" aria-labelledby="bff-arch-title bff-arch-desc" xmlns="http://www.w3.org/2000/svg">
+<title id="bff-arch-title">BFF architecture for Call Intelligence</title>
+<desc id="bff-arch-desc">A React dashboard calls an Apigee gateway that checks the OAuth2 token, then a FastAPI backend-for-frontend that validates the request, queries BigQuery and shapes the response. BigQuery holds one consolidated dashboard table and the per-job call tables.</desc>
+<defs><marker id="bff-arch-head" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="dg-head"/></marker></defs>
+<rect class="dg-data" x="16" y="90" width="150" height="64" rx="6"/>
+<text class="dg-t" x="91.0" y="118">React dashboard</text>
+<text class="dg-s" x="91.0" y="135">Call Intelligence UI</text>
+<rect class="dg-data" x="216" y="90" width="150" height="64" rx="6"/>
+<text class="dg-t" x="291.0" y="118">Apigee gateway</text>
+<text class="dg-s" x="291.0" y="135">OAuth2 token check</text>
+<rect class="dg-model" x="416" y="90" width="150" height="64" rx="6"/>
+<text class="dg-t dg-on-key" x="491.0" y="118">FastAPI BFF</text>
+<text class="dg-s dg-on-key" x="491.0" y="135">validate, query, shape</text>
+<rect class="dg-data" x="616" y="90" width="150" height="64" rx="6"/>
+<text class="dg-t" x="691.0" y="118">BigQuery</text>
+<text class="dg-s" x="691.0" y="135">analytical layer</text>
+<path class="dg-line" d="M166 122 H212" marker-end="url(#bff-arch)"/>
+<path class="dg-line" d="M366 122 H412" marker-end="url(#bff-arch)"/>
+<path class="dg-line" d="M566 122 H612" marker-end="url(#bff-arch)"/>
+<rect class="dg-data" x="616" y="190" width="150" height="38" rx="6"/>
+<text class="dg-t dg-code" x="691.0" y="213">consolidated table</text>
+<rect class="dg-data" x="616" y="240" width="150" height="38" rx="6"/>
+<text class="dg-t dg-code" x="691.0" y="263">call_* tables</text>
+<path class="dg-line" d="M691 154 V188" marker-end="url(#bff-arch)"/>
+<text class="dg-l" x="16" y="210">Browser holds no BigQuery credentials. Only the BFF talks to the warehouse.</text>
+<text class="dg-l" x="16" y="232">Gateway checks who the user is. BFF checks what the service may read.</text>
+</svg>

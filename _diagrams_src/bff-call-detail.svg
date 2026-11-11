@@ -1,0 +1,35 @@
+<svg viewBox="0 0 800 300" role="img" aria-labelledby="bff-detail-title bff-detail-desc" xmlns="http://www.w3.org/2000/svg">
+<title id="bff-detail-title">Call detail request fan-out</title>
+<desc id="bff-detail-desc">One request for a call ID reads five per-job tables with that ID: summary, topic, entity, resolution and metrics. The BFF merges the rows into one call detail object for the dashboard.</desc>
+<defs><marker id="bff-detail-head" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="dg-head"/></marker></defs>
+<rect class="dg-data" x="16" y="110" width="170" height="70" rx="6"/>
+<text class="dg-t dg-code" x="101.0" y="141">GET /api/calls/{id}</text>
+<text class="dg-s" x="101.0" y="158">call_id = CALL-000123</text>
+<rect class="dg-data" x="300" y="26" width="200" height="36" rx="6"/>
+<text class="dg-t dg-code" x="400.0" y="48">call_summary</text>
+<rect class="dg-data" x="300" y="74" width="200" height="36" rx="6"/>
+<text class="dg-t dg-code" x="400.0" y="96">call_topic</text>
+<rect class="dg-data" x="300" y="122" width="200" height="36" rx="6"/>
+<text class="dg-t dg-code" x="400.0" y="144">call_entity</text>
+<rect class="dg-data" x="300" y="170" width="200" height="36" rx="6"/>
+<text class="dg-t dg-code" x="400.0" y="192">call_resolution</text>
+<rect class="dg-data" x="300" y="218" width="200" height="36" rx="6"/>
+<text class="dg-t dg-code" x="400.0" y="240">call_metrics</text>
+<path class="dg-line" d="M186 145 H250"/>
+<path class="dg-line" d="M250 44 V242"/>
+<path class="dg-line" d="M250 44 H296" marker-end="url(#bff-detail-head)"/>
+<path class="dg-line" d="M250 92 H296" marker-end="url(#bff-detail-head)"/>
+<path class="dg-line" d="M250 140 H296" marker-end="url(#bff-detail-head)"/>
+<path class="dg-line" d="M250 188 H296" marker-end="url(#bff-detail-head)"/>
+<path class="dg-line" d="M250 236 H296" marker-end="url(#bff-detail-head)"/>
+<path class="dg-line" d="M500 44 V242"/>
+<path class="dg-line" d="M500 44 H546"/>
+<path class="dg-line" d="M500 92 H546"/>
+<path class="dg-line" d="M500 140 H546"/>
+<path class="dg-line" d="M500 188 H546"/>
+<path class="dg-line" d="M500 236 H546"/>
+<path class="dg-line" d="M546 145 H596" marker-end="url(#bff-detail-head)"/>
+<rect class="dg-key" x="600" y="110" width="180" height="70" rx="6"/>
+<text class="dg-t dg-on-key" x="690.0" y="141">Call detail</text>
+<text class="dg-s dg-on-key" x="690.0" y="158">one JSON object</text>
+</svg>

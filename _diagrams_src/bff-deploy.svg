@@ -1,0 +1,21 @@
+<svg viewBox="0 0 830 150" role="img" aria-labelledby="bff-deploy-title bff-deploy-desc" xmlns="http://www.w3.org/2000/svg">
+<title id="bff-deploy-title">BFF deployment path</title>
+<desc id="bff-deploy-desc">A git push to main triggers GitHub Actions, which builds and tests the BFF, publishes a versioned container image and deploys it to GKE pods.</desc>
+<defs><marker id="bff-deploy-head" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="dg-head"/></marker></defs>
+<rect class="dg-data" x="16" y="40" width="150" height="64" rx="6"/>
+<text class="dg-t" x="91.0" y="68">Git push</text>
+<text class="dg-s" x="91.0" y="85">to main</text>
+<rect class="dg-data" x="232" y="40" width="150" height="64" rx="6"/>
+<text class="dg-t" x="307.0" y="68">GitHub Actions</text>
+<text class="dg-s" x="307.0" y="85">build and test</text>
+<rect class="dg-data" x="448" y="40" width="150" height="64" rx="6"/>
+<text class="dg-t" x="523.0" y="68">Container image</text>
+<text class="dg-s" x="523.0" y="85">versioned</text>
+<rect class="dg-model" x="664" y="40" width="150" height="64" rx="6"/>
+<text class="dg-t dg-on-key" x="739.0" y="68">GKE</text>
+<text class="dg-s dg-on-key" x="739.0" y="85">BFF pods</text>
+<path class="dg-line" d="M168 72 H230" marker-end="url(#bff-deploy-head)"/>
+<path class="dg-line" d="M384 72 H446" marker-end="url(#bff-deploy-head)"/>
+<path class="dg-line" d="M600 72 H662" marker-end="url(#bff-deploy-head)"/>
+<text class="dg-l" x="16" y="134">Every merge to main builds an image, runs tests and rolls the new version out to GKE.</text>
+</svg>
