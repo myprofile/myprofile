@@ -56,13 +56,18 @@ Behind those few lines, LangFair generates a summary for each prompt, runs the c
 
 LangFair starts with a check called **fairness through unawareness**. If the prompt never receives protected attributes such as gender, race, or age, the model can't treat groups differently because of them.
 
-Our prompt passes this check. The member record contains claims, pharmacy, authorization, grievance, and call history, but no demographic fields. When the check passes, LangFair skips the counterfactual tests, which compare outputs for records that differ only in a demographic term. Since there is nothing demographic to swap, there's nothing to compare.
+Our prompt passes this check. The member record contains claims, pharmacy, authorization, grievance, and call history, but no demographic fields. For summarization, LangFair then uses toxicity metrics as the main assessment. Counterfactual tests, which compare outputs for records that differ only in a demographic term, are skipped, since there is nothing demographic to swap.
 
-That isn't the end of the story. A name or pronoun can carry demographic signal even when no field does. The checks below look at the summaries themselves, so they catch that too.
+That isn't the end of the story. A name or pronoun can carry demographic signal even when no field does. The stereotype checks look at the summaries themselves, so they catch that too.
+
+<figure class="diagram">
+{% include diagrams/fair-decision.svg %}
+<figcaption>Figure 1: LangFair's guidance for summarization. Our prompt passes the unawareness check, so the main assessment is toxicity, with stereotype checks added (mock flow).</figcaption>
+</figure>
 
 <figure class="diagram">
 {% include diagrams/fair-flow.svg %}
-<figcaption>Figure 1: The summary is checked, not the model. Three checks run on each summary, and their results land in one table (mock flow).</figcaption>
+<figcaption>Figure 2: How AutoEval runs. Toxicity and stereotype metrics always run. The protected-group check decides whether counterfactual metrics are added or skipped (mock data).</figcaption>
 </figure>
 
 ---
@@ -71,15 +76,15 @@ That isn't the end of the story. A name or pronoun can carry demographic signal 
 
 The **toxicity** checks ask whether a summary contains rude, offensive, or harmful language. LangFair uses a pretrained classifier to score each summary, then reports how often a summary crosses a threshold.
 
-For call summaries this is the lowest-risk check, since the model is describing a record rather than writing freely. We still run it, because a summary that is technically accurate but mocking in tone would still be a problem for the rep and the member.
+For summarization without demographic inputs, toxicity is LangFair's main assessment. A summary that is accurate but mocking in tone would still be a problem for the rep and the member, so it's the check we rely on most.
 
 ---
 
 ## Step 3: Does it link groups to stereotypes?
 
-The **stereotype** checks look for a specific failure: a summary linking a group of people to a stereotyped word or idea. LangFair scores each summary and counts how often that happens, and it measures whether group words cluster with stereotyped words more for some groups than others.
+The **stereotype** checks look for a specific failure: a summary linking a group of people to a stereotyped word or idea. LangFair scores each summary and measures whether group words cluster with stereotyped words more for some groups than others.
 
-This matters for our prompt because the record doesn't contain group information. If a summary introduces a gendered pronoun, an age label, or a group word that isn't in the record, the stereotype checks can flag it.
+This is an extra check for us, not the main one. Our record contains no group information, so a summary that introduces a gendered pronoun, an age label, or a group word that isn't in the record is worth flagging. AutoEval runs these checks alongside toxicity either way.
 
 ---
 
@@ -89,15 +94,15 @@ Each metric is a score, and each one has a target. Most of ours target **0**, me
 
 <figure class="diagram">
 {% include diagrams/fair-scoreboard.svg %}
-<figcaption>Figure 2: One run of the four main checks, with the target for each and the mock result (mock data).</figcaption>
+<figcaption>Figure 3: One run of the main checks, with the target for each and the mock result (mock data).</figcaption>
 </figure>
 
 In plain words:
 
 - **Toxic fraction:** what share of summaries were flagged as harmful. Target 0.
 - **Expected maximum toxicity:** for each prompt, LangFair generates 25 summaries and takes the worst. This score averages those worst cases. Lower is better.
-- **Stereotype fraction:** what share of summaries linked a group to a stereotype. Target 0.
-- **Stereotype association:** how strongly group words appear alongside stereotyped words. Lower is better, and it's the score we watch most closely.
+- **Toxicity probability:** the chance that at least one of the 25 summaries for a prompt is harmful. Target 0.
+- **Stereotype association:** the extra check. It measures how strongly group words appear alongside stereotyped words. Lower is better.
 
 A score isn't a verdict on its own. When a number is above target, LangFair can list the exact summaries behind it, so a person can read them and decide what went wrong.
 

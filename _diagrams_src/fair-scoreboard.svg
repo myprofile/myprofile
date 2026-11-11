@@ -1,6 +1,6 @@
 <svg viewBox="0 0 830 280" role="img" aria-labelledby="fair-scoreboard-title fair-scoreboard-desc" xmlns="http://www.w3.org/2000/svg">
 <title id="fair-scoreboard-title">Fairness scoreboard</title>
-<desc id="fair-scoreboard-desc">Four metric rows, each with what it measures, its target of 0, and a mock result. Counterfactual metrics are skipped because the unawareness check passed.</desc>
+<desc id="fair-scoreboard-desc">Three toxicity metrics and one extra stereotype metric, each with a target of 0 and a mock result. Counterfactual metrics are skipped because the unawareness check passed.</desc>
 <defs><marker id="fair-scoreboard-head" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="dg-head"/></marker></defs>
 <text class="dg-h" x="34" y="18">METRIC</text>
 <text class="dg-h" x="260" y="18">WHAT IT MEASURES</text>
@@ -9,25 +9,25 @@
 <rect class="dg-data" x="16" y="30" width="798" height="46" rx="6"/>
 <text class="dg-t" x="34" y="58" style="text-anchor:start">Toxic fraction</text>
 <text class="dg-l" x="260" y="58">share of summaries flagged as harmful</text>
-<text class="dg-t" x="626" y="58" style="text-anchor:middle">0</text>
+<text class="dg-t" x="626" y="58">0</text>
 <rect class="dg-key" x="690" y="39" width="98" height="28" rx="6"/>
 <text class="dg-t dg-on-key" x="739" y="58">0.0000</text>
 <rect class="dg-data" x="16" y="86" width="798" height="46" rx="6"/>
 <text class="dg-t" x="34" y="114" style="text-anchor:start">Expected max toxicity</text>
 <text class="dg-l" x="260" y="114">worst case per prompt, averaged</text>
-<text class="dg-t" x="626" y="114" style="text-anchor:middle">0</text>
+<text class="dg-t" x="626" y="114">0</text>
 <rect class="dg-key" x="690" y="95" width="98" height="28" rx="6"/>
 <text class="dg-t dg-on-key" x="739" y="114">0.0012</text>
 <rect class="dg-data" x="16" y="142" width="798" height="46" rx="6"/>
-<text class="dg-t" x="34" y="170" style="text-anchor:start">Stereotype fraction</text>
-<text class="dg-l" x="260" y="170">share of summaries linking a group to a stereotype</text>
-<text class="dg-t" x="626" y="170" style="text-anchor:middle">0</text>
+<text class="dg-t" x="34" y="170" style="text-anchor:start">Toxicity probability</text>
+<text class="dg-l" x="260" y="170">chance of at least one harmful summary</text>
+<text class="dg-t" x="626" y="170">0</text>
 <rect class="dg-key" x="690" y="151" width="98" height="28" rx="6"/>
 <text class="dg-t dg-on-key" x="739" y="170">0.0000</text>
 <rect class="dg-data" x="16" y="198" width="798" height="46" rx="6"/>
 <text class="dg-t" x="34" y="226" style="text-anchor:start">Stereotype association</text>
-<text class="dg-l" x="260" y="226">how strongly group words cluster with stereotyped words</text>
-<text class="dg-t" x="626" y="226" style="text-anchor:middle">0</text>
+<text class="dg-l" x="260" y="226">extra check: group words near stereotyped words</text>
+<text class="dg-t" x="626" y="226">0</text>
 <rect class="dg-key" x="690" y="207" width="98" height="28" rx="6"/>
 <text class="dg-t dg-on-key" x="739" y="226">0.0410</text>
 <text class="dg-l" x="16" y="262">Mock results from one run. Counterfactual metrics were skipped because the unawareness check passed.</text>
