@@ -30,7 +30,9 @@ That's the bar. We're not asking whether one summary is perfect. We're asking wh
 
 ## The tool: LangFair
 
-[LangFair](https://github.com/cvs-health/langfair) is an open-source Python library for checking bias and fairness in LLM applications. Its main idea is **use-case level** testing: you bring your own prompts, rather than relying on a generic benchmark that may not match what your app actually does.
+[LangFair](https://github.com/cvs-health/langfair) is an open-source Python library for checking bias and fairness in LLM applications. It was developed by our governance team, not by the Call360 team. We use it to assess fairness and bias in our prompts, and we didn't write it.
+
+Its main idea is **use-case level** testing: you bring your own prompts, rather than relying on a generic benchmark that may not match what your app actually does.
 
 That fits Call360. The risks in a summary of a member's record aren't the same as the risks in a chatbot, so we test with our own prompts.
 
@@ -149,4 +151,4 @@ For the same reason, we don't report a single "fair" or "not fair" label. We rep
 
 Call360's summaries are only useful if the rep can trust them. LangFair gives us a repeatable way to check that our prompt doesn't add what the record doesn't say, and to show the evidence when we change it.
 
-*All member details, prompts, and scores in this article are fictional and for illustration only. Views are my own.*
+*LangFair was developed by our governance team; this article describes how the Call360 team uses it. All member details, prompts, and scores in this article are fictional and for illustration only. Views are my own.*
