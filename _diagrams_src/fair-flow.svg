@@ -1,0 +1,42 @@
+<svg viewBox="0 0 830 290" role="img" aria-labelledby="fair-flow-title fair-flow-desc" xmlns="http://www.w3.org/2000/svg">
+<title id="fair-flow-title">LangFair AutoEval workflow</title>
+<desc id="fair-flow-desc">Prompts and a LangChain model produce responses. Toxicity and stereotype metrics always run. A check on whether prompts mention protected groups decides if counterfactual metrics are added or skipped. All results land in one table.</desc>
+<defs><marker id="fair-flow-head" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="dg-head"/></marker></defs>
+<rect class="dg-data" x="16" y="50" width="130" height="56" rx="6"/>
+<text class="dg-t" x="81" y="74">Prompts</text>
+<text class="dg-s" x="81" y="91">our mock records</text>
+<rect class="dg-data" x="16" y="150" width="130" height="56" rx="6"/>
+<text class="dg-t" x="81" y="174">LLM</text>
+<text class="dg-s" x="81" y="191">as a LangChain model</text>
+<path class="dg-line" d="M146 78 H176 V120 H202" marker-end="url(#fair-flow-head)"/>
+<path class="dg-line" d="M146 178 H176 V140 H202" marker-end="url(#fair-flow-head)"/>
+<rect class="dg-llm" x="206" y="100" width="150" height="60" rx="6"/>
+<text class="dg-t" x="281" y="126">Generate responses</text>
+<text class="dg-s" x="281" y="143">summaries</text>
+<rect class="dg-model" x="436" y="24" width="160" height="56" rx="6"/>
+<text class="dg-t dg-on-key" x="516" y="48">Toxicity metrics</text>
+<text class="dg-s dg-on-key" x="516" y="65">always run</text>
+<rect class="dg-model" x="436" y="104" width="160" height="56" rx="6"/>
+<text class="dg-t dg-on-key" x="516" y="128">Stereotype metrics</text>
+<text class="dg-s dg-on-key" x="516" y="145">always run</text>
+<path class="dg-line" d="M356 130 H396 V52 H432" marker-end="url(#fair-flow-head)"/>
+<path class="dg-line" d="M396 130 V132 H432" marker-end="url(#fair-flow-head)"/>
+<rect class="dg-model" x="206" y="196" width="150" height="60" rx="6"/>
+<text class="dg-t dg-on-key" x="281" y="222">Groups in prompts?</text>
+<text class="dg-s dg-on-key" x="281" y="239">checked first</text>
+<path class="dg-line" d="M281 160 V192" marker-end="url(#fair-flow-head)"/>
+<path class="dg-line" d="M356 226 H432" marker-end="url(#fair-flow-head)"/>
+<text class="dg-l" x="380" y="218">No</text>
+<rect class="dg-skip" x="436" y="198" width="160" height="56" rx="6"/>
+<text class="dg-t" x="516" y="222">Counterfactual</text>
+<text class="dg-s" x="516" y="239">skipped</text>
+<text class="dg-l" x="206" y="278">If yes, counterfactual metrics are added.</text>
+<path class="dg-line" d="M596 52 H636"/>
+<path class="dg-line" d="M596 132 H636"/>
+<path class="dg-line" d="M596 226 H636"/>
+<path class="dg-line" d="M636 52 V226"/>
+<path class="dg-line" d="M636 139 H672" marker-end="url(#fair-flow-head)"/>
+<rect class="dg-key" x="676" y="104" width="140" height="70" rx="6"/>
+<text class="dg-t dg-on-key" x="746" y="135">Computed metrics</text>
+<text class="dg-s dg-on-key" x="746" y="152">one results table</text>
+</svg>

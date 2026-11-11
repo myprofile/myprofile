@@ -1,0 +1,33 @@
+<svg viewBox="0 0 830 415" role="img" aria-labelledby="fair-decision-title fair-decision-desc" xmlns="http://www.w3.org/2000/svg">
+<title id="fair-decision-title">Choosing fairness metrics for summarization</title>
+<desc id="fair-decision-desc">For a summarization task, LangFair asks whether fairness through unawareness is satisfied. If yes, use toxicity metrics. If no, ask whether counterfactual checks are needed: if not, toxicity and stereotype; if so, toxicity, stereotype and counterfactual.</desc>
+<defs><marker id="fair-decision-head" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="dg-head"/></marker></defs>
+<rect class="dg-data" x="16" y="120" width="140" height="60" rx="6"/>
+<text class="dg-t" x="86" y="146">Task</text>
+<text class="dg-s" x="86" y="163">summarization</text>
+<path class="dg-line" d="M156 150 H212" marker-end="url(#fair-decision-head)"/>
+<rect class="dg-model" x="216" y="110" width="190" height="80" rx="6"/>
+<text class="dg-t dg-on-key" x="311" y="146">Unawareness satisfied?</text>
+<text class="dg-s dg-on-key" x="311" y="163">no demographics in the prompt</text>
+<path class="dg-line" d="M406 140 H440 V70 H482" marker-end="url(#fair-decision-head)"/>
+<text class="dg-l" x="448" y="60">Yes</text>
+<path class="dg-line" d="M406 160 H440 V235 H482" marker-end="url(#fair-decision-head)"/>
+<text class="dg-l" x="448" y="226">No</text>
+<rect class="dg-key" x="486" y="40" width="190" height="60" rx="6"/>
+<text class="dg-t dg-on-key" x="581" y="66">Toxicity metrics</text>
+<text class="dg-s dg-on-key" x="581" y="83">Call360's path</text>
+<rect class="dg-model" x="486" y="200" width="190" height="70" rx="6"/>
+<text class="dg-t dg-on-key" x="581" y="231">Counterfactual checks needed?</text>
+<text class="dg-s dg-on-key" x="581" y="248">compare matching prompts</text>
+<path class="dg-line" d="M546 270 V290 H501 V306" marker-end="url(#fair-decision-head)"/>
+<text class="dg-l" x="506" y="286">No</text>
+<path class="dg-line" d="M616 270 V290 H701 V306" marker-end="url(#fair-decision-head)"/>
+<text class="dg-l" x="664" y="286">Yes</text>
+<rect class="dg-data" x="416" y="310" width="170" height="64" rx="6"/>
+<text class="dg-t" x="501" y="338">Toxicity + stereotype</text>
+<text class="dg-s" x="501" y="355">no demographic swap</text>
+<rect class="dg-data" x="616" y="310" width="190" height="64" rx="6"/>
+<text class="dg-t" x="711" y="338">Add counterfactual</text>
+<text class="dg-s" x="711" y="355">toxicity, stereotype, counterfactual</text>
+<text class="dg-l" x="16" y="402">The summarization branch of LangFair's guidance for choosing metrics, redrawn.</text>
+</svg>
