@@ -6,7 +6,7 @@ project: call-intelligence
 date: 2026-10-28 09:03:00
 ---
 
-*Part 4 of a 4-part series on Call Intelligence. [Part 1](/posts/2026/10/28/call-intelligence-1-pipeline/) covers the whole pipeline. This part builds on the structured summaries from [Part 2](/posts/2026/10/28/call-intelligence-2-summaries/).*
+*Part 4 of a 5-part series on Call Intelligence. [Part 1](/posts/2026/10/28/call-intelligence-1-pipeline/) covers the whole pipeline. This part builds on the structured summaries from [Part 2](/posts/2026/10/28/call-intelligence-2-summaries/).*
 
 > The scale is real: about **300 million calls a year**. Every example, keyword, number and dashboard screen below is **mock data** created for illustration.
 
@@ -417,9 +417,9 @@ Disease and procedure entities are sensitive health information. Treat entity ta
 
 ## Series wrap-up
 
-Across the four parts, one pattern repeats: **turn unstructured conversation into constrained, structured data, one layer at a time, and pick the simplest tool that works for each layer.**
+Across the first four parts, one pattern repeats: **turn unstructured conversation into constrained, structured data, one layer at a time, and pick the simplest tool that works for each layer.**
 
 1. **Transcripts → structured summaries:** an LLM, because conversations are messy ([Part 2](/posts/2026/10/28/call-intelligence-2-summaries/)).
 2. **Summaries → topics:** an LLM labels training data, and a fine-tuned XLNet model classifies every call ([Part 3](/posts/2026/10/28/call-intelligence-3-topics/)).
 3. **Summaries → entities:** a dictionary, because consistency beats flexibility here (this part).
-4. **Everything → one consolidated, partitioned table:** fast, consistent dashboards over 300 million calls a year ([Part 1](/posts/2026/10/28/call-intelligence-1-pipeline/)).
+4. **Everything → one consolidated, partitioned table:** fast, consistent dashboards over 300 million calls a year ([Part 1](/posts/2026/10/28/call-intelligence-1-pipeline/)). The dashboard reads that table through a backend-for-frontend API ([Part 5](/posts/2026/11/06/call-intelligence-5-bff/)).

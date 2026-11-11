@@ -19,10 +19,11 @@
     A summary-first AI pipeline on GCP that reads about 300 million customer calls a year and turns each one
     into structured data: why the member called, what they talked about, and whether it was resolved. An LLM
     writes a structured summary of every call; a fine-tuned XLNet model, a keyword dictionary and SQL turn
-    those summaries into one BigQuery table that powers the team's dashboards. Written up as a four-part series.
+    those summaries into one BigQuery table that powers the team's dashboards. Written up as a five-part series.
   links:
     - { label: "Part 1: Overview", url: "/posts/2026/10/28/call-intelligence-1-pipeline/" }
     - { label: "Part 2: Summaries", url: "/posts/2026/10/28/call-intelligence-2-summaries/" }
     - { label: "Part 3: Topics", url: "/posts/2026/10/28/call-intelligence-3-topics/" }
     - { label: "Part 4: Entities", url: "/posts/2026/10/28/call-intelligence-4-entities/" }
+    - { label: "Part 5: Dashboard BFF", url: "/posts/2026/11/06/call-intelligence-5-bff/" }
   tags: [gcp, bigquery, gemini, xlnet, airflow]
