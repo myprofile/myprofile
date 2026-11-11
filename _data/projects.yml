@@ -10,8 +10,8 @@
     data engineering teams; I led the engineering side.
   links:
     - { label: "Part 1: Overview", url: "/posts/2026/10/30/call360/" }
-    - { label: "Part 2: External Context Caching" }
-    - { label: "Part 3: Evaluation" }
+    - { label: "Part 2: Evaluation" }
+    - { label: "Part 3: Fairness and Bias Assessment" }
   tags: [gcp, bigtable, bigquery, gemini, airflow]
 
 - title: Call Intelligence
