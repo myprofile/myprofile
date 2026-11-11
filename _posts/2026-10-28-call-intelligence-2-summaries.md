@@ -6,7 +6,7 @@ project: call-intelligence
 date: 2026-10-28 09:01:00
 ---
 
-*Part 2 of a 4-part series on Call Intelligence. [Part 1](/posts/2026/10/28/call-intelligence-1-pipeline/) covered the end-to-end pipeline. This part focuses on the call summary model, the step everything else depends on.*
+*Part 2 of a 5-part series on Call Intelligence. [Part 1](/posts/2026/10/28/call-intelligence-1-pipeline/) covered the end-to-end pipeline. This part focuses on the call summary model, the step everything else depends on.*
 
 > All transcripts, names, amounts, IDs and screens in this article are **mock data** created for illustration.
 

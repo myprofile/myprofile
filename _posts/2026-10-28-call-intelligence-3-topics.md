@@ -6,7 +6,7 @@ project: call-intelligence
 date: 2026-10-28 09:02:00
 ---
 
-*Part 3 of a 4-part series on Call Intelligence. [Part 1](/posts/2026/10/28/call-intelligence-1-pipeline/) covered the end-to-end pipeline; [Part 2](/posts/2026/10/28/call-intelligence-2-summaries/) covered the structured summaries this model reads.*
+*Part 3 of a 5-part series on Call Intelligence. [Part 1](/posts/2026/10/28/call-intelligence-1-pipeline/) covered the end-to-end pipeline; [Part 2](/posts/2026/10/28/call-intelligence-2-summaries/) covered the structured summaries this model reads.*
 
 > The scale is real: about **300 million calls a year**. Every example, topic name, number and screen below is **mock data** created for illustration.
 
@@ -476,3 +476,4 @@ Joined with operational metrics in the consolidated table ([Part 1](/posts/2026/
 - **Part 1:** [How We Turn 300 Million Calls a Year into Actionable Insights](/posts/2026/10/28/call-intelligence-1-pipeline/)
 - **Part 2:** [Structured Call Summaries: Turning Long, Noisy Transcripts into Clean JSON](/posts/2026/10/28/call-intelligence-2-summaries/)
 - **Part 4:** [Named Entities from Call Summaries: Why We Chose a Dictionary over an LLM](/posts/2026/10/28/call-intelligence-4-entities/)
+- **Part 5:** [Serving the Dashboard: A Backend-for-Frontend for Call Intelligence](/posts/2026/11/06/call-intelligence-5-bff/)

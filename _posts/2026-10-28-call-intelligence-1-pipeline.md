@@ -6,7 +6,7 @@ project: call-intelligence
 date: 2026-10-28 09:00:00
 ---
 
-*Part 1 of a 4-part series on Call Intelligence: turning every customer conversation into structured, measurable data.*
+*Part 1 of a 5-part series on Call Intelligence: turning every customer conversation into structured, measurable data.*
 
 > The scale is real: about **300 million calls a year**. Every example call, metric, label and dashboard screen below is **mock data** created for illustration.
 
@@ -460,3 +460,4 @@ Two details make the numbers trustworthy:
 - **Part 2:** [Structured Call Summaries: Turning Long, Noisy Transcripts into Clean JSON](/posts/2026/10/28/call-intelligence-2-summaries/)
 - **Part 3:** [LLM as Teacher, XLNet as Student: Classifying Why Members Call](/posts/2026/10/28/call-intelligence-3-topics/)
 - **Part 4:** [Named Entities from Call Summaries: Why We Chose a Dictionary over an LLM](/posts/2026/10/28/call-intelligence-4-entities/)
+- **Part 5:** [Serving the Dashboard: A Backend-for-Frontend for Call Intelligence](/posts/2026/11/06/call-intelligence-5-bff/)
