@@ -30,13 +30,33 @@ That's the bar. We're not asking whether one summary is perfect. We're asking wh
 
 ## The tool: LangFair
 
-[LangFair](https://github.com/cvs-health/langfair) is an open-source Python library for checking bias and fairness in LLM applications. It was developed by our governance team, not by the Call360 team. We use it to assess fairness and bias in our prompts, and we didn't write it.
+[LangFair](https://github.com/cvs-health/langfair) is an open-source Python library for assessing bias and fairness in LLM use cases. It was developed by CVS Health's governance team, and teams across the company use it to test their own model use cases. Call360 is one of them.
 
-Its main idea is **use-case level** testing: you bring your own prompts, rather than relying on a generic benchmark that may not match what your app actually does.
+### Why it exists
 
-That fits Call360. The risks in a summary of a member's record aren't the same as the risks in a chatbot, so we test with our own prompts.
+Most fairness testing relies on static benchmarks: a fixed set of prompts that everyone runs. But a benchmark rarely looks like your app. The same model can look safe on a benchmark and still be risky on your prompts, because the risk depends on what you ask it to do.
 
-Running it looks like this (simplified from the library's summarization demo):
+LangFair's answer is **bring your own prompts**. You test with prompts from your actual use case, so the scores describe your app, not a generic one. It also looks only at the model's **outputs**. It doesn't need the model's internals, so a team can run it on whatever model it calls, and the results work as evidence in a governance review.
+
+### What's in it
+
+- **A decision framework** for choosing metrics. You don't run everything. You answer a few questions about your use case, such as what kind of task it is and whether prompts mention protected groups, and the framework points you to the metrics that matter. It's described in a [research paper](https://arxiv.org/abs/2407.10853).
+- **Metrics grouped by use case:**
+  - **Text generation and summarization:** toxicity, stereotype, and counterfactual fairness metrics. This is where Call360 sits.
+  - **Classification:** gaps in prediction and error rates between groups.
+  - **Recommendation:** whether recommendations change when only a group term in the request changes.
+- **Several ways to run it.** `AutoEval` runs the full text-generation assessment with any LangChain chat model. `SelfEval` runs the same checks when you generate the responses yourself, with any stack. Each metric class can also be used on its own, and an adversarial generator red-teams worst cases.
+
+<figure class="diagram">
+{% include diagrams/fair-langfair.svg %}
+<figcaption>Figure 1: LangFair at a glance. A team brings its own prompts and model, LangFair picks the metrics for that use case, and the output is scores plus the responses behind them.</figcaption>
+</figure>
+
+### Why it fits Call360
+
+The risks in a summary of a member's record aren't the same as the risks in a chatbot or a classifier. LangFair lets us test the exact pass 1 prompt the rep depends on, and use the metrics its framework recommends for summarization.
+
+It installs with `pip install langfair`. Running it looks like this (simplified from the library's summarization demo):
 
 ```python
 from langfair.auto import AutoEval
@@ -64,12 +84,12 @@ That isn't the end of the story. A name or pronoun can carry demographic signal 
 
 <figure class="diagram">
 {% include diagrams/fair-decision.svg %}
-<figcaption>Figure 1: LangFair's guidance for summarization. Our prompt passes the unawareness check, so the main assessment is toxicity, with stereotype checks added (mock flow).</figcaption>
+<figcaption>Figure 2: LangFair's guidance for summarization. Our prompt passes the unawareness check, so the main assessment is toxicity, with stereotype checks added (mock flow).</figcaption>
 </figure>
 
 <figure class="diagram">
 {% include diagrams/fair-flow.svg %}
-<figcaption>Figure 2: How AutoEval runs. Toxicity and stereotype metrics always run. The protected-group check decides whether counterfactual metrics are added or skipped (mock data).</figcaption>
+<figcaption>Figure 3: How AutoEval runs. Toxicity and stereotype metrics always run. The protected-group check decides whether counterfactual metrics are added or skipped (mock data).</figcaption>
 </figure>
 
 ---
@@ -96,7 +116,7 @@ Each metric is a score, and each one has a target. Most of ours target **0**, me
 
 <figure class="diagram">
 {% include diagrams/fair-scoreboard.svg %}
-<figcaption>Figure 3: One run of the main checks, with the target for each and the mock result (mock data).</figcaption>
+<figcaption>Figure 4: One run of the main checks, with the target for each and the mock result (mock data).</figcaption>
 </figure>
 
 In plain words:
@@ -151,4 +171,4 @@ For the same reason, we don't report a single "fair" or "not fair" label. We rep
 
 Call360's summaries are only useful if the rep can trust them. LangFair gives us a repeatable way to check that our prompt doesn't add what the record doesn't say, and to show the evidence when we change it.
 
-*LangFair was developed by our governance team; this article describes how the Call360 team uses it. All member details, prompts, and scores in this article are fictional and for illustration only. Views are my own.*
+*LangFair is developed by CVS Health's governance team and used by teams across the company; this article describes how Call360 uses it. All member details, prompts, and scores in this article are fictional and for illustration only. Views are my own.*
