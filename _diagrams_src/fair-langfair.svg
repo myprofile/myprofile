@@ -1,0 +1,49 @@
+<svg class="diagram-svg" viewBox="0 0 800 404" role="img" aria-labelledby="fair-lf-title fair-lf-desc" xmlns="http://www.w3.org/2000/svg">
+<title id="fair-lf-title">LangFair at a glance</title>
+<desc id="fair-lf-desc">How LangFair works. A team brings its own prompts from a real use case, plus either any LangChain chat model or responses it generated itself. LangFair then runs three steps: pick the metrics that fit the use case with its decision framework, generate responses (25 per prompt, plus counterfactual variants when prompts mention a group), and score only the outputs, with no access to model internals needed. Metrics depend on the use case: text generation and summarization use toxicity, stereotype and counterfactual metrics, which is where Call360 sits; classification looks at error-rate gaps between groups; recommendation looks at ranking gaps between groups. The result is scores plus the exact responses behind them, for human review and governance audits. LangFair is built by CVS Health's governance team, is open source, and is used by teams across the company.</desc>
+<defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="dg-head"/></marker></defs>
+<text class="dg-h" x="110" y="18" text-anchor="middle">BRING YOUR OWN</text>
+<text class="dg-h" x="400" y="18" text-anchor="middle">LANGFAIR</text>
+<text class="dg-h" x="688" y="18" text-anchor="middle">METRICS BY USE CASE</text>
+<rect x="10" y="40" width="200" height="56" rx="6" class="dg-data"/>
+<text class="dg-t" x="110" y="63">Your prompts</text>
+<text class="dg-s" x="110" y="81">from your real use case</text>
+<rect x="10" y="118" width="200" height="56" rx="6" class="dg-data"/>
+<text class="dg-t" x="110" y="141">Your LLM</text>
+<text class="dg-s" x="110" y="159">any LangChain chat model</text>
+<rect x="10" y="196" width="200" height="56" rx="6" fill="#ffffff" stroke="#1e1e1e" stroke-dasharray="5 4"/>
+<text class="dg-t" x="110" y="219">or your own responses</text>
+<text class="dg-s" x="110" y="237">SelfEval: generate anywhere</text>
+<path class="dg-line" d="M212 68 H256" marker-end="url(#arr)"/>
+<path class="dg-line" d="M212 146 H256" marker-end="url(#arr)"/>
+<path class="dg-line" d="M212 224 H256" marker-end="url(#arr)"/>
+<rect x="260" y="30" width="280" height="252" rx="8" fill="#fbe4ff" stroke="#1e1e1e"/>
+<rect x="276" y="44" width="248" height="58" rx="6" fill="#ffffff" stroke="#1e1e1e"/>
+<text class="dg-t" x="400" y="67">1  Pick the metrics</text>
+<text class="dg-s" x="400" y="86">decision framework for your use case</text>
+<path class="dg-line" d="M400 104 V122" marker-end="url(#arr)"/>
+<rect x="276" y="126" width="248" height="58" rx="6" fill="#ffffff" stroke="#1e1e1e"/>
+<text class="dg-t" x="400" y="149">2  Generate responses</text>
+<text class="dg-s" x="400" y="168">25 per prompt, + counterfactuals</text>
+<path class="dg-line" d="M400 186 V204" marker-end="url(#arr)"/>
+<rect x="276" y="208" width="248" height="58" rx="6" fill="#ffffff" stroke="#1e1e1e"/>
+<text class="dg-t" x="400" y="231">3  Score the outputs</text>
+<text class="dg-s" x="400" y="250">no model internals needed</text>
+<path class="dg-line" d="M542 73 H580" marker-end="url(#arr)"/>
+<rect x="584" y="36" width="208" height="82" rx="6" class="dg-model"/>
+<text class="dg-t" x="688" y="58">Text and summaries</text>
+<text class="dg-s" x="688" y="76">toxicity · stereotype</text>
+<text class="dg-s" x="688" y="92">counterfactual</text>
+<text class="dg-s" x="688" y="109">★ Call360 is here</text>
+<rect x="584" y="130" width="208" height="56" rx="6" fill="#ffffff" stroke="#1e1e1e"/>
+<text class="dg-t" x="688" y="153">Classification</text>
+<text class="dg-s" x="688" y="171">error-rate gaps by group</text>
+<rect x="584" y="198" width="208" height="56" rx="6" fill="#ffffff" stroke="#1e1e1e"/>
+<text class="dg-t" x="688" y="221">Recommendation</text>
+<text class="dg-s" x="688" y="239">ranking gaps by group</text>
+<path class="dg-line" d="M400 284 V306" marker-end="url(#arr)"/>
+<rect x="160" y="310" width="480" height="56" rx="6" class="dg-key"/>
+<text class="dg-t dg-on-key" x="400" y="333">Scores + the exact responses behind them</text>
+<text class="dg-s dg-on-key" x="400" y="351">for human review and governance audits</text>
+<text class="dg-l" x="400" y="394" text-anchor="middle" style="text-anchor:middle;font-size:12px">Built by CVS Health's governance team · open source · used by teams across the company</text>
+</svg>
