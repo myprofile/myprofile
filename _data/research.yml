@@ -2,9 +2,11 @@
 - title: "Kairos: Decision-Class Composition for Evaluating Generative AI Agent Population Simulation in Healthcare"
   one_line: true
   authors: Raju Nekadi
-  venue: Coming soon
+  venue: IEEE International Conference on AI Engineering and Innovation (AIEI 2027) · Accepted
 
+# hidden: true keeps an entry here but leaves it off the site.
 - title: "SimMem: Simulating Health Insurance Members for Customer Service Representative Training"
+  hidden: true
   authors: Raju Nekadi
   venue: Coming soon
 

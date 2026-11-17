@@ -67,7 +67,7 @@ title: Raju Nekadi
     <h2>Research</h2>
     <p class="section-intro">Full list on <a href="{{ site.scholar }}">Google Scholar</a>.</p>
     <div class="card-list">
-      {% for item in site.data.research %}{% include entry.html item=item %}{% endfor %}
+      {% for item in site.data.research %}{% unless item.hidden %}{% include entry.html item=item %}{% endunless %}{% endfor %}
     </div>
   </div>
 </section>
