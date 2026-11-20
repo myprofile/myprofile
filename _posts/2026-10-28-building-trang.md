@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Building Trang: A Generative AI Agent That Bakes, Remembers and Talks"
+title: "Building Trang: A Generative Agent That Bakes, Remembers and Talks"
 summary: "How I gave an AI persona a past, and what it took for her to answer like she'd lived it."
 date: 2026-10-28 11:00:00
 code:
