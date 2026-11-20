@@ -2,7 +2,8 @@
 layout: post
 title: "Building Trang: A Generative Agent That Bakes, Remembers and Talks"
 summary: "How I gave an AI persona a past, and what it took for her to answer like she'd lived it."
-date: 2026-10-28 11:00:00
+date: 2026-11-19 09:00:00
+redirect_from: /posts/2026/10/28/building-trang/
 code:
   - { label: "Code: Interview agent", url: "https://github.com/Sim-Intelligence-Lab/sim_interview_agent" }
   - { label: "Code: Baking agent", url: "https://github.com/Sim-Intelligence-Lab/sim_baking_agent" }

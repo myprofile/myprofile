@@ -15,4 +15,5 @@ plugins:
   - jekyll-feed
   - jekyll-seo-tag
   - jekyll-sitemap
+  - jekyll-redirect-from
 exclude: [README.md, Gemfile, Gemfile.lock]
